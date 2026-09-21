@@ -1,0 +1,2730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#081C2C"
+    >
+
+    <meta
+        name="description"
+        content="Smart Transport Management System Settings"
+    >
+
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+    <title>
+        Settings | Smart Transport
+    </title>
+
+
+    <!-- =====================================================
+         MAIN STYLES
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./css/portal-ui.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           SETTINGS PAGE
+        ====================================================== */
+
+        .settings-page-content {
+
+            width: 100%;
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding-bottom: 40px;
+
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ====================================================== */
+
+        .settings-page-heading {
+
+            margin-bottom: 24px;
+
+        }
+
+
+        .settings-page-heading .eyebrow {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #6b8a9b;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .settings-page-heading h1 {
+
+            margin: 0;
+
+            color: #081C2C;
+
+            font-size: 30px;
+
+            font-weight: 900;
+
+        }
+
+
+        .settings-page-heading p {
+
+            margin: 7px 0 0;
+
+            color: #6d828d;
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           SETTINGS GRID
+        ====================================================== */
+
+        .settings-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap: 20px;
+
+        }
+
+
+        /* =====================================================
+           SETTINGS CARD
+        ====================================================== */
+
+        .settings-panel {
+
+            background: #ffffff;
+
+            border:
+                1px solid
+                #dce7eb;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 10px 30px
+                rgba(
+                    8,
+                    28,
+                    44,
+                    0.07
+                );
+
+        }
+
+
+        .settings-panel-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 20px 22px;
+
+            border-bottom:
+                1px solid
+                #e6eef1;
+
+        }
+
+
+        .settings-panel-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+        }
+
+
+        .settings-panel-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            flex: 0 0 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #eaf2f6;
+
+            color: #124E70;
+
+            font-size: 20px;
+
+        }
+
+
+        .settings-panel-header h2 {
+
+            margin: 0;
+
+            color: #081C2C;
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+        }
+
+
+        .settings-panel-header p {
+
+            margin: 4px 0 0;
+
+            color: #78909c;
+
+            font-size: 11px;
+
+        }
+
+
+        .settings-panel-body {
+
+            padding: 0 22px;
+
+        }
+
+
+        /* =====================================================
+           SETTING ROW
+        ====================================================== */
+
+        .setting-row {
+
+            min-height: 76px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 16px 0;
+
+            border-bottom:
+                1px solid
+                #edf2f4;
+
+        }
+
+
+        .setting-row:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .setting-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            min-width: 0;
+
+        }
+
+
+        .setting-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            flex: 0 0 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: #f0f6f8;
+
+            color: #124E70;
+
+            font-size: 17px;
+
+        }
+
+
+        .setting-icon.warning {
+
+            background: #fff6e8;
+
+            color: #c27b16;
+
+        }
+
+
+        .setting-icon.danger {
+
+            background: #fff0f0;
+
+            color: #c62828;
+
+        }
+
+
+        .setting-icon.success {
+
+            background: #edf8ef;
+
+            color: #2e7d32;
+
+        }
+
+
+        .setting-text {
+
+            min-width: 0;
+
+        }
+
+
+        .setting-text h3 {
+
+            margin: 0;
+
+            color: #173444;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        .setting-text p {
+
+            margin: 4px 0 0;
+
+            color: #78909c;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* =====================================================
+           SELECT
+        ====================================================== */
+
+        .settings-select {
+
+            min-width: 180px;
+
+            padding: 9px 12px;
+
+            border:
+                1px solid
+                #cbdbe1;
+
+            border-radius: 9px;
+
+            background: #ffffff;
+
+            color: #173444;
+
+            outline: none;
+
+            font-size: 12px;
+
+        }
+
+
+        .settings-select:focus {
+
+            border-color: #124E70;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    18,
+                    78,
+                    112,
+                    0.08
+                );
+
+        }
+
+
+        /* =====================================================
+           TOGGLE
+        ====================================================== */
+
+        .toggle {
+
+            position: relative;
+
+            width: 44px;
+
+            height: 24px;
+
+            flex: 0 0 44px;
+
+        }
+
+
+        .toggle input {
+
+            position: absolute;
+
+            opacity: 0;
+
+            width: 0;
+
+            height: 0;
+
+        }
+
+
+        .toggle-slider {
+
+            position: absolute;
+
+            inset: 0;
+
+            cursor: pointer;
+
+            border-radius: 30px;
+
+            background: #c9d5da;
+
+            transition: .2s ease;
+
+        }
+
+
+        .toggle-slider::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 18px;
+
+            height: 18px;
+
+            left: 3px;
+
+            top: 3px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            box-shadow:
+                0 2px 5px
+                rgba(0,0,0,0.18);
+
+            transition: .2s ease;
+
+        }
+
+
+        .toggle input:checked
+        + .toggle-slider {
+
+            background: #2e7d32;
+
+        }
+
+
+        .toggle input:checked
+        + .toggle-slider::before {
+
+            transform:
+                translateX(20px);
+
+        }
+
+
+        /* =====================================================
+           STATUS BADGE
+        ====================================================== */
+
+        .settings-status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding:
+                5px 9px;
+
+            border-radius: 20px;
+
+            background: #edf8ef;
+
+            color: #2e7d32;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+        }
+
+
+        .settings-status-dot {
+
+            width: 6px;
+
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #2e7d32;
+
+        }
+
+
+        .settings-status.blue {
+
+            background: #eaf2f6;
+
+            color: #124E70;
+
+        }
+
+
+        .settings-status.blue
+        .settings-status-dot {
+
+            background: #124E70;
+
+        }
+
+
+        /* =====================================================
+           PRIORITY WINDOW
+        ====================================================== */
+
+        .priority-control {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+        }
+
+
+        .priority-control input {
+
+            width: 65px;
+
+            padding: 9px;
+
+            border:
+                1px solid
+                #cbdbe1;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            outline: none;
+
+            color: #173444;
+
+        }
+
+
+        .priority-control span {
+
+            color: #78909c;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =====================================================
+           ALGORITHM CARDS
+        ====================================================== */
+
+        .algorithm-list {
+
+            padding: 18px 22px;
+
+            display: grid;
+
+            gap: 10px;
+
+        }
+
+
+        .algorithm-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            background: #f7fafb;
+
+            border:
+                1px solid
+                #e5edf0;
+
+        }
+
+
+        .algorithm-number {
+
+            width: 30px;
+
+            height: 30px;
+
+            flex: 0 0 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: #eaf2f6;
+
+            color: #124E70;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+        }
+
+
+        .algorithm-item strong {
+
+            display: block;
+
+            color: #173444;
+
+            font-size: 12px;
+
+        }
+
+
+        .algorithm-item span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: #78909c;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           ABOUT
+        ====================================================== */
+
+        .about-content {
+
+            padding: 22px;
+
+        }
+
+
+        .about-content h3 {
+
+            margin: 0 0 8px;
+
+            color: #081C2C;
+
+            font-size: 17px;
+
+        }
+
+
+        .about-content p {
+
+            margin: 0;
+
+            color: #718590;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .about-tags {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 16px;
+
+        }
+
+
+        .about-tag {
+
+            padding:
+                7px 10px;
+
+            border-radius: 8px;
+
+            background: #edf4f7;
+
+            color: #124E70;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
+           SAVE BAR
+        ====================================================== */
+
+        .settings-actions {
+
+            margin-top: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 15px 18px;
+
+            border-radius: 14px;
+
+            background: #ffffff;
+
+            border:
+                1px solid
+                #dce7eb;
+
+        }
+
+
+        .settings-actions-text {
+
+            color: #78909c;
+
+            font-size: 11px;
+
+        }
+
+
+        .settings-actions-buttons {
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 900px) {
+
+            .settings-layout {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .settings-page-content {
+
+                padding-bottom: 100px;
+
+            }
+
+
+            .settings-page-heading h1 {
+
+                font-size: 25px;
+
+            }
+
+
+            .setting-row {
+
+                align-items: flex-start;
+
+            }
+
+
+            .settings-select {
+
+                min-width: 130px;
+
+                max-width: 150px;
+
+            }
+
+
+            .settings-actions {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .settings-actions-buttons {
+
+                width: 100%;
+
+            }
+
+
+            .settings-actions-buttons button {
+
+                flex: 1;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="portal-page">
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="portal-header">
+
+    <div class="portal-brand">
+
+        <div class="portal-brand-logo">
+            ST
+        </div>
+
+        <div class="portal-brand-text">
+
+            <div class="portal-brand-title">
+                SMART TRANSPORT
+            </div>
+
+            <div class="portal-brand-subtitle">
+                SETTINGS
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+        <div class="portal-system-status">
+
+            <span class="portal-status-dot"></span>
+
+            System Online
+
+        </div>
+
+
+        <button
+            type="button"
+            class="portal-header-icon"
+            onclick="showSettingsNotification()"
+        >
+            🔔
+        </button>
+
+
+        <div class="portal-profile">
+
+            <div class="portal-profile-avatar">
+                C
+            </div>
+
+            <div class="portal-profile-info">
+
+                <div class="portal-profile-name">
+                    Cargo User
+                </div>
+
+                <div class="portal-profile-role">
+                    Cargo Portal
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     SIDEBAR
+====================================================== -->
+
+<aside class="portal-sidebar">
+
+    <div class="portal-sidebar-brand">
+
+        <div class="portal-sidebar-brand-icon">
+            ST
+        </div>
+
+        <div>
+
+            <strong>
+                SMART TRANSPORT
+            </strong>
+
+            <span>
+                CARGO PORTAL
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="portal-sidebar-section">
+
+        <div class="portal-sidebar-label">
+            TRANSPORT
+        </div>
+
+
+        <a href="cargo.html">
+
+            <span class="portal-sidebar-icon">
+                ⌂
+            </span>
+
+            Cargo Dashboard
+
+        </a>
+
+
+        <a href="cargo.html#schedule">
+
+            <span class="portal-sidebar-icon">
+                ☷
+            </span>
+
+            Transport Queue
+
+        </a>
+
+
+        <a href="cargo.html#journey">
+
+            <span class="portal-sidebar-icon">
+                ⇄
+            </span>
+
+            Plan Shipment
+
+        </a>
+
+
+        <a href="cargo.html#cargoDetails">
+
+            <span class="portal-sidebar-icon">
+                📦
+            </span>
+
+            My Cargo
+
+        </a>
+
+
+        <a href="cargo.html#alerts">
+
+            <span class="portal-sidebar-icon">
+                ⚠
+            </span>
+
+            Cargo Alerts
+
+        </a>
+
+
+        <a href="cargo.html#history">
+
+            <span class="portal-sidebar-icon">
+                ◷
+            </span>
+
+            Shipment History
+
+        </a>
+
+    </div>
+
+
+    <div class="portal-sidebar-section">
+
+        <div class="portal-sidebar-label">
+            ACCOUNT
+        </div>
+
+
+        <a
+            href="settings.html"
+            class="active"
+        >
+
+            <span class="portal-sidebar-icon">
+                ⚙
+            </span>
+
+            Settings
+
+        </a>
+
+
+        <a
+            href="javascript:void(0)"
+            onclick="openSOS()"
+            class="portal-sidebar-danger"
+        >
+
+            <span class="portal-sidebar-icon">
+                🚨
+            </span>
+
+            Report Emergency
+
+        </a>
+
+
+        <a
+            href="index.html"
+            class="portal-sidebar-danger"
+        >
+
+            <span class="portal-sidebar-icon">
+                ↪
+            </span>
+
+            Sign Out
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="portal-main">
+
+<div class="portal-container settings-page-content">
+
+
+    <!-- =================================================
+         PAGE HEADING
+    ================================================== -->
+
+    <section class="settings-page-heading">
+
+        <span class="eyebrow">
+            PREFERENCES
+        </span>
+
+        <h1>
+            Application Settings
+        </h1>
+
+        <p>
+            Configure how Smart Transport works for your cargo operations.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SETTINGS GRID
+    ================================================== -->
+
+    <section class="settings-layout">
+
+
+        <!-- =============================================
+             APPLICATION PREFERENCES
+        ============================================== -->
+
+        <div class="settings-panel">
+
+            <div class="settings-panel-header">
+
+                <div class="settings-panel-heading">
+
+                    <div class="settings-panel-icon">
+                        ⚙
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Application Preferences
+                        </h2>
+
+                        <p>
+                            Configure your portal experience.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-panel-body">
+
+
+                <!-- LANGUAGE -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon">
+                            文
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Language
+                            </h3>
+
+                            <p>
+                                Select your preferred application language.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <select
+                        id="language"
+                        class="settings-select"
+                    >
+
+                        <option value="en">
+                            English
+                        </option>
+
+                        <option value="hi">
+                            हिन्दी
+                        </option>
+
+                        <option value="kn">
+                            ಕನ್ನಡ
+                        </option>
+
+                        <option value="ta">
+                            தமிழ்
+                        </option>
+
+                        <option value="te">
+                            తెలుగు
+                        </option>
+
+                        <option value="ml">
+                            മലയാളം
+                        </option>
+
+                        <option value="mr">
+                            मराठी
+                        </option>
+
+                        <option value="bn">
+                            বাংলা
+                        </option>
+
+                        <option value="as">
+                            অসমীয়া
+                        </option>
+
+                        <option value="gu">
+                            ગુજરાતી
+                        </option>
+
+                        <option value="or">
+                            ଓଡ଼ିଆ
+                        </option>
+
+                        <option value="pa">
+                            ਪੰਜਾਬੀ
+                        </option>
+
+                        <option value="ur">
+                            اردو
+                        </option>
+
+                        <option value="ne">
+                            नेपाली
+                        </option>
+
+                        <option value="mni">
+                            মণিপুরী
+                        </option>
+
+                        <option value="brx">
+                            बड़ो
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon">
+                            🔔
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Notifications
+                            </h3>
+
+                            <p>
+                                Receive shipment updates and transport alerts.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="notificationToggle"
+                            checked
+                        >
+
+                        <span class="toggle-slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- EMERGENCY -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon danger">
+                            ⚠
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Emergency Alerts
+                            </h3>
+
+                            <p>
+                                Receive immediate P1 emergency notifications.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="emergencyAlertToggle"
+                            checked
+                        >
+
+                        <span class="toggle-slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- OFFLINE -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon success">
+                            ◉
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Offline Mode
+                            </h3>
+
+                            <p>
+                                Keep essential transport information available offline.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="offlineMode"
+                            checked
+                        >
+
+                        <span class="toggle-slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             TRANSPORT LOGIC
+        ============================================== -->
+
+        <div class="settings-panel">
+
+            <div class="settings-panel-header">
+
+                <div class="settings-panel-heading">
+
+                    <div class="settings-panel-icon">
+                        ☷
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Scheduling Preferences
+                        </h2>
+
+                        <p>
+                            Configure cargo scheduling behaviour.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-panel-body">
+
+
+                <!-- PRIORITY WINDOW -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon warning">
+                            ⏱
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Priority Scheduling Window
+                            </h3>
+
+                            <p>
+                                Gap used when evaluating priority queue changes.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="priority-control">
+
+                        <input
+                            type="number"
+                            id="priorityWindow"
+                            value="15"
+                            min="1"
+                            max="60"
+                        >
+
+                        <span>
+                            min
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SCHEDULING METHOD -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon">
+                            P
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Scheduling Method
+                            </h3>
+
+                            <p>
+                                Higher-priority cargo is processed first.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="settings-status">
+
+                        <span class="settings-status-dot"></span>
+
+                        Priority + FCFS
+
+                    </span>
+
+                </div>
+
+
+                <!-- FCFS -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon">
+                            1
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Equal Priority Rule
+                            </h3>
+
+                            <p>
+                                Equal-priority shipments follow First Come First Served.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="settings-status blue">
+
+                        <span class="settings-status-dot"></span>
+
+                        FCFS
+
+                    </span>
+
+                </div>
+
+
+                <!-- EMERGENCY -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon danger">
+                            🚨
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                SOS Priority
+                            </h3>
+
+                            <p>
+                                Emergency reports enter the highest-priority queue.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="settings-status">
+
+                        <span class="settings-status-dot"></span>
+
+                        P1
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             SYSTEM STATUS
+        ============================================== -->
+
+        <div class="settings-panel">
+
+            <div class="settings-panel-header">
+
+                <div class="settings-panel-heading">
+
+                    <div class="settings-panel-icon">
+                        ◉
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            System Status
+                        </h2>
+
+                        <p>
+                            Current Smart Transport services.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-panel-body">
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon success">
+                            ✓
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Transport Network
+                            </h3>
+
+                            <p>
+                                Regional transport services are operational.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="settings-status">
+
+                        <span class="settings-status-dot"></span>
+
+                        Online
+
+                    </span>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon">
+                            ▣
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Local Data Storage
+                            </h3>
+
+                            <p>
+                                Cargo, queue and emergency records.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="settings-status">
+
+                        <span class="settings-status-dot"></span>
+
+                        Available
+
+                    </span>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon">
+                            D
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                DSA Engine
+                            </h3>
+
+                            <p>
+                                Priority Queue, FCFS and route algorithms.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="settings-status">
+
+                        <span class="settings-status-dot"></span>
+
+                        Active
+
+                    </span>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-icon">
+                            ↗
+                        </div>
+
+                        <div class="setting-text">
+
+                            <h3>
+                                Route Engine
+                            </h3>
+
+                            <p>
+                                Route analysis and shortest-path calculation.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="settings-status blue">
+
+                        <span class="settings-status-dot"></span>
+
+                        Ready
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             DSA STACK
+        ============================================== -->
+
+        <div class="settings-panel">
+
+            <div class="settings-panel-header">
+
+                <div class="settings-panel-heading">
+
+                    <div class="settings-panel-icon">
+                        ⌘
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Algorithm Stack
+                        </h2>
+
+                        <p>
+                            Algorithms used by Smart Transport.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="algorithm-list">
+
+
+                <div class="algorithm-item">
+
+                    <div class="algorithm-number">
+                        01
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Priority Queue
+                        </strong>
+
+                        <span>
+                            Places emergency and essential cargo ahead of standard cargo.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-item">
+
+                    <div class="algorithm-number">
+                        02
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            FCFS
+                        </strong>
+
+                        <span>
+                            Resolves order when shipments have equal priority.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-item">
+
+                    <div class="algorithm-number">
+                        03
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Dijkstra
+                        </strong>
+
+                        <span>
+                            Supports shortest-route analysis between transport locations.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-item">
+
+                    <div class="algorithm-number">
+                        04
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Binary Search
+                        </strong>
+
+                        <span>
+                            Supports efficient lookup of sorted transport records.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-item">
+
+                    <div class="algorithm-number">
+                        05
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Merge Sort
+                        </strong>
+
+                        <span>
+                            Organizes transport and report datasets efficiently.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-item">
+
+                    <div class="algorithm-number">
+                        06
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            SOS Priority
+                        </strong>
+
+                        <span>
+                            Emergency reports are immediately inserted into the highest-priority queue.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             ABOUT
+        ============================================== -->
+
+        <div class="settings-panel">
+
+            <div class="settings-panel-header">
+
+                <div class="settings-panel-heading">
+
+                    <div class="settings-panel-icon">
+                        ℹ
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            About Smart Transport
+                        </h2>
+
+                        <p>
+                            System information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="about-content">
+
+                <h3>
+                    Smart Transport Management System
+                </h3>
+
+                <p>
+                    A government-oriented smart transportation
+                    coordination platform designed to manage
+                    travellers, cargo movement, route planning,
+                    scheduling, emergency response and regional
+                    transport monitoring across Northeast India.
+                </p>
+
+
+                <div class="about-tags">
+
+                    <span class="about-tag">
+                        Traveller
+                    </span>
+
+                    <span class="about-tag">
+                        Cargo
+                    </span>
+
+                    <span class="about-tag">
+                        Route Planning
+                    </span>
+
+                    <span class="about-tag">
+                        Priority Queue
+                    </span>
+
+                    <span class="about-tag">
+                        Explainable AI
+                    </span>
+
+                    <span class="about-tag">
+                        SOS
+                    </span>
+
+                    <span class="about-tag">
+                        Offline PWA
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SAVE BAR
+    ================================================== -->
+
+    <div class="settings-actions">
+
+        <div class="settings-actions-text">
+
+            Your preferences are stored locally
+            for offline use.
+
+        </div>
+
+
+        <div class="settings-actions-buttons">
+
+            <button
+                type="button"
+                class="portal-btn portal-btn-secondary"
+                onclick="resetSmartTransportSettings()"
+            >
+                ↶ Reset
+            </button>
+
+
+            <button
+                type="button"
+                class="portal-btn portal-btn-primary"
+                onclick="saveSmartTransportSettings()"
+            >
+                ▣ Save Settings
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         EMERGENCY STRIP
+    ================================================== -->
+
+    <div
+        class="portal-emergency-strip"
+        style="margin-top:20px;"
+    >
+
+        <div>
+
+            <div class="portal-emergency-title">
+                Emergency Assistance
+            </div>
+
+            <div class="portal-emergency-text">
+
+                Report an accident, road blockage,
+                medical emergency or other critical
+                transport incident.
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="portal-btn portal-btn-danger"
+            onclick="openSOS()"
+        >
+            🚨 REPORT EMERGENCY
+        </button>
+
+    </div>
+
+
+</div>
+
+</main>
+
+
+
+<!-- =====================================================
+     MOBILE NAV
+====================================================== -->
+
+<nav class="portal-mobile-nav">
+
+    <a href="cargo.html">
+
+        <span>
+            ⌂
+        </span>
+
+        Home
+
+    </a>
+
+
+    <a href="cargo.html#schedule">
+
+        <span>
+            ☷
+        </span>
+
+        Queue
+
+    </a>
+
+
+    <a
+        href="javascript:void(0)"
+        onclick="openSOS()"
+    >
+
+        <span>
+            🚨
+        </span>
+
+        SOS
+
+    </a>
+
+
+    <a href="cargo.html#cargoDetails">
+
+        <span>
+            📦
+        </span>
+
+        Cargo
+
+    </a>
+
+
+    <a
+        href="settings.html"
+        class="active"
+    >
+
+        <span>
+            ⚙
+        </span>
+
+        Settings
+
+    </a>
+
+</nav>
+
+
+
+<!-- =====================================================
+     SOS MODAL
+====================================================== -->
+
+<div
+    class="portal-modal"
+    id="sosModal"
+>
+
+    <div class="portal-modal-content">
+
+        <div class="portal-modal-header">
+
+            <div class="portal-modal-title">
+                🚨 Emergency SOS
+            </div>
+
+            <button
+                type="button"
+                class="portal-modal-close"
+                onclick="closeSOS()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="sosForm"
+            onsubmit="submitSOS(event)"
+        >
+
+            <div class="portal-modal-body">
+
+                <div class="portal-form-grid">
+
+
+                    <div class="portal-form-group">
+
+                        <label for="sosIncidentType">
+                            Incident Type
+                        </label>
+
+                        <select
+                            id="sosIncidentType"
+                            required
+                        >
+
+                            <option value="">
+                                Select incident
+                            </option>
+
+                            <option>
+                                Accident
+                            </option>
+
+                            <option>
+                                Landslide
+                            </option>
+
+                            <option>
+                                Flood
+                            </option>
+
+                            <option>
+                                Road Blockage
+                            </option>
+
+                            <option>
+                                Medical Emergency
+                            </option>
+
+                            <option>
+                                Other Emergency
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="sosLocation">
+                            Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="sosLocation"
+                            placeholder="Enter location"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="portal-form-group full">
+
+                        <label for="sosDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="sosDescription"
+                            placeholder="Describe the emergency..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-modal-footer">
+
+                <button
+                    type="button"
+                    class="portal-btn portal-btn-secondary"
+                    onclick="closeSOS()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="portal-btn portal-btn-danger"
+                >
+                    🚨 Submit Emergency
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SCRIPTS
+====================================================== -->
+
+<script src="./js/app.js"></script>
+
+<script src="./js/emergency.js"></script>
+
+<script src="./js/settings.js"></script>
+
+<script src="./js/languages.js"></script>
+
+
+<script>
+
+    /* =====================================================
+       SETTINGS CONTROLLER
+    ====================================================== */
+
+    function saveSmartTransportSettings() {
+
+        if (
+            typeof window.saveSettings ===
+            "function"
+        ) {
+
+            window.saveSettings();
+
+        } else {
+
+            const language =
+                document.getElementById(
+                    "language"
+                )?.value || "en";
+
+            const notifications =
+                document.getElementById(
+                    "notificationToggle"
+                )?.checked ?? true;
+
+            const emergencyAlerts =
+                document.getElementById(
+                    "emergencyAlertToggle"
+                )?.checked ?? true;
+
+            const offlineMode =
+                document.getElementById(
+                    "offlineMode"
+                )?.checked ?? true;
+
+            const priorityWindow =
+                document.getElementById(
+                    "priorityWindow"
+                )?.value || 15;
+
+
+            localStorage.setItem(
+                "smartTransportLanguage",
+                language
+            );
+
+            localStorage.setItem(
+                "smartTransportNotifications",
+                String(notifications)
+            );
+
+            localStorage.setItem(
+                "smartTransportEmergencyAlerts",
+                String(emergencyAlerts)
+            );
+
+            localStorage.setItem(
+                "smartTransportOfflineMode",
+                String(offlineMode)
+            );
+
+            localStorage.setItem(
+                "smartTransportPriorityWindow",
+                priorityWindow
+            );
+
+
+            alert(
+                "Settings saved successfully."
+            );
+
+        }
+
+    }
+
+
+    function resetSmartTransportSettings() {
+
+        if (
+            typeof window.resetSmartTransportSettings ===
+            "function"
+        ) {
+
+            window.resetSmartTransportSettings();
+
+            return;
+
+        }
+
+
+        const language =
+            document.getElementById("language");
+
+        const notifications =
+            document.getElementById(
+                "notificationToggle"
+            );
+
+        const emergency =
+            document.getElementById(
+                "emergencyAlertToggle"
+            );
+
+        const offline =
+            document.getElementById(
+                "offlineMode"
+            );
+
+        const priority =
+            document.getElementById(
+                "priorityWindow"
+            );
+
+
+        if (language) {
+            language.value = "en";
+        }
+
+        if (notifications) {
+            notifications.checked = true;
+        }
+
+        if (emergency) {
+            emergency.checked = true;
+        }
+
+        if (offline) {
+            offline.checked = true;
+        }
+
+        if (priority) {
+            priority.value = 15;
+        }
+
+
+        localStorage.setItem(
+            "smartTransportLanguage",
+            "en"
+        );
+
+        localStorage.setItem(
+            "smartTransportNotifications",
+            "true"
+        );
+
+        localStorage.setItem(
+            "smartTransportEmergencyAlerts",
+            "true"
+        );
+
+        localStorage.setItem(
+            "smartTransportOfflineMode",
+            "true"
+        );
+
+        localStorage.setItem(
+            "smartTransportPriorityWindow",
+            "15"
+        );
+
+
+        alert(
+            "Settings restored to default."
+        );
+
+    }
+
+
+    function showSettingsNotification() {
+
+        alert(
+            "No new cargo notifications."
+        );
+
+    }
+
+
+    /* =====================================================
+       SOS FALLBACK
+    ====================================================== */
+
+    window.openSOS = function () {
+
+        const modal =
+            document.getElementById(
+                "sosModal"
+            );
+
+        if (modal) {
+
+            modal.classList.add(
+                "open"
+            );
+
+        }
+
+    };
+
+
+    window.closeSOS = function () {
+
+        const modal =
+            document.getElementById(
+                "sosModal"
+            );
+
+        if (modal) {
+
+            modal.classList.remove(
+                "open"
+            );
+
+        }
+
+    };
+
+
+    window.submitSOS = function (event) {
+
+        event.preventDefault();
+
+
+        const incident =
+            document.getElementById(
+                "sosIncidentType"
+            )?.value;
+
+        const location =
+            document.getElementById(
+                "sosLocation"
+            )?.value;
+
+        const description =
+            document.getElementById(
+                "sosDescription"
+            )?.value;
+
+
+        if (
+            !incident ||
+            !location ||
+            !description
+        ) {
+
+            alert(
+                "Please complete all emergency details."
+            );
+
+            return;
+
+        }
+
+
+        let reports = [];
+
+        try {
+
+            reports =
+                JSON.parse(
+                    localStorage.getItem(
+                        "sosReports"
+                    ) || "[]"
+                );
+
+        } catch {
+
+            reports = [];
+
+        }
+
+
+        const report = {
+
+            id:
+                "SOS-" +
+                Date.now(),
+
+            incidentType:
+                incident,
+
+            location:
+                location,
+
+            description:
+                description,
+
+            priority:
+                1,
+
+            priorityLabel:
+                "EMERGENCY",
+
+            emergency:
+                true,
+
+            status:
+                "active",
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        reports.unshift(
+            report
+        );
+
+
+        localStorage.setItem(
+            "sosReports",
+            JSON.stringify(
+                reports
+            )
+        );
+
+
+        alert(
+            "Emergency report submitted.\n\n" +
+            "Reference ID: " +
+            report.id
+        );
+
+
+        closeSOS();
+
+
+        document
+            .getElementById("sosForm")
+            ?.reset();
+
+    };
+
+
+    /* =====================================================
+       SERVICE WORKER
+    ====================================================== */
+
+    if (
+        "serviceWorker" in navigator
+    ) {
+
+        window.addEventListener(
+            "load",
+            function () {
+
+                navigator.serviceWorker
+                    .register(
+                        "./service/service-worker.js"
+                    )
+                    .catch(
+                        function (error) {
+
+                            console.warn(
+                                "Service worker:",
+                                error
+                            );
+
+                        }
+                    );
+
+            }
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

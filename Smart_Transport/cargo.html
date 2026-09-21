@@ -1,0 +1,3421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Cargo Portal | Smart Transport
+    </title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="./manifest.json">
+
+    <meta
+        name="theme-color"
+        content="#124E70"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Smart Transport"
+    >
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./css/portal-ui.css"
+    >
+
+</head>
+
+
+<body class="portal-page cargo-portal">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="portal-header">
+
+    <div class="portal-brand">
+
+        <div class="portal-brand-logo">
+            ST
+        </div>
+
+        <div class="portal-brand-text">
+
+            <div class="portal-brand-title">
+                SMART TRANSPORT
+            </div>
+
+            <div class="portal-brand-subtitle">
+                CARGO PORTAL
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+        <div class="portal-system-status">
+
+            <span class="portal-status-dot"></span>
+
+            System Online
+
+        </div>
+
+
+        <button
+            type="button"
+            class="portal-header-icon"
+            onclick="showCargoNotifications()"
+            title="Notifications"
+        >
+            🔔
+        </button>
+
+
+        <div class="portal-profile">
+
+            <div
+                class="portal-profile-avatar"
+                id="cargoProfileInitial"
+            >
+                C
+            </div>
+
+            <div class="portal-profile-info">
+
+                <div
+                    class="portal-profile-name"
+                    id="cargoProfileName"
+                >
+                    Cargo Operator
+                </div>
+
+                <div class="portal-profile-role">
+                    Registered Cargo Transport
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside
+    class="portal-sidebar"
+    id="cargoSidebar"
+>
+
+    <div class="portal-sidebar-section">
+
+        <div class="portal-sidebar-label">
+            Cargo
+        </div>
+
+
+        <a
+            href="#dashboard"
+            class="active"
+            data-section="dashboard"
+        >
+            <span class="portal-sidebar-icon">⌂</span>
+            Cargo Dashboard
+        </a>
+
+
+        <a
+            href="#schedule"
+            data-section="schedule"
+        >
+            <span class="portal-sidebar-icon">☷</span>
+            Transport Queue
+        </a>
+
+
+        <a
+            href="#journey"
+            data-section="journey"
+        >
+            <span class="portal-sidebar-icon">➜</span>
+            Plan Shipment
+        </a>
+
+
+        <a
+            href="#cargoDetails"
+            data-section="cargoDetails"
+        >
+            <span class="portal-sidebar-icon">📦</span>
+            My Cargo
+        </a>
+
+
+        <a
+            href="live-map.html"
+            data-section="live-map"
+        >
+            <span class="portal-sidebar-icon">⌖</span>
+            Live Transport Map
+        </a>
+
+
+        <a
+            href="#alerts"
+            data-section="alerts"
+        >
+            <span class="portal-sidebar-icon">⚠</span>
+            Cargo Alerts
+        </a>
+
+
+        <a
+            href="#history"
+            data-section="history"
+        >
+            <span class="portal-sidebar-icon">◷</span>
+            Shipment History
+        </a>
+
+    </div>
+
+
+    <div class="portal-sidebar-section">
+
+        <div class="portal-sidebar-label">
+            Account
+        </div>
+
+
+        <a
+            href="#settings"
+            data-section="settings"
+        >
+            <span class="portal-sidebar-icon">⚙</span>
+            Settings
+        </a>
+
+
+        <a
+            href="javascript:void(0)"
+            onclick="openSOS()"
+            class="portal-sidebar-danger"
+        >
+            <span class="portal-sidebar-icon">🚨</span>
+            Report Emergency
+        </a>
+
+
+        <a
+            href="index.html"
+            class="portal-sidebar-danger"
+        >
+            <span class="portal-sidebar-icon">↪</span>
+            Sign Out
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="portal-main">
+
+<div class="portal-container">
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section id="dashboard">
+
+
+    <div class="portal-page-heading">
+
+        <div>
+
+            <h1>
+                Cargo Transport Dashboard
+            </h1>
+
+            <p>
+                Track your shipment, understand its queue position,
+                and plan efficient cargo movement across Northeast India.
+            </p>
+
+        </div>
+
+
+        <div class="portal-heading-actions">
+
+            <button
+                type="button"
+                class="portal-btn portal-btn-primary"
+                onclick="openShipmentPlanner()"
+            >
+                + Plan Shipment
+            </button>
+
+
+            <a
+                class="portal-btn portal-btn-secondary"
+                href="live-map.html"
+                style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;"
+            >
+                ⌖ Live Map
+            </a>
+
+
+            <button
+                type="button"
+                class="portal-btn portal-btn-danger"
+                onclick="openSOS()"
+            >
+                🚨 Emergency SOS
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STATS
+    ====================================================== -->
+
+    <div class="portal-stat-grid">
+
+
+        <div class="portal-stat-card">
+
+            <div class="portal-stat-label">
+                Cargo Type
+            </div>
+
+            <div
+                class="portal-stat-value"
+                id="cargoTypeStat"
+            >
+                Furniture
+            </div>
+
+            <div class="portal-stat-description">
+                Registered shipment
+            </div>
+
+        </div>
+
+
+        <div class="portal-stat-card orange">
+
+            <div class="portal-stat-label">
+                Priority
+            </div>
+
+            <div
+                class="portal-stat-value"
+                id="cargoPriorityStat"
+            >
+                P3
+            </div>
+
+            <div class="portal-stat-description">
+                Scheduling priority
+            </div>
+
+        </div>
+
+
+        <div class="portal-stat-card purple">
+
+            <div class="portal-stat-label">
+                Queue Position
+            </div>
+
+            <div
+                class="portal-stat-value"
+                id="cargoQueuePositionStat"
+            >
+                #2
+            </div>
+
+            <div class="portal-stat-description">
+                Current transport queue
+            </div>
+
+        </div>
+
+
+        <div class="portal-stat-card green">
+
+            <div class="portal-stat-label">
+                Shipment Status
+            </div>
+
+            <div
+                class="portal-stat-value"
+                id="cargoStatusStat"
+            >
+                Waiting
+            </div>
+
+            <div class="portal-stat-description">
+                Current movement status
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CURRENT SHIPMENT + WAITING EXPLANATION
+    ====================================================== -->
+
+    <div class="portal-grid-2">
+
+
+        <!-- CURRENT SHIPMENT -->
+
+        <div class="portal-card">
+
+            <div class="portal-card-header">
+
+                <div>
+
+                    <div class="portal-card-title">
+                        Current Shipment
+                    </div>
+
+                    <div class="portal-card-subtitle">
+                        Your registered cargo movement
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="portal-badge portal-badge-warning"
+                    id="shipmentStatusBadge"
+                >
+                    WAITING
+                </span>
+
+            </div>
+
+
+            <div class="portal-card-body">
+
+
+                <div class="portal-route">
+
+
+                    <div class="portal-route-point">
+
+                        <div class="portal-route-label">
+                            Origin
+                        </div>
+
+                        <div
+                            class="portal-route-location"
+                            id="cargoOrigin"
+                        >
+                            Guwahati
+                        </div>
+
+                    </div>
+
+
+                    <div class="portal-route-line"></div>
+
+                    <div class="portal-route-arrow">
+                        →
+                    </div>
+
+                    <div class="portal-route-line"></div>
+
+
+                    <div class="portal-route-point">
+
+                        <div class="portal-route-label">
+                            Destination
+                        </div>
+
+                        <div
+                            class="portal-route-location"
+                            id="cargoDestination"
+                        >
+                            Shillong
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="portal-info-list">
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Cargo
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="cargoName"
+                        >
+                            Furniture
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Weight
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="cargoWeight"
+                        >
+                            500 kg
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Priority
+                        </span>
+
+                        <span
+                            class="portal-badge cargo-p3"
+                            id="cargoPriorityBadge"
+                        >
+                            P3
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Vehicle
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="cargoVehicle"
+                        >
+                            AS01AB4521
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WHY WAITING -->
+
+        <div class="portal-card">
+
+            <div class="portal-card-header">
+
+                <div>
+
+                    <div class="portal-card-title">
+                        Why Am I Waiting?
+                    </div>
+
+                    <div class="portal-card-subtitle">
+                        Explainable scheduling
+                    </div>
+
+                </div>
+
+                <span class="portal-badge portal-badge-warning">
+                    QUEUED
+                </span>
+
+            </div>
+
+
+            <div class="portal-card-body">
+
+                <div class="cargo-why-box">
+
+                    <div
+                        class="cargo-why-title"
+                        id="cargoWaitingTitle"
+                    >
+                        Your shipment is waiting because higher-priority
+                        cargo is ahead.
+                    </div>
+
+
+                    <div
+                        class="cargo-why-text"
+                        id="cargoWaitingReason"
+                    >
+                        The scheduler processes P1 emergency cargo
+                        before P2 and P3 shipments.
+                        Your shipment is classified as
+                        P3 – Standard Cargo.
+                    </div>
+
+
+                    <div class="scheduling-method">
+
+                        Scheduling Method:
+
+                        <strong>
+                            Priority Scheduling
+                        </strong>
+
+                        +
+
+                        <strong>
+                            FCFS
+                        </strong>
+
+                        within the same priority level.
+
+                    </div>
+
+                </div>
+
+
+                <div style="margin-top:16px;">
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Cargo ahead
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="cargoAheadCount"
+                        >
+                            1 shipment
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Queue position
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="estimatedQueuePosition"
+                        >
+                            #2
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TRANSPORT QUEUE
+========================================================= -->
+
+<section
+    id="schedule"
+    style="margin-top:20px;"
+>
+
+    <div class="portal-card">
+
+        <div class="portal-card-header">
+
+            <div>
+
+                <div class="portal-card-title">
+                    Current Transport Queue
+                </div>
+
+                <div class="portal-card-subtitle">
+                    Priority-based scheduling with FCFS
+                </div>
+
+            </div>
+
+            <span class="portal-badge portal-badge-blue">
+                PRIORITY + FCFS
+            </span>
+
+        </div>
+
+
+        <div class="portal-card-body">
+
+            <div
+                class="cargo-queue"
+                id="cargoQueue"
+            >
+                <!-- JavaScript renders queue -->
+            </div>
+
+
+            <div
+                class="portal-alert"
+                style="margin-top:16px;"
+            >
+
+                <div class="portal-alert-title">
+                    How the queue works
+                </div>
+
+                <div class="portal-alert-text">
+
+                    P1 Emergency cargo is processed first.
+                    P2 Essential cargo is processed next.
+                    P3 Standard cargo follows.
+                    When shipments have equal priority,
+                    the earlier registered shipment is processed first
+                    using First Come First Served (FCFS).
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRIORITY CLASSIFICATION
+========================================================= -->
+
+<section style="margin-top:20px;">
+
+    <div class="portal-card">
+
+        <div class="portal-card-header">
+
+            <div>
+
+                <div class="portal-card-title">
+                    Cargo Priority Classification
+                </div>
+
+                <div class="portal-card-subtitle">
+                    Explainable priority assignment
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="portal-card-body">
+
+            <div class="cargo-priority-grid">
+
+
+                <div class="cargo-priority-card p1">
+
+                    <h4>
+                        P1 — Emergency
+                    </h4>
+
+                    <p>
+                        Medical supplies, emergency relief materials,
+                        disaster-response cargo and other critical
+                        time-sensitive shipments.
+                    </p>
+
+                </div>
+
+
+                <div class="cargo-priority-card p2">
+
+                    <h4>
+                        P2 — Essential
+                    </h4>
+
+                    <p>
+                        Food supplies, fuel, infrastructure materials
+                        and other essential goods.
+                    </p>
+
+                </div>
+
+
+                <div class="cargo-priority-card p3">
+
+                    <h4>
+                        P3 — Standard
+                    </h4>
+
+                    <p>
+                        Furniture, general goods and non-critical
+                        commercial shipments.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MY CARGO
+========================================================= -->
+
+<section
+    id="cargoDetails"
+    style="margin-top:20px;"
+>
+
+    <div class="portal-card">
+
+        <div class="portal-card-header">
+
+            <div>
+
+                <div class="portal-card-title">
+                    My Cargo
+                </div>
+
+                <div class="portal-card-subtitle">
+                    Registered shipment information
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="portal-btn portal-btn-secondary"
+                onclick="openShipmentPlanner()"
+            >
+                Plan New Shipment
+            </button>
+
+        </div>
+
+
+        <div class="portal-card-body">
+
+            <div class="portal-info-list">
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Cargo Name
+                    </span>
+
+                    <span
+                        class="portal-info-value"
+                        id="cargoDetailsName"
+                    >
+                        Furniture
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Cargo Type
+                    </span>
+
+                    <span
+                        class="portal-info-value"
+                        id="cargoDetailsType"
+                    >
+                        General Goods
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Origin
+                    </span>
+
+                    <span
+                        class="portal-info-value"
+                        id="cargoDetailsOrigin"
+                    >
+                        Guwahati
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Destination
+                    </span>
+
+                    <span
+                        class="portal-info-value"
+                        id="cargoDetailsDestination"
+                    >
+                        Shillong
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Vehicle
+                    </span>
+
+                    <span
+                        class="portal-info-value"
+                        id="cargoDetailsVehicle"
+                    >
+                        AS01AB4521
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Weight
+                    </span>
+
+                    <span
+                        class="portal-info-value"
+                        id="cargoDetailsWeight"
+                    >
+                        500 kg
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Priority
+                    </span>
+
+                    <span
+                        class="portal-badge cargo-p3"
+                        id="cargoDetailsPriority"
+                    >
+                        P3
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Status
+                    </span>
+
+                    <span
+                        class="portal-info-value"
+                        id="cargoDetailsStatus"
+                    >
+                        Waiting
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ALERTS
+========================================================= -->
+
+<section
+    id="alerts"
+    style="margin-top:20px;"
+>
+
+    <div class="portal-card">
+
+        <div class="portal-card-header">
+
+            <div>
+
+                <div class="portal-card-title">
+                    Cargo Alerts
+                </div>
+
+                <div class="portal-card-subtitle">
+                    Important transport notifications
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="portal-card-body">
+
+            <div id="cargoAlertsContainer">
+
+
+                <div class="portal-alert">
+
+                    <div class="portal-alert-title">
+                        Priority Scheduling Active
+                    </div>
+
+                    <div class="portal-alert-text">
+                        Your shipment is currently being scheduled
+                        using Priority Scheduling with FCFS for
+                        equal-priority shipments.
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="portal-alert"
+                    style="margin-top:12px;"
+                >
+
+                    <div class="portal-alert-title">
+                        Northeast Transport Network
+                    </div>
+
+                    <div class="portal-alert-text">
+                        Live route and weather conditions will be
+                        synchronized when the network connection
+                        is available.
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SHIPMENT HISTORY
+========================================================= -->
+
+<section
+    id="history"
+    style="margin-top:20px;"
+>
+
+    <div class="portal-card">
+
+        <div class="portal-card-header">
+
+            <div>
+
+                <div class="portal-card-title">
+                    Shipment History
+                </div>
+
+                <div class="portal-card-subtitle">
+                    Previously completed cargo movements
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="portal-card-body">
+
+            <div
+                id="cargoHistoryContainer"
+                class="portal-table-wrap"
+            >
+
+                <table class="portal-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Cargo
+                            </th>
+
+                            <th>
+                                Route
+                            </th>
+
+                            <th>
+                                Priority
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="cargoHistoryBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SETTINGS
+========================================================= -->
+
+<section
+    id="settings"
+    style="margin-top:20px;"
+>
+
+    <div class="portal-card">
+
+        <div class="portal-card-header">
+
+            <div>
+
+                <div class="portal-card-title">
+                    Cargo Settings
+                </div>
+
+                <div class="portal-card-subtitle">
+                    Portal preferences
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="portal-card-body">
+
+            <div class="portal-info-list">
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Offline Mode
+                    </span>
+
+                    <span class="portal-info-value">
+                        Enabled
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Emergency Alerts
+                    </span>
+
+                    <span class="portal-info-value">
+                        Enabled
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Scheduling Window
+                    </span>
+
+                    <span class="portal-info-value">
+                        15 minutes
+                    </span>
+
+                </div>
+
+
+                <div class="portal-info-row">
+
+                    <span class="portal-info-label">
+                        Scheduling Algorithm
+                    </span>
+
+                    <span class="portal-info-value">
+                        Priority Scheduling + FCFS
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div style="margin-top:18px;">
+
+                <a
+                    href="settings.html"
+                    class="portal-btn portal-btn-primary"
+                >
+                    Open Full Settings
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EMERGENCY STRIP
+========================================================= -->
+
+<section
+    style="margin-top:20px;"
+>
+
+    <div class="portal-emergency-strip">
+
+        <div>
+
+            <div class="portal-emergency-title">
+                Emergency Assistance
+            </div>
+
+            <div class="portal-emergency-text">
+                Report an accident, road blockage, medical emergency,
+                cargo incident or other critical situation.
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="portal-btn portal-btn-danger"
+            onclick="openSOS()"
+        >
+            🚨 REPORT EMERGENCY
+        </button>
+
+    </div>
+
+</section>
+
+
+</div>
+
+</main>
+
+
+<!-- =========================================================
+     SHIPMENT PLANNER MODAL
+========================================================= -->
+
+<div
+    class="portal-modal"
+    id="shipmentPlannerModal"
+>
+
+    <div class="portal-modal-content">
+
+        <div class="portal-modal-header">
+
+            <div class="portal-modal-title">
+                Plan Cargo Shipment
+            </div>
+
+            <button
+                type="button"
+                class="portal-modal-close"
+                onclick="closeShipmentPlanner()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="shipmentPlannerForm"
+            onsubmit="submitShipmentPlan(event)"
+        >
+
+            <div class="portal-modal-body">
+
+                <div class="portal-form-grid">
+
+
+                    <div class="portal-form-group">
+
+                        <label for="shipmentCargoName">
+                            Cargo Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="shipmentCargoName"
+                            placeholder="Example: Medical Supplies"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="shipmentCargoType">
+                            Cargo Type
+                        </label>
+
+                        <select
+                            id="shipmentCargoType"
+                            required
+                        >
+
+                            <option value="">
+                                Select cargo type
+                            </option>
+
+                            <option>
+                                Medical Supplies
+                            </option>
+
+                            <option>
+                                Emergency Relief
+                            </option>
+
+                            <option>
+                                Food Supplies
+                            </option>
+
+                            <option>
+                                Fuel
+                            </option>
+
+                            <option>
+                                Construction Materials
+                            </option>
+
+                            <option>
+                                Furniture
+                            </option>
+
+                            <option>
+                                General Goods
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="shipmentOrigin">
+                            Origin
+                        </label>
+
+                        <select
+                            id="shipmentOrigin"
+                            required
+                        >
+
+                            <option value="">
+                                Select origin
+                            </option>
+
+                            <option>Guwahati</option>
+                            <option>Shillong</option>
+                            <option>Imphal</option>
+                            <option>Kohima</option>
+                            <option>Aizawl</option>
+                            <option>Itanagar</option>
+                            <option>Agartala</option>
+                            <option>Dibrugarh</option>
+                            <option>Silchar</option>
+                            <option>Tawang</option>
+                            <option>Cherrapunji</option>
+                            <option>Tura</option>
+                            <option>Dimapur</option>
+                            <option>Lunglei</option>
+                            <option>Moirang</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="shipmentDestination">
+                            Destination
+                        </label>
+
+                        <select
+                            id="shipmentDestination"
+                            required
+                        >
+
+                            <option value="">
+                                Select destination
+                            </option>
+
+                            <option>Guwahati</option>
+                            <option>Shillong</option>
+                            <option>Imphal</option>
+                            <option>Kohima</option>
+                            <option>Aizawl</option>
+                            <option>Itanagar</option>
+                            <option>Agartala</option>
+                            <option>Dibrugarh</option>
+                            <option>Silchar</option>
+                            <option>Tawang</option>
+                            <option>Cherrapunji</option>
+                            <option>Tura</option>
+                            <option>Dimapur</option>
+                            <option>Lunglei</option>
+                            <option>Moirang</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="shipmentVehicle">
+                            Vehicle
+                        </label>
+
+                        <input
+                            type="text"
+                            id="shipmentVehicle"
+                            placeholder="Vehicle number"
+                            value="AS01AB4521"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="shipmentWeight">
+                            Weight (kg)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="shipmentWeight"
+                            min="1"
+                            placeholder="500"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="shipmentPriority">
+                            Priority
+                        </label>
+
+                        <select
+                            id="shipmentPriority"
+                            required
+                        >
+
+                            <option value="P1">
+                                P1 — Emergency
+                            </option>
+
+                            <option value="P2">
+                                P2 — Essential
+                            </option>
+
+                            <option
+                                value="P3"
+                                selected
+                            >
+                                P3 — Standard
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="shipmentNotes">
+                            Notes
+                        </label>
+
+                        <input
+                            type="text"
+                            id="shipmentNotes"
+                            placeholder="Additional information"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-modal-footer">
+
+                <button
+                    type="button"
+                    class="portal-btn portal-btn-secondary"
+                    onclick="closeShipmentPlanner()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="portal-btn portal-btn-primary"
+                >
+                    Analyse & Add Shipment
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SOS MODAL
+========================================================= -->
+
+<div
+    class="portal-modal"
+    id="sosModal"
+>
+
+    <div class="portal-modal-content">
+
+        <div class="portal-modal-header">
+
+            <div>
+
+                <div class="portal-modal-title">
+                    🚨 Emergency SOS
+                </div>
+
+                <div class="portal-card-subtitle">
+                    Emergency transport assistance
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="portal-modal-close"
+                onclick="closeSOS()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="sosForm"
+            onsubmit="submitSOS(event)"
+        >
+
+            <div class="portal-modal-body">
+
+                <div class="portal-form-grid">
+
+
+                    <div class="portal-form-group">
+
+                        <label for="sosIncidentType">
+                            Incident Type
+                        </label>
+
+                        <select
+                            id="sosIncidentType"
+                            required
+                        >
+
+                            <option value="">
+                                Select incident
+                            </option>
+
+                            <option>
+                                Road Accident
+                            </option>
+
+                            <option>
+                                Medical Emergency
+                            </option>
+
+                            <option>
+                                Vehicle Breakdown
+                            </option>
+
+                            <option>
+                                Road Blockage
+                            </option>
+
+                            <option>
+                                Cargo Emergency
+                            </option>
+
+                            <option>
+                                Natural Disaster
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="sosSeverity">
+                            Severity
+                        </label>
+
+                        <select
+                            id="sosSeverity"
+                            required
+                        >
+
+                            <option value="Critical">
+                                Critical
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group full">
+
+                        <label for="sosLocation">
+                            Location
+                        </label>
+
+                        <div style="display:flex;gap:8px;">
+
+                            <input
+                                type="text"
+                                id="sosLocation"
+                                placeholder="Enter emergency location"
+                                required
+                                style="flex:1;"
+                            >
+
+                            <button
+                                type="button"
+                                class="portal-btn portal-btn-secondary"
+                                onclick="captureCargoSOSLocation()"
+                            >
+                                📍 GPS
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="portal-form-group full">
+
+                        <label for="sosDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="sosDescription"
+                            placeholder="Describe the emergency..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="portal-form-group full">
+
+                        <label for="sosPhoto">
+                            Supporting Photo
+                        </label>
+
+                        <input
+                            type="file"
+                            id="sosPhoto"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="portal-alert"
+                    style="margin-top:15px;"
+                >
+
+                    <div class="portal-alert-title">
+                        Emergency Priority: P1
+                    </div>
+
+                    <div class="portal-alert-text">
+                        Emergency reports are inserted into the
+                        transport system with the highest scheduling
+                        priority.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-modal-footer">
+
+                <button
+                    type="button"
+                    class="portal-btn portal-btn-secondary"
+                    onclick="closeSOS()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="portal-btn portal-btn-danger"
+                >
+                    🚨 Submit Emergency
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script src="./js/app.js"></script>
+
+<script src="./js/emergency.js"></script>
+
+<script src="./js/algorithms.js"></script>
+
+<script src="./js/cargo.js"></script>
+
+
+<!-- =========================================================
+     CARGO PORTAL CONTROLLER
+========================================================= -->
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   DEFAULT DEMO CARGO
+========================================================= */
+
+const CARGO_DEMO = {
+
+    id: "CG-002",
+
+    name: "Furniture",
+
+    type: "General Goods",
+
+    origin: "Guwahati",
+
+    destination: "Shillong",
+
+    vehicle: "AS01AB4521",
+
+    weight: 500,
+
+    priority: "P3",
+
+    status: "WAITING",
+
+    createdAt: "2026-09-20T08:35:00",
+
+    isCurrentUser: true
+
+};
+
+
+/* =========================================================
+   SAFE JSON
+========================================================= */
+
+function cargoReadStorage(key, fallback) {
+
+    try {
+
+        const raw =
+            localStorage.getItem(key);
+
+        if (!raw) {
+
+            return fallback;
+
+        }
+
+        return JSON.parse(raw);
+
+    }
+
+    catch (error) {
+
+        return fallback;
+
+    }
+
+}
+
+
+/* =========================================================
+   NORMALIZE PRIORITY
+========================================================= */
+
+function cargoPriority(value) {
+
+    const text =
+        String(value || "P3")
+            .toUpperCase()
+            .replace("PRIORITY", "")
+            .trim();
+
+    if (
+        text === "P1" ||
+        text === "1"
+    ) {
+
+        return "P1";
+
+    }
+
+    if (
+        text === "P2" ||
+        text === "2"
+    ) {
+
+        return "P2";
+
+    }
+
+    return "P3";
+
+}
+
+
+/* =========================================================
+   GET CARGO LIST
+========================================================= */
+
+function getCargoPortalList() {
+
+    let list =
+        cargoReadStorage(
+            "cargoShipments",
+            null
+        );
+
+
+    if (!Array.isArray(list)) {
+
+        list =
+            cargoReadStorage(
+                "cargoData",
+                null
+            );
+
+    }
+
+
+    if (Array.isArray(list) && list.length) {
+
+        return list.map(function(item) {
+
+            return {
+
+                ...item,
+
+                priority:
+                    cargoPriority(item.priority)
+
+            };
+
+        });
+
+    }
+
+
+    return [
+
+        {
+            id: "CG-001",
+            name: "Medical Supplies",
+            type: "Medical Supplies",
+            origin: "Guwahati",
+            destination: "Shillong",
+            vehicle: "Emergency Transport",
+            weight: 850,
+            priority: "P1",
+            status: "MOVING",
+            createdAt: "2026-09-20T08:30:00",
+            isCurrentUser: false
+        },
+
+
+        {
+            ...CARGO_DEMO
+        },
+
+
+        {
+            id: "CG-003",
+            name: "General Goods",
+            type: "General Goods",
+            origin: "Shillong",
+            destination: "Tura",
+            vehicle: "Cargo Truck",
+            weight: 1800,
+            priority: "P3",
+            status: "WAITING",
+            createdAt: "2026-09-20T08:40:00",
+            isCurrentUser: false
+        },
+
+
+        {
+            id: "CG-004",
+            name: "Emergency Relief Materials",
+            type: "Emergency Relief",
+            origin: "Imphal",
+            destination: "Kohima",
+            vehicle: "Relief Transport",
+            weight: 1200,
+            priority: "P1",
+            status: "NEXT",
+            createdAt: "2026-09-20T08:45:00",
+            isCurrentUser: false
+        },
+
+
+        {
+            id: "CG-005",
+            name: "Food Supplies",
+            type: "Food Supplies",
+            origin: "Agartala",
+            destination: "Aizawl",
+            vehicle: "Container Truck",
+            weight: 3200,
+            priority: "P2",
+            status: "WAITING",
+            createdAt: "2026-09-20T08:50:00",
+            isCurrentUser: false
+        }
+
+    ];
+
+}
+
+
+/* =========================================================
+   CURRENT USER CARGO
+========================================================= */
+
+function getCurrentCargoPortal() {
+
+    const list =
+        getCargoPortalList();
+
+
+    const login =
+        cargoReadStorage(
+            "cargoLogin",
+            null
+        );
+
+
+    if (login && login.vehicle) {
+
+        const matching =
+            list.find(function(item) {
+
+                return (
+
+                    String(item.vehicle || "")
+                        .toUpperCase() ===
+                    String(login.vehicle)
+                        .toUpperCase()
+
+                );
+
+            });
+
+
+        if (matching) {
+
+            matching.isCurrentUser = true;
+
+            return matching;
+
+        }
+
+    }
+
+
+    const marked =
+        list.find(function(item) {
+
+            return item.isCurrentUser === true;
+
+        });
+
+
+    return marked || list[1] || list[0];
+
+}
+
+
+/* =========================================================
+   QUEUE SORT
+========================================================= */
+
+function sortCargoQueue(list) {
+
+    return [...list].sort(function(a, b) {
+
+        const priorityA =
+            Number(
+                cargoPriority(a.priority)
+                    .replace("P", "")
+            );
+
+        const priorityB =
+            Number(
+                cargoPriority(b.priority)
+                    .replace("P", "")
+            );
+
+
+        if (priorityA !== priorityB) {
+
+            return priorityA - priorityB;
+
+        }
+
+
+        const dateA =
+            new Date(
+                a.createdAt || 0
+            ).getTime();
+
+
+        const dateB =
+            new Date(
+                b.createdAt || 0
+            ).getTime();
+
+
+        return dateA - dateB;
+
+    });
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function cleanCargoStatus(status) {
+
+    const value =
+        String(status || "WAITING")
+            .toUpperCase();
+
+
+    if (
+        value.includes("MOV") ||
+        value.includes("TRANSIT")
+    ) {
+
+        return "MOVING";
+
+    }
+
+
+    if (
+        value.includes("NEXT")
+    ) {
+
+        return "NEXT";
+
+    }
+
+
+    if (
+        value.includes("COMP")
+    ) {
+
+        return "COMPLETED";
+
+    }
+
+
+    return "WAITING";
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function cargoEscape(value) {
+
+    return String(value ?? "")
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   RENDER QUEUE
+========================================================= */
+
+function renderCargoPortalQueue() {
+
+    const container =
+        document.getElementById(
+            "cargoQueue"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const current =
+        getCurrentCargoPortal();
+
+
+    const list =
+        sortCargoQueue(
+            getCargoPortalList()
+        );
+
+
+    const currentId =
+        current
+            ? current.id
+            : "";
+
+
+    container.innerHTML =
+        list.map(function(item, index) {
+
+            const priority =
+                cargoPriority(
+                    item.priority
+                );
+
+
+            const status =
+                cleanCargoStatus(
+                    item.status
+                );
+
+
+            const isCurrent =
+                item.id === currentId;
+
+
+            const statusClass =
+                status === "MOVING"
+                    ? "cargo-status-moving"
+                    : "cargo-status-waiting";
+
+
+            const name =
+                isCurrent
+                    ? "Your " + (item.name || "Cargo")
+                    : item.name;
+
+
+            return `
+
+                <div class="
+                    cargo-queue-item
+                    ${isCurrent ? "you" : ""}
+                ">
+
+                    <div class="cargo-queue-number">
+                        ${index + 1}
+                    </div>
+
+
+                    <div class="cargo-queue-info">
+
+                        <div class="cargo-queue-name">
+
+                            ${cargoEscape(name)}
+
+                        </div>
+
+
+                        <div class="cargo-queue-route">
+
+                            ${cargoEscape(
+                                item.origin || "Northeast India"
+                            )}
+
+                            →
+
+                            ${cargoEscape(
+                                item.destination || "Northeast India"
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="cargo-queue-right">
+
+                        <span
+                            class="cargo-priority cargo-${priority.toLowerCase()}"
+                        >
+                            ${priority}
+                        </span>
+
+
+                        <span
+                            class="
+                                cargo-queue-status
+                                ${statusClass}
+                            "
+                        >
+                            ${status}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+   UPDATE DASHBOARD
+========================================================= */
+
+function updateCargoPortal() {
+
+    const cargo =
+        getCurrentCargoPortal();
+
+
+    if (!cargo) {
+
+        return;
+
+    }
+
+
+    const priority =
+        cargoPriority(
+            cargo.priority
+        );
+
+
+    const status =
+        cleanCargoStatus(
+            cargo.status
+        );
+
+
+    const queue =
+        sortCargoQueue(
+            getCargoPortalList()
+        );
+
+
+    let position =
+        queue.findIndex(function(item) {
+
+            return item.id === cargo.id;
+
+        });
+
+
+    if (position < 0) {
+
+        position = 1;
+
+    }
+
+
+    position += 1;
+
+
+    const ahead =
+        queue
+            .slice(0, position - 1);
+
+
+    const higherPriorityAhead =
+        ahead.filter(function(item) {
+
+            return Number(
+                cargoPriority(item.priority)
+                    .replace("P", "")
+            ) <
+            Number(
+                priority.replace("P", "")
+            );
+
+        });
+
+
+    const samePriorityAhead =
+        ahead.filter(function(item) {
+
+            return (
+
+                cargoPriority(item.priority) ===
+                priority
+
+            );
+
+        });
+
+
+    const aheadCount =
+        ahead.length;
+
+
+    const cargoTypeStat =
+        document.getElementById(
+            "cargoTypeStat"
+        );
+
+
+    const priorityStat =
+        document.getElementById(
+            "cargoPriorityStat"
+        );
+
+
+    const queueStat =
+        document.getElementById(
+            "cargoQueuePositionStat"
+        );
+
+
+    const statusStat =
+        document.getElementById(
+            "cargoStatusStat"
+        );
+
+
+    if (cargoTypeStat) {
+
+        cargoTypeStat.textContent =
+            cargo.type ||
+            cargo.name ||
+            "General Goods";
+
+    }
+
+
+    if (priorityStat) {
+
+        priorityStat.textContent =
+            priority;
+
+    }
+
+
+    if (queueStat) {
+
+        queueStat.textContent =
+            "#" + position;
+
+    }
+
+
+    if (statusStat) {
+
+        statusStat.textContent =
+            status.charAt(0) +
+            status.slice(1).toLowerCase();
+
+    }
+
+
+    const statusBadge =
+        document.getElementById(
+            "shipmentStatusBadge"
+        );
+
+
+    if (statusBadge) {
+
+        statusBadge.textContent =
+            status;
+
+    }
+
+
+    setCargoText(
+        "cargoOrigin",
+        cargo.origin || "Guwahati"
+    );
+
+
+    setCargoText(
+        "cargoDestination",
+        cargo.destination || "Shillong"
+    );
+
+
+    setCargoText(
+        "cargoName",
+        cargo.name || "Furniture"
+    );
+
+
+    setCargoText(
+        "cargoWeight",
+        (cargo.weight || 500) + " kg"
+    );
+
+
+    setCargoText(
+        "cargoVehicle",
+        cargo.vehicle || "AS01AB4521"
+    );
+
+
+    setCargoText(
+        "cargoAheadCount",
+        aheadCount +
+        (
+            aheadCount === 1
+                ? " shipment"
+                : " shipments"
+        )
+    );
+
+
+    setCargoText(
+        "estimatedQueuePosition",
+        "#" + position
+    );
+
+
+    setCargoText(
+        "cargoDetailsName",
+        cargo.name || "Furniture"
+    );
+
+
+    setCargoText(
+        "cargoDetailsType",
+        cargo.type || "General Goods"
+    );
+
+
+    setCargoText(
+        "cargoDetailsOrigin",
+        cargo.origin || "Guwahati"
+    );
+
+
+    setCargoText(
+        "cargoDetailsDestination",
+        cargo.destination || "Shillong"
+    );
+
+
+    setCargoText(
+        "cargoDetailsVehicle",
+        cargo.vehicle || "AS01AB4521"
+    );
+
+
+    setCargoText(
+        "cargoDetailsWeight",
+        (cargo.weight || 500) + " kg"
+    );
+
+
+    setCargoText(
+        "cargoDetailsStatus",
+        status
+    );
+
+
+    const priorityBadge =
+        document.getElementById(
+            "cargoPriorityBadge"
+        );
+
+
+    const detailsPriority =
+        document.getElementById(
+            "cargoDetailsPriority"
+        );
+
+
+    [priorityBadge, detailsPriority]
+        .forEach(function(element) {
+
+            if (!element) {
+
+                return;
+
+            }
+
+
+            element.textContent =
+                priority;
+
+
+            element.className =
+                "portal-badge cargo-" +
+                priority.toLowerCase();
+
+        });
+
+
+    let reason =
+        "";
+
+
+    if (higherPriorityAhead.length > 0) {
+
+        reason =
+            "Your shipment is waiting because " +
+            higherPriorityAhead.length +
+            " higher-priority shipment" +
+            (
+                higherPriorityAhead.length === 1
+                    ? ""
+                    : "s"
+            ) +
+            " is ahead in the queue. " +
+            priority +
+            " cargo is processed after higher-priority cargo.";
+
+    }
+
+    else if (samePriorityAhead.length > 0) {
+
+        reason =
+            "Your shipment is waiting because " +
+            samePriorityAhead.length +
+            " shipment" +
+            (
+                samePriorityAhead.length === 1
+                    ? ""
+                    : "s"
+            ) +
+            " with the same priority registered earlier. " +
+            "FCFS determines the order within the same priority level.";
+
+    }
+
+    else if (status === "MOVING") {
+
+        reason =
+            "Your shipment is currently moving through the transport network.";
+
+    }
+
+    else {
+
+        reason =
+            "Your shipment is next in the scheduling sequence.";
+
+    }
+
+
+    setCargoText(
+        "cargoWaitingReason",
+        reason
+    );
+
+
+    setCargoText(
+        "cargoWaitingTitle",
+
+        status === "MOVING"
+            ? "Your shipment is currently moving."
+            : status === "NEXT"
+                ? "Your shipment is next in the transport queue."
+                : "Your shipment is waiting in the transport queue."
+
+    );
+
+}
+
+
+/* =========================================================
+   SAFE TEXT
+========================================================= */
+
+function setCargoText(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.textContent =
+            value;
+
+    }
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderCargoHistory() {
+
+    const body =
+        document.getElementById(
+            "cargoHistoryBody"
+        );
+
+
+    if (!body) {
+
+        return;
+
+    }
+
+
+    let history =
+        cargoReadStorage(
+            "cargoShipmentHistory",
+            []
+        );
+
+
+    if (!Array.isArray(history)) {
+
+        history = [];
+
+    }
+
+
+    if (!history.length) {
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="4">
+
+                    No completed shipments yet.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML =
+        history
+            .slice(0, 10)
+            .map(function(item) {
+
+                const priority =
+                    cargoPriority(
+                        item.priority
+                    );
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+                            ${cargoEscape(
+                                item.name || "Cargo"
+                            )}
+                        </td>
+
+                        <td>
+                            ${cargoEscape(
+                                item.origin || ""
+                            )}
+                            →
+                            ${cargoEscape(
+                                item.destination || ""
+                            )}
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="
+                                    portal-badge
+                                    cargo-${priority.toLowerCase()}
+                                "
+                            >
+                                ${priority}
+                            </span>
+
+                        </td>
+
+                        <td>
+                            COMPLETED
+                        </td>
+
+                    </tr>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* =========================================================
+   SHIPMENT PLANNER
+========================================================= */
+
+function openShipmentPlanner() {
+
+    const modal =
+        document.getElementById(
+            "shipmentPlannerModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.add("open");
+
+    }
+
+}
+
+
+function closeShipmentPlanner() {
+
+    const modal =
+        document.getElementById(
+            "shipmentPlannerModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove("open");
+
+    }
+
+}
+
+
+/* =========================================================
+   SUBMIT SHIPMENT
+========================================================= */
+
+function submitShipmentPlan(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById(
+            "shipmentCargoName"
+        ).value.trim();
+
+
+    const type =
+        document.getElementById(
+            "shipmentCargoType"
+        ).value;
+
+
+    const origin =
+        document.getElementById(
+            "shipmentOrigin"
+        ).value;
+
+
+    const destination =
+        document.getElementById(
+            "shipmentDestination"
+        ).value;
+
+
+    const vehicle =
+        document.getElementById(
+            "shipmentVehicle"
+        ).value.trim();
+
+
+    const weight =
+        Number(
+            document.getElementById(
+                "shipmentWeight"
+            ).value
+        );
+
+
+    const priority =
+        document.getElementById(
+            "shipmentPriority"
+        ).value;
+
+
+    if (
+        !name ||
+        !type ||
+        !origin ||
+        !destination ||
+        !vehicle ||
+        !weight
+    ) {
+
+        alert(
+            "Please complete all required shipment details."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        origin.toLowerCase() ===
+        destination.toLowerCase()
+    ) {
+
+        alert(
+            "Origin and destination cannot be the same."
+        );
+
+        return;
+
+    }
+
+
+    const currentList =
+        getCargoPortalList();
+
+
+    const newId =
+        "CG-" +
+        String(
+            currentList.length + 1
+        ).padStart(3, "0");
+
+
+    const shipment = {
+
+        id: newId,
+
+        name: name,
+
+        type: type,
+
+        origin: origin,
+
+        destination: destination,
+
+        vehicle: vehicle,
+
+        weight: weight,
+
+        priority: priority,
+
+        status:
+            priority === "P1"
+                ? "NEXT"
+                : "WAITING",
+
+        createdAt:
+            new Date().toISOString(),
+
+        isCurrentUser: true
+
+    };
+
+
+    const updated =
+        currentList.map(function(item) {
+
+            return {
+
+                ...item,
+
+                isCurrentUser: false
+
+            };
+
+        });
+
+
+    updated.push(shipment);
+
+
+    localStorage.setItem(
+        "cargoShipments",
+        JSON.stringify(updated)
+    );
+
+
+    localStorage.setItem(
+        "cargoData",
+        JSON.stringify(updated)
+    );
+
+
+    localStorage.setItem(
+        "selectedRoute",
+        JSON.stringify({
+
+            origin: origin,
+
+            destination: destination,
+
+            transportType: "Cargo",
+
+            cargoType: type,
+
+            priority: priority
+
+        })
+    );
+
+
+    closeShipmentPlanner();
+
+
+    document
+        .getElementById(
+            "shipmentPlannerForm"
+        )
+        .reset();
+
+
+    document.getElementById(
+        "shipmentVehicle"
+    ).value =
+        vehicle;
+
+
+    updateCargoPortal();
+
+    renderCargoPortalQueue();
+
+    renderCargoHistory();
+
+
+    alert(
+        "Shipment " +
+        newId +
+        " added successfully.\n\n" +
+        "Priority: " +
+        priority +
+        "\n" +
+        "Scheduling: Priority Scheduling + FCFS"
+    );
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function showCargoNotifications() {
+
+    const reports =
+        cargoReadStorage(
+            "sosReports",
+            []
+        );
+
+
+    const active =
+        Array.isArray(reports)
+            ? reports.filter(function(item) {
+
+                return String(
+                    item.status || ""
+                ).toLowerCase() === "active";
+
+            }).length
+            : 0;
+
+
+    const message =
+        active > 0
+
+            ? "You have " +
+              active +
+              " active emergency report" +
+              (
+                active === 1
+                    ? "."
+                    : "s."
+              )
+
+            : "No new cargo notifications.";
+
+
+    if (
+        typeof showNotification ===
+        "function"
+    ) {
+
+        showNotification(
+            message
+        );
+
+    }
+
+    else {
+
+        alert(message);
+
+    }
+
+}
+
+
+/* =========================================================
+   GPS FOR SOS
+========================================================= */
+
+function captureCargoSOSLocation() {
+
+    const input =
+        document.getElementById(
+            "sosLocation"
+        );
+
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+    if (
+        !navigator.geolocation
+    ) {
+
+        alert(
+            "GPS is not available on this device."
+        );
+
+        return;
+
+    }
+
+
+    input.value =
+        "Getting current location...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const latitude =
+                position.coords.latitude;
+
+
+            const longitude =
+                position.coords.longitude;
+
+
+            input.value =
+                "GPS: " +
+                latitude.toFixed(6) +
+                ", " +
+                longitude.toFixed(6);
+
+
+            input.dataset.latitude =
+                latitude;
+
+
+            input.dataset.longitude =
+                longitude;
+
+        },
+
+
+        function() {
+
+            input.value = "";
+
+            alert(
+                "Unable to capture GPS location. Please enter the location manually."
+            );
+
+        },
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 10000,
+
+            maximumAge: 30000
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        updateCargoPortal();
+
+        renderCargoPortalQueue();
+
+        renderCargoHistory();
+
+
+        const login =
+            cargoReadStorage(
+                "cargoLogin",
+                null
+            );
+
+
+        if (
+            login &&
+            login.vehicle
+        ) {
+
+            setCargoText(
+                "cargoProfileName",
+                "Cargo · " +
+                login.vehicle
+            );
+
+
+            setCargoText(
+                "cargoProfileInitial",
+                "C"
+            );
+
+        }
+
+
+        /*
+         * Save default demo data only
+         * if no cargo data exists.
+         */
+
+        if (
+            !localStorage.getItem(
+                "cargoShipments"
+            ) &&
+            !localStorage.getItem(
+                "cargoData"
+            )
+        ) {
+
+            localStorage.setItem(
+                "cargoShipments",
+                JSON.stringify(
+                    getCargoPortalList()
+                )
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   EMERGENCY EVENT REFRESH
+========================================================= */
+
+window.addEventListener(
+    "smartTransportEmergencyCreated",
+    function() {
+
+        setTimeout(
+            function() {
+
+                updateCargoPortal();
+
+                renderCargoPortalQueue();
+
+            },
+            100
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE MODALS ON OUTSIDE CLICK
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const planner =
+            document.getElementById(
+                "shipmentPlannerModal"
+            );
+
+
+        const sos =
+            document.getElementById(
+                "sosModal"
+            );
+
+
+        if (
+            planner &&
+            event.target === planner
+        ) {
+
+            closeShipmentPlanner();
+
+        }
+
+
+        if (
+            sos &&
+            event.target === sos
+        ) {
+
+            closeSOS();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SERVICE WORKER
+========================================================= */
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            navigator.serviceWorker
+                .register(
+                    "./service/service-worker.js"
+                )
+                .catch(function(error) {
+
+                    console.warn(
+                        "Service worker registration failed:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
+
+</script>
+<script src="js/api.js"></script>
+</body>
+
+</html>

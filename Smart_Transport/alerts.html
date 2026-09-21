@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alerts | Smart Transport</title>
+
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#124E70">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Smart Transport">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/portal-ui.css">
+</head>
+
+<body>
+
+<div class="portal-shell">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+    <aside class="portal-sidebar" id="portalSidebar">
+
+        <div class="portal-brand">
+            <div class="portal-brand-logo">
+                <img src="images/logo.png" alt="Smart Transport">
+            </div>
+
+            <div>
+                <strong>SMART TRANSPORT</strong>
+                <span>Government Transport Platform</span>
+            </div>
+        </div>
+
+        <nav class="portal-nav">
+
+            <a href="travellers.html">
+                <span class="nav-icon">⌂</span>
+                <span>Traveller Portal</span>
+            </a>
+
+            <a href="cargo.html">
+                <span class="nav-icon">▣</span>
+                <span>Cargo Portal</span>
+            </a>
+
+            <a href="live-map.html">
+                <span class="nav-icon">⌖</span>
+                <span>Live Transport Map</span>
+            </a>
+
+            <a href="alerts.html" class="active">
+                <span class="nav-icon">⚠</span>
+                <span>Alerts</span>
+                <span class="nav-badge" id="alertCount">3</span>
+            </a>
+
+            <a href="schedule.html">
+                <span class="nav-icon">◷</span>
+                <span>Transport Schedule</span>
+            </a>
+
+            <a href="analysis.html">
+                <span class="nav-icon">◈</span>
+                <span>AI Travel Analysis</span>
+            </a>
+
+            <a href="reports.html">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-emergency">
+            <div class="sidebar-emergency-title">
+                Emergency Support
+            </div>
+
+            <div class="sidebar-emergency-text">
+                Report an accident, road blockage or urgent transport issue.
+            </div>
+
+            <button class="btn btn-danger btn-full" onclick="openSOS()">
+                🚨 REPORT EMERGENCY
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+    <main class="portal-main">
+
+        <!-- HEADER -->
+        <header class="portal-header">
+
+            <div class="portal-header-left">
+
+                <button
+                    class="portal-menu-btn"
+                    id="portalMenuBtn"
+                    onclick="togglePortalSidebar()"
+                    aria-label="Open menu">
+                    ☰
+                </button>
+
+                <div>
+                    <div class="portal-page-title">
+                        TRANSPORT ALERTS
+                    </div>
+
+                    <div class="portal-page-subtitle">
+                        Northeast India • Real-time transport notifications
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="portal-header-right">
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    System Online
+                </div>
+
+                <button
+                    class="portal-header-icon"
+                    onclick="showAlertSummary()"
+                    title="Notifications">
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="portal-profile">
+                    <div class="profile-avatar">
+                        ST
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>Transport User</strong>
+                        <span>Connected</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             PAGE CONTENT
+        ========================== -->
+        <section class="portal-content">
+
+            <div class="page-intro">
+
+                <div>
+                    <span class="eyebrow">
+                        LIVE INFORMATION
+                    </span>
+
+                    <h1>
+                        Transport Alerts
+                    </h1>
+
+                    <p>
+                        Monitor route conditions, weather warnings,
+                        road disruptions and emergency transport updates
+                        across Northeast India.
+                    </p>
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="refreshAlerts()">
+                    ↻ Refresh Alerts
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 ALERT SUMMARY
+            ========================== -->
+            <div class="portal-grid portal-grid-4">
+
+                <div class="portal-stat-card">
+                    <div class="stat-icon warning">
+                        ⚠
+                    </div>
+
+                    <div>
+                        <span class="stat-label">
+                            Active Alerts
+                        </span>
+
+                        <strong id="activeAlertCount">
+                            3
+                        </strong>
+                    </div>
+                </div>
+
+
+                <div class="portal-stat-card">
+                    <div class="stat-icon danger">
+                        !
+                    </div>
+
+                    <div>
+                        <span class="stat-label">
+                            Critical
+                        </span>
+
+                        <strong id="criticalAlertCount">
+                            1
+                        </strong>
+                    </div>
+                </div>
+
+
+                <div class="portal-stat-card">
+                    <div class="stat-icon blue">
+                        ☁
+                    </div>
+
+                    <div>
+                        <span class="stat-label">
+                            Weather Alerts
+                        </span>
+
+                        <strong>
+                            1
+                        </strong>
+                    </div>
+                </div>
+
+
+                <div class="portal-stat-card">
+                    <div class="stat-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+                        <span class="stat-label">
+                            Routes Monitored
+                        </span>
+
+                        <strong>
+                            18
+                        </strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 CURRENT ALERTS
+            ========================== -->
+            <div class="portal-card">
+
+                <div class="card-heading">
+
+                    <div>
+                        <span class="eyebrow">
+                            CURRENT CONDITIONS
+                        </span>
+
+                        <h2>
+                            Active Transport Alerts
+                        </h2>
+                    </div>
+
+                    <span class="live-pill">
+                        ● LIVE
+                    </span>
+
+                </div>
+
+
+                <div class="alert-list" id="alertList">
+
+                    <!-- CRITICAL ALERT -->
+                    <article class="transport-alert critical">
+
+                        <div class="alert-severity-icon">
+                            !
+                        </div>
+
+                        <div class="alert-content">
+
+                            <div class="alert-topline">
+
+                                <div>
+                                    <span class="alert-type critical-badge">
+                                        CRITICAL
+                                    </span>
+
+                                    <h3>
+                                        NH-29 Route Disruption
+                                    </h3>
+                                </div>
+
+                                <span class="alert-time">
+                                    8 min ago
+                                </span>
+
+                            </div>
+
+                            <p>
+                                Temporary transport restriction reported
+                                near the Dimapur–Kohima corridor.
+                                Travellers and cargo operators should
+                                review the route before departure.
+                            </p>
+
+                            <div class="alert-meta">
+
+                                <span>
+                                    📍 Dimapur → Kohima
+                                </span>
+
+                                <span>
+                                    🚛 Cargo & Traveller
+                                </span>
+
+                                <span>
+                                    🔄 Route analysis recommended
+                                </span>
+
+                            </div>
+
+                            <button
+                                class="btn btn-small btn-outline"
+                                onclick="viewAlertRoute('Dimapur','Kohima')">
+                                View Route
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- WEATHER ALERT -->
+                    <article class="transport-alert warning">
+
+                        <div class="alert-severity-icon">
+                            ⚠
+                        </div>
+
+                        <div class="alert-content">
+
+                            <div class="alert-topline">
+
+                                <div>
+                                    <span class="alert-type warning-badge">
+                                        WEATHER
+                                    </span>
+
+                                    <h3>
+                                        Heavy Rainfall Advisory
+                                    </h3>
+                                </div>
+
+                                <span class="alert-time">
+                                    22 min ago
+                                </span>
+
+                            </div>
+
+                            <p>
+                                Heavy rainfall conditions reported around
+                                Cherrapunji and Shillong. Reduced visibility
+                                and slower travel conditions may occur.
+                            </p>
+
+                            <div class="alert-meta">
+
+                                <span>
+                                    📍 Shillong / Cherrapunji
+                                </span>
+
+                                <span>
+                                    🌧 Weather
+                                </span>
+
+                                <span>
+                                    ⚠ Exercise caution
+                                </span>
+
+                            </div>
+
+                            <button
+                                class="btn btn-small btn-outline"
+                                onclick="viewAlertRoute('Shillong','Cherrapunji')">
+                                Analyse Route
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- INFORMATION ALERT -->
+                    <article class="transport-alert information">
+
+                        <div class="alert-severity-icon">
+                            i
+                        </div>
+
+                        <div class="alert-content">
+
+                            <div class="alert-topline">
+
+                                <div>
+                                    <span class="alert-type info-badge">
+                                        INFORMATION
+                                    </span>
+
+                                    <h3>
+                                        Transport Corridor Update
+                                    </h3>
+                                </div>
+
+                                <span class="alert-time">
+                                    1 hr ago
+                                </span>
+
+                            </div>
+
+                            <p>
+                                Transport movement between Guwahati and
+                                Dibrugarh is currently operating normally.
+                                No major restrictions are reported.
+                            </p>
+
+                            <div class="alert-meta">
+
+                                <span>
+                                    📍 Guwahati → Dibrugarh
+                                </span>
+
+                                <span>
+                                    ✓ Normal movement
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 ALERT CATEGORIES
+            ========================== -->
+            <div class="portal-grid portal-grid-3">
+
+                <div class="portal-card">
+
+                    <div class="card-heading">
+                        <h2>Road Conditions</h2>
+                        <span class="badge badge-warning">
+                            1 Alert
+                        </span>
+                    </div>
+
+                    <div class="info-list">
+
+                        <div class="info-row">
+                            <span>NH-29</span>
+                            <strong class="text-danger">
+                                Restricted
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>NH-6</span>
+                            <strong class="text-warning">
+                                Caution
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>NH-27</span>
+                            <strong class="text-success">
+                                Normal
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="portal-card">
+
+                    <div class="card-heading">
+                        <h2>Weather</h2>
+                        <span class="badge badge-warning">
+                            1 Alert
+                        </span>
+                    </div>
+
+                    <div class="info-list">
+
+                        <div class="info-row">
+                            <span>Shillong</span>
+                            <strong>
+                                Heavy Rain
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Guwahati</span>
+                            <strong class="text-success">
+                                Clear
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Imphal</span>
+                            <strong class="text-success">
+                                Normal
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="portal-card">
+
+                    <div class="card-heading">
+                        <h2>Emergency Reports</h2>
+                        <span class="badge badge-danger">
+                            1 Active
+                        </span>
+                    </div>
+
+                    <div class="info-list">
+
+                        <div class="info-row">
+                            <span>Active SOS</span>
+                            <strong class="text-danger">
+                                1
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Resolved Today</span>
+                            <strong>
+                                4
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Response Status</span>
+                            <strong class="text-success">
+                                Monitoring
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 ROUTE SAFETY NOTICE
+            ========================== -->
+            <div class="portal-card route-safety-card">
+
+                <div class="route-safety-icon">
+                    🛣
+                </div>
+
+                <div class="route-safety-content">
+
+                    <span class="eyebrow">
+                        SMART ROUTE MONITORING
+                    </span>
+
+                    <h2>
+                        Check conditions before starting your journey
+                    </h2>
+
+                    <p>
+                        Smart Transport combines route information,
+                        weather conditions and transport alerts to help
+                        travellers and cargo operators understand current
+                        journey conditions.
+                    </p>
+
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="window.location.href='live-map.html'">
+                    Open Live Map
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 EMERGENCY STRIP
+            ========================== -->
+            <div class="emergency-strip">
+
+                <div class="emergency-strip-icon">
+                    🚨
+                </div>
+
+                <div class="emergency-strip-content">
+
+                    <strong>
+                        Facing an emergency?
+                    </strong>
+
+                    <span>
+                        Report an accident, road blockage or urgent
+                        transport situation.
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn btn-danger"
+                    onclick="openSOS()">
+                    REPORT EMERGENCY
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     SOS MODAL
+========================== -->
+<div
+    class="portal-modal"
+    id="sosModal"
+    aria-hidden="true">
+
+    <div
+        class="portal-modal-backdrop"
+        onclick="closeSOS()">
+    </div>
+
+    <div class="portal-modal-box">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="eyebrow">
+                    EMERGENCY SERVICE
+                </span>
+
+                <h2>
+                    Report Emergency
+                </h2>
+            </div>
+
+            <button
+                class="modal-close"
+                onclick="closeSOS()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="sosForm"
+            onsubmit="submitSOS(event)">
+
+            <div class="form-group">
+
+                <label for="sosIncident">
+                    Incident Type
+                </label>
+
+                <select id="sosIncident" required>
+
+                    <option value="">
+                        Select incident
+                    </option>
+
+                    <option value="Accident">
+                        Road Accident
+                    </option>
+
+                    <option value="Road Blockage">
+                        Road Blockage
+                    </option>
+
+                    <option value="Vehicle Breakdown">
+                        Vehicle Breakdown
+                    </option>
+
+                    <option value="Medical Emergency">
+                        Medical Emergency
+                    </option>
+
+                    <option value="Other">
+                        Other Emergency
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosLocation">
+                    Location
+                </label>
+
+                <div class="input-with-action">
+
+                    <input
+                        type="text"
+                        id="sosLocation"
+                        placeholder="Enter location or capture GPS"
+                        required>
+
+                    <button
+                        type="button"
+                        class="btn btn-small btn-outline"
+                        onclick="captureSOSLocation()">
+                        📍 GPS
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="sosDescription"
+                    rows="4"
+                    placeholder="Describe the emergency..."></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosPhoto">
+                    Supporting Photo
+                </label>
+
+                <input
+                    type="file"
+                    id="sosPhoto"
+                    accept="image/*">
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="closeSOS()">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-danger">
+                    🚨 Submit Emergency
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     PAGE SCRIPT
+========================== -->
+<script src="js/app.js"></script>
+<script src="js/emergency.js"></script>
+<script src="js/languages.js"></script>
+
+<script>
+
+function refreshAlerts() {
+
+    const button = event && event.currentTarget;
+
+    if (button) {
+        const original = button.innerHTML;
+
+        button.innerHTML = "↻ Updating...";
+        button.disabled = true;
+
+        setTimeout(function () {
+            button.innerHTML = "✓ Updated";
+            
+            setTimeout(function () {
+                button.innerHTML = original;
+                button.disabled = false;
+            }, 1000);
+
+        }, 700);
+    }
+
+}
+
+
+function showAlertSummary() {
+
+    alert(
+        "Transport Alert Summary\n\n" +
+        "Active Alerts: 3\n" +
+        "Critical: 1\n" +
+        "Weather: 1\n" +
+        "Information: 1"
+    );
+
+}
+
+
+function viewAlertRoute(origin, destination) {
+
+    localStorage.setItem(
+        "selectedRoute",
+        JSON.stringify({
+            origin: origin,
+            destination: destination,
+            source: "transport-alert"
+        })
+    );
+
+    window.location.href = "live-map.html";
+
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const alerts = document.querySelectorAll(".transport-alert");
+
+    const activeCount = document.getElementById("activeAlertCount");
+    const criticalCount = document.getElementById("criticalAlertCount");
+    const sidebarCount = document.getElementById("alertCount");
+
+    if (activeCount) {
+        activeCount.textContent = alerts.length;
+    }
+
+    if (criticalCount) {
+        criticalCount.textContent =
+            document.querySelectorAll(".transport-alert.critical").length;
+    }
+
+    if (sidebarCount) {
+        sidebarCount.textContent = alerts.length;
+    }
+
+});
+
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function () {
+
+        navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(function (registration) {
+
+                console.log(
+                    "Smart Transport Service Worker registered:",
+                    registration.scope
+                );
+
+            })
+            .catch(function (error) {
+
+                console.error(
+                    "Service Worker registration failed:",
+                    error
+                );
+
+            });
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

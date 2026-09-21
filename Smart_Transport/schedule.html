@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transport Schedule | Smart Transport</title>
+
+    <link rel="manifest" href="./manifest.json">
+
+    <meta name="theme-color" content="#124E70">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Smart Transport">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/portal-ui.css">
+
+
+    <style>
+
+        /* =====================================================
+           SCHEDULE PAGE
+        ====================================================== */
+
+        .schedule-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(300px, .8fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+
+        .schedule-queue {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+
+        .schedule-queue-item {
+            display: grid;
+            grid-template-columns: 42px minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,.07);
+            background: rgba(255,255,255,.025);
+        }
+
+
+        .schedule-queue-item.current {
+            border-color: rgba(46,125,50,.35);
+            background: rgba(46,125,50,.07);
+        }
+
+
+        .schedule-queue-item.waiting {
+            border-color: rgba(245,158,11,.18);
+        }
+
+
+        .queue-position {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            background: rgba(18,78,112,.18);
+            color: #8fc9e8;
+        }
+
+
+        .queue-position.priority-one {
+            background: rgba(214,40,40,.15);
+            color: #ed8585;
+        }
+
+
+        .queue-main strong {
+            display: block;
+            color: #e8f1f4;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+
+        .queue-main span {
+            display: block;
+            color: #91a5af;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+
+        .queue-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 7px;
+        }
+
+
+        .priority-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 9px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+
+        .priority-p1 {
+            background: rgba(214,40,40,.13);
+            color: #ed8585;
+        }
+
+
+        .priority-p2 {
+            background: rgba(245,158,11,.13);
+            color: #f6c96f;
+        }
+
+
+        .priority-p3 {
+            background: rgba(18,78,112,.15);
+            color: #8fc9e8;
+        }
+
+
+        .queue-status {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+
+        .queue-status strong {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+
+        .queue-status span {
+            color: #82969f;
+            font-size: 10px;
+        }
+
+
+        .status-moving {
+            color: #82d58a !important;
+        }
+
+
+        .status-waiting {
+            color: #f6c96f !important;
+        }
+
+
+        .status-ready {
+            color: #8fc9e8 !important;
+        }
+
+
+        .algorithm-box {
+            padding: 18px;
+            border-radius: 12px;
+            background: rgba(18,78,112,.09);
+            border: 1px solid rgba(18,78,112,.25);
+            border-left: 4px solid #124E70;
+        }
+
+
+        .algorithm-box strong {
+            display: block;
+            color: #e6f0f4;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+
+        .algorithm-box p {
+            margin: 0;
+            color: #a8bbc4;
+            font-size: 12px;
+            line-height: 1.65;
+        }
+
+
+        .rule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+
+        .rule-item {
+            padding: 13px;
+            border-radius: 10px;
+            background: rgba(255,255,255,.025);
+            border: 1px solid rgba(255,255,255,.06);
+        }
+
+
+        .rule-item strong {
+            display: block;
+            color: #e3edf1;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+
+        .rule-item span {
+            color: #95a9b3;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+
+        .scheduler-test {
+            margin-top: 18px;
+            padding: 17px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.025);
+            border: 1px solid rgba(255,255,255,.07);
+        }
+
+
+        .scheduler-test h3 {
+            margin: 0 0 6px;
+            font-size: 14px;
+        }
+
+
+        .scheduler-test p {
+            margin: 0;
+            color: #96aab3;
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+
+        .scheduler-input {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 9px;
+            margin-top: 13px;
+        }
+
+
+        .scheduler-input input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.10);
+            background: rgba(255,255,255,.04);
+            color: #eaf2f6;
+            outline: none;
+        }
+
+
+        .scheduler-input input:focus {
+            border-color: #277aa3;
+        }
+
+
+        .algorithm-result {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 9px;
+            background: rgba(18,78,112,.09);
+            color: #b9cbd3;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+
+        .algorithm-result strong {
+            color: #eaf2f6;
+        }
+
+
+        .decision-card {
+            margin-top: 20px;
+        }
+
+
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+
+        .decision-step {
+            padding: 16px;
+            border-radius: 11px;
+            background: rgba(255,255,255,.025);
+            border: 1px solid rgba(255,255,255,.07);
+        }
+
+
+        .decision-number {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            background: rgba(18,78,112,.16);
+            color: #91d0ee;
+            font-weight: 800;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+
+        .decision-step strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+
+        .decision-step p {
+            margin: 0;
+            color: #93a7b1;
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+
+        .schedule-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+
+        .schedule-mini-card {
+            padding: 17px;
+        }
+
+
+        .schedule-mini-card .mini-icon {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(18,78,112,.13);
+            color: #91d0ee;
+            margin-bottom: 12px;
+        }
+
+
+        .schedule-mini-card strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+
+        .schedule-mini-card span {
+            color: #92a6af;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+
+        @media (max-width: 1050px) {
+
+            .schedule-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .schedule-queue-item {
+                grid-template-columns: 38px minmax(0, 1fr);
+            }
+
+            .queue-status {
+                grid-column: 2;
+                text-align: left;
+            }
+
+            .decision-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scheduler-input {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="portal-shell">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="portal-sidebar" id="portalSidebar">
+
+        <div class="portal-brand">
+
+            <div class="portal-brand-logo">
+                <img src="images/logo.png" alt="Smart Transport">
+            </div>
+
+            <div>
+                <strong>SMART TRANSPORT</strong>
+                <span>Government Transport Platform</span>
+            </div>
+
+        </div>
+
+
+        <nav class="portal-nav">
+
+            <a href="travellers.html">
+                <span class="nav-icon">⌂</span>
+                <span>Traveller Portal</span>
+            </a>
+
+            <a href="cargo.html">
+                <span class="nav-icon">▣</span>
+                <span>Cargo Portal</span>
+            </a>
+
+            <a href="live-map.html">
+                <span class="nav-icon">⌖</span>
+                <span>Live Transport Map</span>
+            </a>
+
+            <a href="alerts.html">
+                <span class="nav-icon">⚠</span>
+                <span>Alerts</span>
+                <span class="nav-badge">3</span>
+            </a>
+
+            <a href="schedule.html" class="active">
+                <span class="nav-icon">◷</span>
+                <span>Transport Schedule</span>
+            </a>
+
+            <a href="analysis.html">
+                <span class="nav-icon">◈</span>
+                <span>AI Travel Analysis</span>
+            </a>
+
+            <a href="reports.html">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-emergency">
+
+            <div class="sidebar-emergency-title">
+                Emergency Support
+            </div>
+
+            <div class="sidebar-emergency-text">
+                Report an accident, road blockage or urgent transport issue.
+            </div>
+
+            <button
+                class="btn btn-danger btn-full"
+                onclick="openSOS()">
+                🚨 REPORT EMERGENCY
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="portal-main">
+
+
+        <!-- HEADER -->
+
+        <header class="portal-header">
+
+            <div class="portal-header-left">
+
+                <button
+                    class="portal-menu-btn"
+                    id="portalMenuBtn"
+                    onclick="togglePortalSidebar()"
+                    aria-label="Open menu">
+                    ☰
+                </button>
+
+                <div>
+
+                    <div class="portal-page-title">
+                        TRANSPORT SCHEDULING
+                    </div>
+
+                    <div class="portal-page-subtitle">
+                        Priority-aware transport allocation • Northeast India
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-header-right">
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    System Online
+                </div>
+
+                <button
+                    class="portal-header-icon"
+                    onclick="showScheduleNotification()"
+                    title="Notifications">
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="portal-profile">
+
+                    <div class="profile-avatar">
+                        ST
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>Transport Scheduler</strong>
+                        <span>Priority Engine</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <section class="portal-content">
+
+
+            <!-- INTRO -->
+
+            <div class="page-intro">
+
+                <div>
+
+                    <span class="eyebrow">
+                        SMART SCHEDULING
+                    </span>
+
+                    <h1>
+                        Transport Schedule
+                    </h1>
+
+                    <p>
+                        Manage transport movement using priority-based
+                        scheduling with FCFS handling for equal-priority
+                        requests.
+                    </p>
+
+                </div>
+
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    Scheduling Engine Active
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 KPI
+            ================================================== -->
+
+            <div class="schedule-info-grid">
+
+
+                <div class="portal-card schedule-mini-card">
+
+                    <div class="mini-icon">
+                        ◷
+                    </div>
+
+                    <strong>
+                        Queue Position
+                    </strong>
+
+                    <span>
+                        3 active transport requests currently waiting.
+                    </span>
+
+                </div>
+
+
+                <div class="portal-card schedule-mini-card">
+
+                    <div class="mini-icon">
+                        P1
+                    </div>
+
+                    <strong>
+                        Priority Requests
+                    </strong>
+
+                    <span>
+                        Emergency and critical cargo are processed first.
+                    </span>
+
+                </div>
+
+
+                <div class="portal-card schedule-mini-card">
+
+                    <div class="mini-icon">
+                        15
+                    </div>
+
+                    <strong>
+                        Decision Window
+                    </strong>
+
+                    <span>
+                        A 15-minute gap determines scheduling behaviour.
+                    </span>
+
+                </div>
+
+
+                <div class="portal-card schedule-mini-card">
+
+                    <div class="mini-icon">
+                        ✓
+                    </div>
+
+                    <strong>
+                        Scheduling Status
+                    </strong>
+
+                    <span>
+                        Priority engine is currently operational.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 QUEUE + DECISION
+            ================================================== -->
+
+            <div class="schedule-layout" style="margin-top:20px;">
+
+
+                <!-- QUEUE -->
+
+                <div class="portal-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                CURRENT QUEUE
+                            </span>
+
+                            <h2>
+                                Northeast Transport Queue
+                            </h2>
+
+                        </div>
+
+                        <span class="badge badge-success">
+                            LIVE
+                        </span>
+
+                    </div>
+
+
+                    <p class="section-description">
+                        Current transport requests are arranged according
+                        to priority and scheduling rules.
+                    </p>
+
+
+                    <div class="schedule-queue">
+
+
+                        <!-- 1 -->
+
+                        <div class="schedule-queue-item current">
+
+                            <div class="queue-position priority-one">
+                                1
+                            </div>
+
+
+                            <div class="queue-main">
+
+                                <strong>
+                                    Emergency Medical Supplies
+                                </strong>
+
+                                <span>
+                                    Guwahati → Shillong
+                                </span>
+
+                                <div class="queue-tags">
+
+                                    <span class="priority-badge priority-p1">
+                                        P1 • CRITICAL
+                                    </span>
+
+                                    <span class="priority-badge priority-p1">
+                                        EMERGENCY
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="queue-status">
+
+                                <strong class="status-moving">
+                                    MOVING
+                                </strong>
+
+                                <span>
+                                    Vehicle dispatched
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- 2 -->
+
+                        <div class="schedule-queue-item waiting">
+
+                            <div class="queue-position">
+                                2
+                            </div>
+
+
+                            <div class="queue-main">
+
+                                <strong>
+                                    Emergency Relief Materials
+                                </strong>
+
+                                <span>
+                                    Imphal → Kohima
+                                </span>
+
+                                <div class="queue-tags">
+
+                                    <span class="priority-badge priority-p1">
+                                        P1 • CRITICAL
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="queue-status">
+
+                                <strong class="status-ready">
+                                    NEXT
+                                </strong>
+
+                                <span>
+                                    Awaiting vehicle
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- 3 -->
+
+                        <div class="schedule-queue-item waiting">
+
+                            <div class="queue-position">
+                                3
+                            </div>
+
+
+                            <div class="queue-main">
+
+                                <strong>
+                                    Your Furniture Shipment
+                                </strong>
+
+                                <span>
+                                    Guwahati → Dimapur
+                                </span>
+
+                                <div class="queue-tags">
+
+                                    <span class="priority-badge priority-p3">
+                                        P3 • STANDARD
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="queue-status">
+
+                                <strong class="status-waiting">
+                                    WAITING
+                                </strong>
+
+                                <span>
+                                    P1 cargo ahead
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- 4 -->
+
+                        <div class="schedule-queue-item waiting">
+
+                            <div class="queue-position">
+                                4
+                            </div>
+
+
+                            <div class="queue-main">
+
+                                <strong>
+                                    General Goods
+                                </strong>
+
+                                <span>
+                                    Shillong → Tura
+                                </span>
+
+                                <div class="queue-tags">
+
+                                    <span class="priority-badge priority-p3">
+                                        P3 • STANDARD
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="queue-status">
+
+                                <strong class="status-waiting">
+                                    WAITING
+                                </strong>
+
+                                <span>
+                                    Equal priority → FCFS
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- DECISION -->
+
+                <div class="portal-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                SCHEDULING DECISION
+                            </span>
+
+                            <h2>
+                                Active Algorithm
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="algorithm-box">
+
+                        <strong id="selectedAlgorithm">
+                            Priority Scheduling
+                        </strong>
+
+                        <p id="algorithmReason">
+                            A higher-priority transport request is
+                            currently ahead in the queue.
+                        </p>
+
+                    </div>
+
+
+                    <div class="rule-list">
+
+
+                        <div class="rule-item">
+
+                            <strong>
+                                Priority 1
+                            </strong>
+
+                            <span>
+                                Emergency, critical and essential
+                                transport requirements.
+                            </span>
+
+                        </div>
+
+
+                        <div class="rule-item">
+
+                            <strong>
+                                Priority 2
+                            </strong>
+
+                            <span>
+                                Important cargo and time-sensitive
+                                transport requirements.
+                            </span>
+
+                        </div>
+
+
+                        <div class="rule-item">
+
+                            <strong>
+                                Priority 3
+                            </strong>
+
+                            <span>
+                                Standard traveller and normal cargo
+                                movement.
+                            </span>
+
+                        </div>
+
+
+                        <div class="rule-item">
+
+                            <strong>
+                                Equal Priority
+                            </strong>
+
+                            <span>
+                                FCFS — First Come, First Served —
+                                determines the order.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 15 MINUTE RULE
+            ================================================== -->
+
+            <div class="portal-card decision-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            DECISION LOGIC
+                        </span>
+
+                        <h2>
+                            15-Minute Scheduling Rule
+                        </h2>
+
+                    </div>
+
+                    <span class="badge badge-blue">
+                        CONFIGURED WINDOW
+                    </span>
+
+                </div>
+
+
+                <div class="decision-grid">
+
+
+                    <div class="decision-step">
+
+                        <div class="decision-number">
+                            01
+                        </div>
+
+                        <strong>
+                            Check Vehicle Gap
+                        </strong>
+
+                        <p>
+                            The scheduler checks the time gap between
+                            the current and next available transport.
+                        </p>
+
+                    </div>
+
+
+                    <div class="decision-step">
+
+                        <div class="decision-number">
+                            02
+                        </div>
+
+                        <strong>
+                            Apply Scheduling Rule
+                        </strong>
+
+                        <p>
+                            A gap of 15 minutes or less activates
+                            priority-aware scheduling.
+                        </p>
+
+                    </div>
+
+
+                    <div class="decision-step">
+
+                        <div class="decision-number">
+                            03
+                        </div>
+
+                        <strong>
+                            Equal Priority → FCFS
+                        </strong>
+
+                        <p>
+                            Requests with the same priority retain
+                            chronological order.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TEST -->
+
+                <div class="scheduler-test">
+
+                    <h3>
+                        Test Scheduling Decision
+                    </h3>
+
+                    <p>
+                        Enter the gap between the current vehicle and
+                        the next available vehicle to see which rule
+                        would be selected.
+                    </p>
+
+
+                    <div class="scheduler-input">
+
+                        <input
+                            type="number"
+                            id="vehicleGap"
+                            min="0"
+                            placeholder="Enter gap in minutes">
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="testScheduling()">
+                            Calculate
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="algorithm-result"
+                        id="algorithmResult">
+
+                        Enter a vehicle gap and click
+                        <strong>Calculate</strong>.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 WHY AM I WAITING?
+            ================================================== -->
+
+            <div class="portal-card decision-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            EXPLAINABLE SCHEDULING
+                        </span>
+
+                        <h2>
+                            Why Is a Shipment Waiting?
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="portal-grid portal-grid-3">
+
+
+                    <div class="portal-card">
+
+                        <span class="eyebrow">
+                            CURRENT
+                        </span>
+
+                        <h3>
+                            Your Furniture
+                        </h3>
+
+                        <p>
+                            Your shipment has P3 priority and is currently
+                            waiting behind higher-priority transport.
+                        </p>
+
+                        <span class="priority-badge priority-p3">
+                            P3 • WAITING
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-card">
+
+                        <span class="eyebrow">
+                            AHEAD
+                        </span>
+
+                        <h3>
+                            Medical Supplies
+                        </h3>
+
+                        <p>
+                            Medical supplies have P1 priority and therefore
+                            receive scheduling preference.
+                        </p>
+
+                        <span class="priority-badge priority-p1">
+                            P1 • MOVING
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-card">
+
+                        <span class="eyebrow">
+                            ORDER
+                        </span>
+
+                        <h3>
+                            FCFS
+                        </h3>
+
+                        <p>
+                            If two shipments have equal priority, the one
+                            that entered the queue first is processed first.
+                        </p>
+
+                        <span class="priority-badge priority-p3">
+                            FAIR ORDER
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EMERGENCY
+            ================================================== -->
+
+            <div class="emergency-strip">
+
+                <div class="emergency-strip-icon">
+                    🚨
+                </div>
+
+                <div class="emergency-strip-content">
+
+                    <strong>
+                        Facing an emergency?
+                    </strong>
+
+                    <span>
+                        Emergency transport requests can be prioritised
+                        for immediate scheduling.
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn btn-danger"
+                    onclick="openSOS()">
+                    REPORT EMERGENCY
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     SOS MODAL
+====================================================== -->
+
+<div
+    class="portal-modal"
+    id="sosModal"
+    aria-hidden="true">
+
+    <div
+        class="portal-modal-backdrop"
+        onclick="closeSOS()">
+    </div>
+
+
+    <div class="portal-modal-box">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="eyebrow">
+                    EMERGENCY SERVICE
+                </span>
+
+                <h2>
+                    Report Emergency
+                </h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                onclick="closeSOS()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="sosForm"
+            onsubmit="submitSOS(event)">
+
+            <div class="form-group">
+
+                <label for="sosIncident">
+                    Incident Type
+                </label>
+
+                <select
+                    id="sosIncident"
+                    required>
+
+                    <option value="">
+                        Select incident
+                    </option>
+
+                    <option value="Accident">
+                        Road Accident
+                    </option>
+
+                    <option value="Road Blockage">
+                        Road Blockage
+                    </option>
+
+                    <option value="Vehicle Breakdown">
+                        Vehicle Breakdown
+                    </option>
+
+                    <option value="Medical Emergency">
+                        Medical Emergency
+                    </option>
+
+                    <option value="Other">
+                        Other Emergency
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosLocation">
+                    Location
+                </label>
+
+                <div class="input-with-action">
+
+                    <input
+                        type="text"
+                        id="sosLocation"
+                        placeholder="Enter location or capture GPS"
+                        required>
+
+                    <button
+                        type="button"
+                        class="btn btn-small btn-outline"
+                        onclick="captureSOSLocation()">
+                        📍 GPS
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="sosDescription"
+                    rows="4"
+                    placeholder="Describe the emergency..."></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosPhoto">
+                    Supporting Photo
+                </label>
+
+                <input
+                    type="file"
+                    id="sosPhoto"
+                    accept="image/*">
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="closeSOS()">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-danger">
+                    🚨 Submit Emergency
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SCRIPTS
+====================================================== -->
+
+<script src="js/app.js"></script>
+<script src="js/emergency.js"></script>
+<script src="js/languages.js"></script>
+
+
+<script>
+
+/* =====================================================
+   TEST SCHEDULING
+===================================================== */
+
+function testScheduling() {
+
+    const input =
+        document.getElementById("vehicleGap");
+
+    const result =
+        document.getElementById("algorithmResult");
+
+    const algorithm =
+        document.getElementById("selectedAlgorithm");
+
+    const reason =
+        document.getElementById("algorithmReason");
+
+
+    const gap =
+        Number(input.value);
+
+
+    if (
+        input.value === "" ||
+        isNaN(gap) ||
+        gap < 0
+    ) {
+
+        result.innerHTML =
+            "Please enter a valid vehicle gap in minutes.";
+
+        return;
+
+    }
+
+
+    if (gap <= 15) {
+
+        algorithm.textContent =
+            "Priority Scheduling";
+
+        reason.textContent =
+            "The vehicle gap is within the configured 15-minute decision window. Priority is considered.";
+
+        result.innerHTML =
+            "<strong>Result: Priority Scheduling</strong><br>" +
+            "Vehicle gap = " +
+            gap +
+            " minutes.<br>" +
+            "Because the gap is 15 minutes or less, priority-based scheduling is applied.";
+
+    }
+    else {
+
+        algorithm.textContent =
+            "FCFS";
+
+        reason.textContent =
+            "The vehicle gap is greater than the configured 15-minute decision window.";
+
+        result.innerHTML =
+            "<strong>Result: FCFS</strong><br>" +
+            "Vehicle gap = " +
+            gap +
+            " minutes.<br>" +
+            "Because the gap is greater than 15 minutes, First Come, First Served is applied.";
+
+    }
+
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+function showScheduleNotification() {
+
+    alert(
+        "Scheduling Notifications\n\n" +
+        "• Scheduling engine is active\n" +
+        "• 2 P1 requests currently require priority handling\n" +
+        "• P3 requests are waiting according to queue rules"
+    );
+
+}
+
+
+/* =====================================================
+   LOAD SAVED PRIORITY WINDOW
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const savedWindow =
+            localStorage.getItem(
+                "smartTransportPriorityWindow"
+            );
+
+
+        if (savedWindow) {
+
+            const ruleItems =
+                document.querySelectorAll(
+                    ".rule-item"
+                );
+
+
+            /*
+             * The setting is informational here.
+             * The actual scheduler can use the same value
+             * when connected to the backend.
+             */
+
+            console.log(
+                "Configured scheduling window:",
+                savedWindow,
+                "minutes"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(function (registration) {
+
+                    console.log(
+                        "Smart Transport Service Worker registered:",
+                        registration.scope
+                    );
+
+                })
+                .catch(function (error) {
+
+                    console.error(
+                        "Service Worker registration failed:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

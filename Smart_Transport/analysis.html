@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Travel Analysis | Smart Transport</title>
+
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#124E70">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Smart Transport">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/portal-ui.css">
+</head>
+
+<body>
+
+<div class="portal-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="portal-sidebar" id="portalSidebar">
+
+        <div class="portal-brand">
+
+            <div class="portal-brand-logo">
+                <img src="images/logo.png" alt="Smart Transport">
+            </div>
+
+            <div>
+                <strong>SMART TRANSPORT</strong>
+                <span>Government Transport Platform</span>
+            </div>
+
+        </div>
+
+
+        <nav class="portal-nav">
+
+            <a href="travellers.html">
+                <span class="nav-icon">⌂</span>
+                <span>Traveller Portal</span>
+            </a>
+
+            <a href="cargo.html">
+                <span class="nav-icon">▣</span>
+                <span>Cargo Portal</span>
+            </a>
+
+            <a href="live-map.html">
+                <span class="nav-icon">⌖</span>
+                <span>Live Transport Map</span>
+            </a>
+
+            <a href="alerts.html">
+                <span class="nav-icon">⚠</span>
+                <span>Alerts</span>
+                <span class="nav-badge">3</span>
+            </a>
+
+            <a href="schedule.html">
+                <span class="nav-icon">◷</span>
+                <span>Transport Schedule</span>
+            </a>
+
+            <a href="analysis.html" class="active">
+                <span class="nav-icon">◈</span>
+                <span>AI Travel Analysis</span>
+            </a>
+
+            <a href="reports.html">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-emergency">
+
+            <div class="sidebar-emergency-title">
+                Emergency Support
+            </div>
+
+            <div class="sidebar-emergency-text">
+                Report an accident, road blockage or urgent transport issue.
+            </div>
+
+            <button
+                class="btn btn-danger btn-full"
+                onclick="openSOS()">
+                🚨 REPORT EMERGENCY
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="portal-main">
+
+        <!-- HEADER -->
+
+        <header class="portal-header">
+
+            <div class="portal-header-left">
+
+                <button
+                    class="portal-menu-btn"
+                    id="portalMenuBtn"
+                    onclick="togglePortalSidebar()"
+                    aria-label="Open menu">
+                    ☰
+                </button>
+
+                <div>
+
+                    <div class="portal-page-title">
+                        AI TRAVEL ANALYSIS
+                    </div>
+
+                    <div class="portal-page-subtitle">
+                        Explainable route intelligence • Northeast India
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-header-right">
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    System Online
+                </div>
+
+                <button
+                    class="portal-header-icon"
+                    onclick="showAnalysisNotification()"
+                    title="Notifications">
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="portal-profile">
+
+                    <div class="profile-avatar">
+                        AI
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>Smart Analysis</strong>
+                        <span>AI Engine</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <section class="portal-content">
+
+
+            <!-- INTRO -->
+
+            <div class="page-intro">
+
+                <div>
+
+                    <span class="eyebrow">
+                        EXPLAINABLE AI
+                    </span>
+
+                    <h1>
+                        Smart Travel Analysis
+                    </h1>
+
+                    <p>
+                        Analyse a journey using route conditions,
+                        weather, alerts, distance and transport factors
+                        to generate an understandable travel recommendation.
+                    </p>
+
+                </div>
+
+                <div class="analysis-live-status">
+                    <span class="status-dot"></span>
+                    Analysis Engine Ready
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ROUTE INPUT
+            ================================================== -->
+
+            <div class="portal-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            JOURNEY INPUT
+                        </span>
+
+                        <h2>
+                            Analyse Your Route
+                        </h2>
+
+                    </div>
+
+                    <span class="badge badge-blue">
+                        AI POWERED
+                    </span>
+
+                </div>
+
+
+                <div class="route-planner-grid">
+
+                    <div class="form-group">
+
+                        <label for="analysisOrigin">
+                            Starting Point
+                        </label>
+
+                        <select id="analysisOrigin">
+
+                            <option value="Guwahati">
+                                Guwahati
+                            </option>
+
+                            <option value="Shillong">
+                                Shillong
+                            </option>
+
+                            <option value="Imphal">
+                                Imphal
+                            </option>
+
+                            <option value="Kohima">
+                                Kohima
+                            </option>
+
+                            <option value="Aizawl">
+                                Aizawl
+                            </option>
+
+                            <option value="Itanagar">
+                                Itanagar
+                            </option>
+
+                            <option value="Agartala">
+                                Agartala
+                            </option>
+
+                            <option value="Dibrugarh">
+                                Dibrugarh
+                            </option>
+
+                            <option value="Silchar">
+                                Silchar
+                            </option>
+
+                            <option value="Dimapur">
+                                Dimapur
+                            </option>
+
+                            <option value="Tawang">
+                                Tawang
+                            </option>
+
+                            <option value="Cherrapunji">
+                                Cherrapunji
+                            </option>
+
+                            <option value="Tura">
+                                Tura
+                            </option>
+
+                            <option value="Lunglei">
+                                Lunglei
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="route-arrow">
+                        →
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="analysisDestination">
+                            Destination
+                        </label>
+
+                        <select id="analysisDestination">
+
+                            <option value="Shillong">
+                                Shillong
+                            </option>
+
+                            <option value="Guwahati">
+                                Guwahati
+                            </option>
+
+                            <option value="Imphal">
+                                Imphal
+                            </option>
+
+                            <option value="Kohima">
+                                Kohima
+                            </option>
+
+                            <option value="Aizawl">
+                                Aizawl
+                            </option>
+
+                            <option value="Itanagar">
+                                Itanagar
+                            </option>
+
+                            <option value="Agartala">
+                                Agartala
+                            </option>
+
+                            <option value="Dibrugarh">
+                                Dibrugarh
+                            </option>
+
+                            <option value="Silchar">
+                                Silchar
+                            </option>
+
+                            <option value="Dimapur">
+                                Dimapur
+                            </option>
+
+                            <option value="Tawang">
+                                Tawang
+                            </option>
+
+                            <option value="Cherrapunji">
+                                Cherrapunji
+                            </option>
+
+                            <option value="Tura">
+                                Tura
+                            </option>
+
+                            <option value="Lunglei">
+                                Lunglei
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="analysisTransport">
+                            Transport Type
+                        </label>
+
+                        <select id="analysisTransport">
+
+                            <option value="Traveller">
+                                Normal Traveller
+                            </option>
+
+                            <option value="Cargo">
+                                Cargo Transport
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="analysisPriority">
+                            Journey Priority
+                        </label>
+
+                        <select id="analysisPriority">
+
+                            <option value="Standard">
+                                Standard
+                            </option>
+
+                            <option value="Urgent">
+                                Urgent
+                            </option>
+
+                            <option value="Emergency">
+                                Emergency
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-action-row">
+
+                    <button
+                        class="btn btn-primary"
+                        id="analyseButton"
+                        onclick="runAIAnalysis()">
+                        ◈ Analyse Journey
+                    </button>
+
+                    <button
+                        class="btn btn-outline"
+                        onclick="useCurrentRoute()">
+                        ⌖ Use Current Route
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 AI RESULT
+            ================================================== -->
+
+            <div
+                class="portal-card ai-result-card"
+                id="analysisResult">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            AI RECOMMENDATION
+                        </span>
+
+                        <h2>
+                            Journey Analysis
+                        </h2>
+
+                    </div>
+
+                    <span
+                        class="badge badge-success"
+                        id="analysisStatus">
+                        READY
+                    </span>
+
+                </div>
+
+
+                <div class="analysis-result-grid">
+
+                    <!-- SCORE -->
+
+                    <div class="analysis-score-panel">
+
+                        <div class="score-circle">
+
+                            <div>
+                                <strong id="safetyScore">
+                                    82
+                                </strong>
+
+                                <span>
+                                    /100
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <h3>
+                            Route Safety Score
+                        </h3>
+
+                        <p id="scoreDescription">
+                            Conditions are generally suitable for travel
+                            with normal precautions.
+                        </p>
+
+                    </div>
+
+
+                    <!-- RECOMMENDATION -->
+
+                    <div class="analysis-recommendation">
+
+                        <div class="recommendation-header">
+
+                            <span class="recommendation-icon">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    RECOMMENDATION
+                                </span>
+
+                                <h3 id="recommendationTitle">
+                                    Travel Possible
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                        <p id="recommendationText">
+                            The selected route can be considered for travel.
+                            Review active alerts and weather conditions
+                            before departure.
+                        </p>
+
+
+                        <div class="recommendation-tags">
+
+                            <span class="analysis-tag">
+                                Route Available
+                            </span>
+
+                            <span class="analysis-tag">
+                                Conditions Monitored
+                            </span>
+
+                            <span class="analysis-tag">
+                                Alerts Checked
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EXPLAINABLE AI FACTORS
+            ================================================== -->
+
+            <div class="portal-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            EXPLAINABILITY
+                        </span>
+
+                        <h2>
+                            Why Did AI Give This Recommendation?
+                        </h2>
+
+                    </div>
+
+                    <span class="badge badge-blue">
+                        TRANSPARENT AI
+                    </span>
+
+                </div>
+
+
+                <p class="section-description">
+                    The recommendation is based on multiple transport
+                    conditions rather than a single factor.
+                </p>
+
+
+                <div class="analysis-factor-list">
+
+
+                    <!-- ROUTE -->
+
+                    <div class="analysis-factor">
+
+                        <div class="factor-icon blue">
+                            ⌖
+                        </div>
+
+                        <div class="factor-content">
+
+                            <div class="factor-title-row">
+
+                                <strong>
+                                    Route Condition
+                                </strong>
+
+                                <span class="factor-value safe">
+                                    Good
+                                </span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div
+                                    class="progress-bar"
+                                    style="width: 88%;">
+                                </div>
+
+                            </div>
+
+                            <p>
+                                Major route restrictions were not detected
+                                for the selected journey.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WEATHER -->
+
+                    <div class="analysis-factor">
+
+                        <div class="factor-icon green">
+                            ☁
+                        </div>
+
+                        <div class="factor-content">
+
+                            <div class="factor-title-row">
+
+                                <strong>
+                                    Weather Conditions
+                                </strong>
+
+                                <span class="factor-value safe">
+                                    Moderate
+                                </span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div
+                                    class="progress-bar"
+                                    style="width: 76%;">
+                                </div>
+
+                            </div>
+
+                            <p>
+                                Current weather conditions are being
+                                considered in the route assessment.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ALERTS -->
+
+                    <div class="analysis-factor">
+
+                        <div class="factor-icon warning">
+                            ⚠
+                        </div>
+
+                        <div class="factor-content">
+
+                            <div class="factor-title-row">
+
+                                <strong>
+                                    Active Alerts
+                                </strong>
+
+                                <span class="factor-value warning-text">
+                                    Monitor
+                                </span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div
+                                    class="progress-bar warning-progress"
+                                    style="width: 58%;">
+                                </div>
+
+                            </div>
+
+                            <p>
+                                Active transport alerts can affect travel
+                                time and route feasibility.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TRAVEL TIME -->
+
+                    <div class="analysis-factor">
+
+                        <div class="factor-icon blue">
+                            ◷
+                        </div>
+
+                        <div class="factor-content">
+
+                            <div class="factor-title-row">
+
+                                <strong>
+                                    Estimated Travel Time
+                                </strong>
+
+                                <span class="factor-value safe">
+                                    Acceptable
+                                </span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div
+                                    class="progress-bar"
+                                    style="width: 81%;">
+                                </div>
+
+                            </div>
+
+                            <p>
+                                Expected journey duration is within the
+                                current estimated travel window.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ROAD SAFETY -->
+
+                    <div class="analysis-factor">
+
+                        <div class="factor-icon green">
+                            ✓
+                        </div>
+
+                        <div class="factor-content">
+
+                            <div class="factor-title-row">
+
+                                <strong>
+                                    Road Safety
+                                </strong>
+
+                                <span class="factor-value safe">
+                                    Stable
+                                </span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div
+                                    class="progress-bar"
+                                    style="width: 84%;">
+                                </div>
+
+                            </div>
+
+                            <p>
+                                No major safety indicator is currently
+                                affecting the selected route.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SMART INSIGHTS
+            ================================================== -->
+
+            <div class="portal-grid portal-grid-3">
+
+
+                <div class="portal-card insight-card">
+
+                    <div class="insight-icon">
+                        🛣
+                    </div>
+
+                    <span class="eyebrow">
+                        ROUTE
+                    </span>
+
+                    <h3>
+                        Route Feasibility
+                    </h3>
+
+                    <p>
+                        The selected journey can be analysed using
+                        route availability, road conditions and
+                        current transport restrictions.
+                    </p>
+
+                    <span class="insight-status safe">
+                        FEASIBLE
+                    </span>
+
+                </div>
+
+
+                <div class="portal-card insight-card">
+
+                    <div class="insight-icon">
+                        🌦
+                    </div>
+
+                    <span class="eyebrow">
+                        WEATHER
+                    </span>
+
+                    <h3>
+                        Weather Impact
+                    </h3>
+
+                    <p>
+                        Weather conditions are incorporated into the
+                        travel analysis to identify potential delays
+                        or caution areas.
+                    </p>
+
+                    <span class="insight-status warning">
+                        MONITOR
+                    </span>
+
+                </div>
+
+
+                <div class="portal-card insight-card">
+
+                    <div class="insight-icon">
+                        🤖
+                    </div>
+
+                    <span class="eyebrow">
+                        AI
+                    </span>
+
+                    <h3>
+                        Explainable Recommendation
+                    </h3>
+
+                    <p>
+                        Instead of providing only a result, the system
+                        shows the factors that influenced the recommendation.
+                    </p>
+
+                    <span class="insight-status safe">
+                        EXPLAINED
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 AI WORKFLOW
+            ================================================== -->
+
+            <div class="portal-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            ANALYSIS PIPELINE
+                        </span>
+
+                        <h2>
+                            How Smart Travel Analysis Works
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-workflow">
+
+
+                    <div class="workflow-step">
+
+                        <div class="workflow-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Journey Input
+                            </strong>
+
+                            <p>
+                                Origin, destination and transport
+                                details are collected.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="workflow-line"></div>
+
+
+                    <div class="workflow-step">
+
+                        <div class="workflow-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Data Analysis
+                            </strong>
+
+                            <p>
+                                Route, weather, alerts and transport
+                                conditions are evaluated.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="workflow-line"></div>
+
+
+                    <div class="workflow-step">
+
+                        <div class="workflow-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Risk Assessment
+                            </strong>
+
+                            <p>
+                                Relevant travel risks and route
+                                constraints are identified.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="workflow-line"></div>
+
+
+                    <div class="workflow-step">
+
+                        <div class="workflow-number">
+                            04
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Explainable Output
+                            </strong>
+
+                            <p>
+                                The system generates a recommendation
+                                together with the factors behind it.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 IMPORTANT NOTICE
+            ================================================== -->
+
+            <div class="portal-card analysis-notice">
+
+                <div class="notice-icon">
+                    ℹ
+                </div>
+
+                <div>
+
+                    <strong>
+                        AI-assisted travel information
+                    </strong>
+
+                    <p>
+                        Travel analysis is intended to support journey
+                        planning. Always consider official transport
+                        advisories, local conditions and emergency
+                        instructions before travelling.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EMERGENCY
+            ================================================== -->
+
+            <div class="emergency-strip">
+
+                <div class="emergency-strip-icon">
+                    🚨
+                </div>
+
+                <div class="emergency-strip-content">
+
+                    <strong>
+                        Facing an emergency?
+                    </strong>
+
+                    <span>
+                        Report an accident, road blockage or urgent
+                        transport situation.
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn btn-danger"
+                    onclick="openSOS()">
+                    REPORT EMERGENCY
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     SOS MODAL
+====================================================== -->
+
+<div
+    class="portal-modal"
+    id="sosModal"
+    aria-hidden="true">
+
+    <div
+        class="portal-modal-backdrop"
+        onclick="closeSOS()">
+    </div>
+
+
+    <div class="portal-modal-box">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="eyebrow">
+                    EMERGENCY SERVICE
+                </span>
+
+                <h2>
+                    Report Emergency
+                </h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                onclick="closeSOS()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="sosForm"
+            onsubmit="submitSOS(event)">
+
+            <div class="form-group">
+
+                <label for="sosIncident">
+                    Incident Type
+                </label>
+
+                <select
+                    id="sosIncident"
+                    required>
+
+                    <option value="">
+                        Select incident
+                    </option>
+
+                    <option value="Accident">
+                        Road Accident
+                    </option>
+
+                    <option value="Road Blockage">
+                        Road Blockage
+                    </option>
+
+                    <option value="Vehicle Breakdown">
+                        Vehicle Breakdown
+                    </option>
+
+                    <option value="Medical Emergency">
+                        Medical Emergency
+                    </option>
+
+                    <option value="Other">
+                        Other Emergency
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosLocation">
+                    Location
+                </label>
+
+                <div class="input-with-action">
+
+                    <input
+                        type="text"
+                        id="sosLocation"
+                        placeholder="Enter location or capture GPS"
+                        required>
+
+                    <button
+                        type="button"
+                        class="btn btn-small btn-outline"
+                        onclick="captureSOSLocation()">
+                        📍 GPS
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="sosDescription"
+                    rows="4"
+                    placeholder="Describe the emergency..."></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sosPhoto">
+                    Supporting Photo
+                </label>
+
+                <input
+                    type="file"
+                    id="sosPhoto"
+                    accept="image/*">
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="closeSOS()">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-danger">
+                    🚨 Submit Emergency
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SCRIPTS
+====================================================== -->
+
+<script src="js/app.js"></script>
+<script src="js/emergency.js"></script>
+<script src="js/languages.js"></script>
+
+
+<script>
+
+/* =====================================================
+   AI ANALYSIS
+===================================================== */
+
+function runAIAnalysis() {
+
+    const button = document.getElementById("analyseButton");
+
+    const origin =
+        document.getElementById("analysisOrigin").value;
+
+    const destination =
+        document.getElementById("analysisDestination").value;
+
+    const transport =
+        document.getElementById("analysisTransport").value;
+
+    const priority =
+        document.getElementById("analysisPriority").value;
+
+
+    if (origin === destination) {
+
+        alert(
+            "Please select different starting and destination locations."
+        );
+
+        return;
+    }
+
+
+    button.disabled = true;
+    button.innerHTML = "◌ Analysing...";
+
+
+    document.getElementById("analysisStatus").textContent =
+        "ANALYSING";
+
+
+    setTimeout(function () {
+
+        let score = 82;
+        let recommendation = "Travel Possible";
+        let description =
+            "The selected route can be considered for travel with normal precautions.";
+
+
+        /*
+         * Demo logic.
+         *
+         * Later your backend/API can replace this section with
+         * actual route, weather and alert data.
+         */
+
+        if (priority === "Emergency") {
+
+            score = 91;
+
+            recommendation =
+                "Priority Route Analysis";
+
+            description =
+                "Emergency priority selected. Review the route and active alerts before movement.";
+
+        }
+        else if (priority === "Urgent") {
+
+            score = 86;
+
+            recommendation =
+                "Travel With Monitoring";
+
+            description =
+                "The route is currently feasible, but active conditions should be monitored during travel.";
+
+        }
+
+
+        if (transport === "Cargo") {
+
+            description +=
+                " Cargo operators should also consider vehicle restrictions and transport scheduling.";
+
+        }
+
+
+        document.getElementById("safetyScore").textContent =
+            score;
+
+        document.getElementById("recommendationTitle").textContent =
+            recommendation;
+
+        document.getElementById("recommendationText").textContent =
+            description;
+
+
+        document.getElementById("scoreDescription").textContent =
+            score >= 85
+                ? "Current indicators are generally favourable for the selected journey."
+                : "Some conditions require additional attention before departure.";
+
+
+        document.getElementById("analysisStatus").textContent =
+            "ANALYSED";
+
+
+        document.getElementById("analysisStatus").className =
+            "badge badge-success";
+
+
+        button.disabled = false;
+        button.innerHTML = "✓ Reanalyse Journey";
+
+
+        localStorage.setItem(
+            "lastAIAnalysis",
+            JSON.stringify({
+
+                origin: origin,
+                destination: destination,
+                transport: transport,
+                priority: priority,
+                score: score,
+                recommendation: recommendation,
+                analysedAt: new Date().toISOString()
+
+            })
+        );
+
+
+    }, 900);
+
+}
+
+
+/* =====================================================
+   USE CURRENT ROUTE
+===================================================== */
+
+function useCurrentRoute() {
+
+    const selectedRoute =
+        localStorage.getItem("selectedRoute");
+
+
+    if (!selectedRoute) {
+
+        alert(
+            "No current route has been selected yet. Please enter a starting point and destination."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const route =
+            JSON.parse(selectedRoute);
+
+
+        const origin =
+            document.getElementById("analysisOrigin");
+
+        const destination =
+            document.getElementById("analysisDestination");
+
+
+        if (route.origin) {
+            origin.value = route.origin;
+        }
+
+
+        if (route.destination) {
+            destination.value = route.destination;
+        }
+
+
+        runAIAnalysis();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Unable to load current route:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function showAnalysisNotification() {
+
+    alert(
+        "AI Analysis Notifications\n\n" +
+        "• Route conditions updated\n" +
+        "• Weather data available\n" +
+        "• 3 transport alerts currently active"
+    );
+
+}
+
+
+/* =====================================================
+   LOAD LAST ANALYSIS
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const saved =
+            localStorage.getItem("lastAIAnalysis");
+
+
+        if (!saved) {
+            return;
+        }
+
+
+        try {
+
+            const data =
+                JSON.parse(saved);
+
+
+            if (data.origin) {
+
+                document.getElementById(
+                    "analysisOrigin"
+                ).value = data.origin;
+
+            }
+
+
+            if (data.destination) {
+
+                document.getElementById(
+                    "analysisDestination"
+                ).value = data.destination;
+
+            }
+
+
+            if (data.transport) {
+
+                document.getElementById(
+                    "analysisTransport"
+                ).value = data.transport;
+
+            }
+
+
+            if (data.priority) {
+
+                document.getElementById(
+                    "analysisPriority"
+                ).value = data.priority;
+
+            }
+
+
+        }
+        catch (error) {
+
+            console.error(
+                "Unable to load saved analysis:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(function (registration) {
+
+                    console.log(
+                        "Smart Transport Service Worker registered:",
+                        registration.scope
+                    );
+
+                })
+                .catch(function (error) {
+
+                    console.error(
+                        "Service Worker registration failed:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>

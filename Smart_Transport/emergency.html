@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Emergency SOS | Smart Transport Management System
+    </title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="./manifest.json">
+
+    <meta
+        name="theme-color"
+        content="#124E70"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Smart Transport"
+    >
+
+    <!-- MAIN CSS -->
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/portal-ui.css"
+    >
+
+    <!-- ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           EMERGENCY PAGE
+        ===================================================== */
+
+        .emergency-page-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+
+        /* =====================================================
+           EMERGENCY HERO
+        ===================================================== */
+
+        .emergency-hero {
+            margin-bottom: 22px;
+            padding: 22px 24px;
+            border-radius: 18px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(8, 28, 44, .98),
+                    rgba(18, 78, 112, .96)
+                );
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-hero::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            right: -80px;
+            top: -100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.06);
+        }
+
+        .emergency-hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .emergency-hero-icon {
+            width: 58px;
+            height: 58px;
+            min-width: 58px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(214,40,40,.18);
+            border: 1px solid rgba(255,255,255,.16);
+            color: #ffb4b4;
+            font-size: 24px;
+        }
+
+        .emergency-hero h1 {
+            margin: 0 0 5px;
+            font-size: 25px;
+        }
+
+        .emergency-hero p {
+            margin: 0;
+            color: rgba(255,255,255,.76);
+            line-height: 1.5;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           LOCATION CARD
+        ===================================================== */
+
+        .emergency-location-card {
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #dce7ed;
+            background: #f6fafc;
+            margin-bottom: 20px;
+        }
+
+        .emergency-location-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .emergency-location-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .emergency-location-title-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eaf2f6;
+            color: #124e70;
+        }
+
+        .emergency-location-title strong {
+            display: block;
+            color: #081c2c;
+            font-size: 14px;
+        }
+
+        .emergency-location-title span {
+            display: block;
+            margin-top: 3px;
+            color: #687983;
+            font-size: 11px;
+        }
+
+        .gps-status-pill {
+            padding: 6px 10px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 700;
+            background: #edf2f4;
+            color: #687983;
+            white-space: nowrap;
+        }
+
+        .gps-status-pill.success {
+            background: #e8f5eb;
+            color: #2e7d32;
+        }
+
+        .gps-status-pill.error {
+            background: #fdecec;
+            color: #d62828;
+        }
+
+        .location-button {
+            width: 100%;
+            border: 1px solid #cddde5;
+            background: white;
+            color: #124e70;
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .location-button:hover {
+            background: #eaf2f6;
+            border-color: #124e70;
+        }
+
+        .coordinates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .coordinate-box {
+            padding: 11px 12px;
+            background: white;
+            border: 1px solid #dce7ed;
+            border-radius: 9px;
+        }
+
+        .coordinate-box small {
+            display: block;
+            color: #77858d;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .coordinate-box strong {
+            color: #081c2c;
+            font-size: 12px;
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .emergency-form-card {
+            padding: 24px;
+        }
+
+        .emergency-form-header {
+            margin-bottom: 20px;
+        }
+
+        .emergency-form-header h2 {
+            margin: 0 0 5px;
+            color: #081c2c;
+            font-size: 20px;
+        }
+
+        .emergency-form-header p {
+            margin: 0;
+            color: #6b7c85;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .emergency-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .emergency-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .emergency-form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .emergency-form-group label {
+            color: #081c2c;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .emergency-form-group label span {
+            color: #d62828;
+        }
+
+        .emergency-form-group input,
+        .emergency-form-group select,
+        .emergency-form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 13px;
+            border: 1px solid #d6e2e8;
+            border-radius: 9px;
+            background: white;
+            color: #081c2c;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .emergency-form-group input:focus,
+        .emergency-form-group select:focus,
+        .emergency-form-group textarea:focus {
+            border-color: #124e70;
+            box-shadow: 0 0 0 3px rgba(18,78,112,.08);
+        }
+
+        .emergency-form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+
+        /* =====================================================
+           SEVERITY
+        ===================================================== */
+
+        .severity-note {
+            margin-top: 7px;
+            color: #7b8990;
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           PHOTO
+        ===================================================== */
+
+        .emergency-photo-upload {
+            border: 2px dashed #cad9e1;
+            border-radius: 11px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            background: #fafcfd;
+            transition: .2s ease;
+        }
+
+        .emergency-photo-upload:hover {
+            background: #f0f7fa;
+            border-color: #124e70;
+        }
+
+        .emergency-photo-upload i {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 23px;
+            color: #124e70;
+        }
+
+        .emergency-photo-upload strong {
+            display: block;
+            color: #081c2c;
+            font-size: 12px;
+        }
+
+        .emergency-photo-upload span {
+            display: block;
+            margin-top: 4px;
+            color: #7a8991;
+            font-size: 10px;
+        }
+
+        #incidentPhoto {
+            display: none;
+        }
+
+        .photo-preview {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            max-height: 230px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #dce7ed;
+        }
+
+
+        /* =====================================================
+           EMERGENCY PRIORITY NOTICE
+        ===================================================== */
+
+        .priority-emergency-box {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 11px;
+            background: #fff5f5;
+            border: 1px solid #f2cccc;
+        }
+
+        .priority-emergency-box > i {
+            color: #d62828;
+            font-size: 18px;
+            margin-top: 2px;
+        }
+
+        .priority-emergency-box strong {
+            color: #8e1c1c;
+            font-size: 12px;
+        }
+
+        .priority-emergency-box p {
+            margin: 4px 0 0;
+            color: #855b5b;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           FORM ACTIONS
+        ===================================================== */
+
+        .emergency-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+
+        /* =====================================================
+           RIGHT INFORMATION PANEL
+        ===================================================== */
+
+        .emergency-process-card {
+            padding: 22px;
+        }
+
+        .emergency-process-header {
+            margin-bottom: 20px;
+        }
+
+        .emergency-process-header h2 {
+            margin: 0 0 5px;
+            font-size: 18px;
+            color: #081c2c;
+        }
+
+        .emergency-process-header p {
+            margin: 0;
+            color: #718089;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .emergency-process-step {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 17px;
+            margin-bottom: 17px;
+            border-bottom: 1px solid #e7eef2;
+        }
+
+        .emergency-process-step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .process-number {
+            width: 31px;
+            height: 31px;
+            min-width: 31px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eaf2f6;
+            color: #124e70;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .emergency-process-step h3 {
+            margin: 0 0 4px;
+            font-size: 12px;
+            color: #081c2c;
+        }
+
+        .emergency-process-step p {
+            margin: 0;
+            color: #6e7e87;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           OFFLINE INFO
+        ===================================================== */
+
+        .offline-safe-card {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 11px;
+            background: #fffaf0;
+            border: 1px solid #f1dfb5;
+        }
+
+        .offline-safe-title {
+            display: flex;
+            gap: 9px;
+            align-items: center;
+            color: #8a5b08;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .offline-safe-card p {
+            margin: 7px 0 0;
+            color: #776548;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           PENDING REPORTS
+        ===================================================== */
+
+        .pending-reports {
+            margin-top: 20px;
+        }
+
+        .pending-reports-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .pending-reports-header h3 {
+            margin: 0;
+            color: #081c2c;
+            font-size: 14px;
+        }
+
+        .pending-count {
+            padding: 4px 8px;
+            border-radius: 20px;
+            background: #fff1dc;
+            color: #a86608;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .pending-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pending-item {
+            padding: 11px;
+            border-radius: 9px;
+            background: #f8fafb;
+            border: 1px solid #e2eaee;
+        }
+
+        .pending-item strong {
+            display: block;
+            color: #081c2c;
+            font-size: 11px;
+        }
+
+        .pending-item span {
+            display: block;
+            margin-top: 3px;
+            color: #77858d;
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           BOTTOM SOS STRIP
+        ===================================================== */
+
+        .emergency-bottom-strip {
+            margin-top: 22px;
+            padding: 17px 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            background: #081c2c;
+            color: white;
+        }
+
+        .emergency-bottom-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(214,40,40,.16);
+            color: #ffb0b0;
+        }
+
+        .emergency-bottom-content {
+            flex: 1;
+        }
+
+        .emergency-bottom-content strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .emergency-bottom-content span {
+            display: block;
+            margin-top: 3px;
+            color: rgba(255,255,255,.65);
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .emergency-page-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .emergency-hero {
+                padding: 18px;
+            }
+
+            .emergency-hero-content {
+                align-items: flex-start;
+            }
+
+            .emergency-hero h1 {
+                font-size: 20px;
+            }
+
+            .emergency-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emergency-form-group.full {
+                grid-column: auto;
+            }
+
+            .coordinates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emergency-form-card,
+            .emergency-process-card {
+                padding: 18px;
+            }
+
+            .emergency-form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .emergency-form-actions .portal-btn {
+                width: 100%;
+            }
+
+            .emergency-bottom-strip {
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .emergency-bottom-strip .portal-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="portal-header">
+
+    <div class="portal-brand">
+
+        <div class="portal-brand-mark">
+            <i class="fa-solid fa-route"></i>
+        </div>
+
+        <div>
+            <div class="portal-brand-title">
+                SMART TRANSPORT
+            </div>
+
+            <div class="portal-brand-subtitle">
+                MANAGEMENT SYSTEM
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+        <div class="portal-system-status">
+            <span class="portal-status-dot"></span>
+            System Online
+        </div>
+
+
+        <button
+            type="button"
+            class="portal-header-icon"
+            onclick="showEmergencyNotifications()"
+            aria-label="Notifications"
+        >
+            <i class="fa-solid fa-bell"></i>
+        </button>
+
+
+        <button
+            type="button"
+            class="portal-menu-btn"
+            onclick="togglePortalSidebar()"
+            aria-label="Open menu"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside
+    class="portal-sidebar"
+    id="portalSidebar"
+>
+
+    <div class="portal-sidebar-brand">
+
+        <div class="portal-sidebar-icon">
+            <i class="fa-solid fa-route"></i>
+        </div>
+
+        <div>
+            <strong>SMART TRANSPORT</strong>
+            <span>SYSTEM PORTAL</span>
+        </div>
+
+    </div>
+
+
+    <nav class="portal-sidebar-nav">
+
+        <a
+            href="index.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+
+        <a
+            href="travellers.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-user"></i>
+            <span>Traveller Portal</span>
+        </a>
+
+
+        <a
+            href="cargo.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-truck"></i>
+            <span>Cargo Portal</span>
+        </a>
+
+
+        <a
+            href="live-map.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>Live Transport Map</span>
+        </a>
+
+
+        <a
+            href="alerts.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Alerts</span>
+        </a>
+
+
+        <a
+            href="schedule.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Transport Queue</span>
+        </a>
+
+
+        <a
+            href="analysis.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-brain"></i>
+            <span>AI Analysis</span>
+        </a>
+
+
+        <a
+            href="reports.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-chart-column"></i>
+            <span>Reports</span>
+        </a>
+
+
+        <a
+            href="settings.html"
+            class="portal-nav-item"
+        >
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+
+
+        <a
+            href="emergency.html"
+            class="portal-nav-item active"
+        >
+            <i class="fa-solid fa-phone-volume"></i>
+            <span>Emergency SOS</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="portal-main">
+
+
+    <!-- HERO -->
+
+    <section class="emergency-hero">
+
+        <div class="emergency-hero-content">
+
+            <div class="emergency-hero-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <div>
+
+                <h1>
+                    Emergency Assistance
+                </h1>
+
+                <p>
+                    Report an accident, medical emergency, road
+                    blockage, landslide, flood or other critical
+                    transport incident.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAGE GRID -->
+
+    <section class="emergency-page-grid">
+
+
+        <!-- =================================================
+             LEFT — REPORT FORM
+        ================================================== -->
+
+        <section class="portal-card emergency-form-card">
+
+            <div class="emergency-form-header">
+
+                <span class="portal-card-kicker">
+                    PRIORITY 1 RESPONSE
+                </span>
+
+                <h2>
+                    Submit Emergency Report
+                </h2>
+
+                <p>
+                    Provide accurate information. Location capture
+                    helps the transport system identify the incident
+                    and coordinate emergency response.
+                </p>
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="emergency-location-card">
+
+                <div class="emergency-location-header">
+
+                    <div class="emergency-location-title">
+
+                        <div class="emergency-location-title-icon">
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                        </div>
+
+                        <div>
+                            <strong>
+                                Current Location
+                            </strong>
+
+                            <span>
+                                GPS location for emergency response
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <span
+                        id="gpsStatus"
+                        class="gps-status-pill"
+                    >
+                        Not captured
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="location-button"
+                    onclick="captureEmergencyLocation()"
+                >
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                    &nbsp; Capture My Current Location
+                </button>
+
+
+                <div class="coordinates-grid">
+
+                    <div class="coordinate-box">
+
+                        <small>
+                            LATITUDE
+                        </small>
+
+                        <strong id="latitude">
+                            Not available
+                        </strong>
+
+                    </div>
+
+
+                    <div class="coordinate-box">
+
+                        <small>
+                            LONGITUDE
+                        </small>
+
+                        <strong id="longitude">
+                            Not available
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form
+                id="emergencyForm"
+                onsubmit="submitEmergencyReport(event)"
+            >
+
+
+                <div class="emergency-form-grid">
+
+
+                    <!-- INCIDENT -->
+
+                    <div class="emergency-form-group">
+
+                        <label for="sosIncident">
+                            Incident Type <span>*</span>
+                        </label>
+
+                        <select
+                            id="sosIncident"
+                            required
+                        >
+
+                            <option value="">
+                                Select incident type
+                            </option>
+
+                            <option value="Road Accident">
+                                Road Accident
+                            </option>
+
+                            <option value="Medical Emergency">
+                                Medical Emergency
+                            </option>
+
+                            <option value="Vehicle Breakdown">
+                                Vehicle Breakdown
+                            </option>
+
+                            <option value="Road Blockage">
+                                Road Blockage
+                            </option>
+
+                            <option value="Landslide">
+                                Landslide
+                            </option>
+
+                            <option value="Flood">
+                                Flood / Waterlogging
+                            </option>
+
+                            <option value="Fire">
+                                Fire
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- SEVERITY -->
+
+                    <div class="emergency-form-group">
+
+                        <label for="sosSeverity">
+                            Severity <span>*</span>
+                        </label>
+
+                        <select
+                            id="sosSeverity"
+                            required
+                        >
+
+                            <option value="">
+                                Select severity
+                            </option>
+
+                            <option value="Critical">
+                                Critical
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                        </select>
+
+                        <div class="severity-note">
+                            Critical incidents are treated as
+                            highest-priority emergencies.
+                        </div>
+
+                    </div>
+
+
+                    <!-- LOCATION TEXT -->
+
+                    <div class="emergency-form-group full">
+
+                        <label for="sosLocation">
+                            Location / Road / Landmark <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="sosLocation"
+                            placeholder="Example: NH-10 near Shillong"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="emergency-form-group full">
+
+                        <label for="sosDescription">
+                            Incident Description <span>*</span>
+                        </label>
+
+                        <textarea
+                            id="sosDescription"
+                            placeholder="Describe what happened, road condition, people affected or any other important information..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- PHOTO -->
+
+                    <div class="emergency-form-group full">
+
+                        <label>
+                            Incident Photo
+                        </label>
+
+
+                        <label
+                            class="emergency-photo-upload"
+                            for="sosPhoto"
+                        >
+
+                            <i class="fa-solid fa-camera"></i>
+
+                            <strong>
+                                Add Incident Photo
+                            </strong>
+
+                            <span>
+                                Optional — upload an image if it is
+                                safe to do so.
+                            </span>
+
+                        </label>
+
+
+                        <input
+                            type="file"
+                            id="sosPhoto"
+                            accept="image/*"
+                            onchange="previewEmergencyPhoto(event)"
+                        >
+
+
+                        <div
+                            class="photo-preview"
+                            id="photoPreview"
+                        >
+
+                            <img
+                                id="previewImage"
+                                src=""
+                                alt="Emergency photo preview"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRIORITY -->
+
+                <div class="priority-emergency-box">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <div>
+
+                        <strong>
+                            Priority 1 Emergency Handling
+                        </strong>
+
+                        <p>
+                            Once submitted, the emergency request
+                            is inserted into the highest-priority
+                            transport queue for response coordination.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="emergency-form-actions">
+
+                    <button
+                        type="button"
+                        class="portal-btn secondary"
+                        onclick="window.location.href='alerts.html'"
+                    >
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="portal-btn emergency"
+                    >
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Submit Emergency Report
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- =================================================
+             RIGHT — INFORMATION
+        ================================================== -->
+
+        <aside>
+
+
+            <!-- PROCESS -->
+
+            <section class="portal-card emergency-process-card">
+
+                <div class="emergency-process-header">
+
+                    <span class="portal-card-kicker">
+                        RESPONSE WORKFLOW
+                    </span>
+
+                    <h2>
+                        How Emergency Reporting Works
+                    </h2>
+
+                    <p>
+                        The system is designed to keep the
+                        reporting process simple during critical
+                        situations.
+                    </p>
+
+                </div>
+
+
+                <!-- STEP 1 -->
+
+                <div class="emergency-process-step">
+
+                    <div class="process-number">
+                        01
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Capture Location
+                        </h3>
+
+                        <p>
+                            Allow GPS access or enter the road,
+                            landmark or location manually.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 2 -->
+
+                <div class="emergency-process-step">
+
+                    <div class="process-number">
+                        02
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Describe Incident
+                        </h3>
+
+                        <p>
+                            Select the incident type and provide
+                            accurate details about the situation.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 3 -->
+
+                <div class="emergency-process-step">
+
+                    <div class="process-number">
+                        03
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Add Evidence
+                        </h3>
+
+                        <p>
+                            Attach a photograph when it is safe
+                            and possible.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 4 -->
+
+                <div class="emergency-process-step">
+
+                    <div class="process-number">
+                        04
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Priority Queue
+                        </h3>
+
+                        <p>
+                            The emergency is assigned P1 priority
+                            for transport coordination.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OFFLINE -->
+
+                <div class="offline-safe-card">
+
+                    <div class="offline-safe-title">
+
+                        <i class="fa-solid fa-cloud-arrow-down"></i>
+
+                        Offline-Safe Reporting
+
+                    </div>
+
+                    <p>
+                        If connectivity is unavailable, the report
+                        can be stored locally and synchronized when
+                        the network becomes available.
+                    </p>
+
+                </div>
+
+
+                <!-- PENDING -->
+
+                <div class="pending-reports">
+
+                    <div class="pending-reports-header">
+
+                        <h3>
+                            Pending Emergency Reports
+                        </h3>
+
+                        <span
+                            id="pendingCount"
+                            class="pending-count"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        id="pendingReports"
+                        class="pending-list"
+                    >
+
+                        <div class="pending-item">
+
+                            <strong>
+                                No pending reports
+                            </strong>
+
+                            <span>
+                                Submitted emergency reports
+                                will appear here.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </aside>
+
+    </section>
+
+
+    <!-- =====================================================
+         BOTTOM EMERGENCY STRIP
+    ====================================================== -->
+
+    <section class="emergency-bottom-strip">
+
+        <div class="emergency-bottom-icon">
+            <i class="fa-solid fa-phone-volume"></i>
+        </div>
+
+        <div class="emergency-bottom-content">
+
+            <strong>
+                Emergency assistance is always available
+            </strong>
+
+            <span>
+                Use this page to report critical transport
+                incidents across Northeast India.
+            </span>
+
+        </div>
+
+        <button
+            type="button"
+            class="portal-btn emergency"
+            onclick="captureEmergencyLocation()"
+        >
+            <i class="fa-solid fa-location-crosshairs"></i>
+            Capture GPS
+        </button>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     MOBILE NAV
+========================================================= -->
+
+<nav class="portal-mobile-nav">
+
+    <a href="index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <a href="live-map.html">
+        <i class="fa-solid fa-map"></i>
+        <span>Map</span>
+    </a>
+
+    <a href="alerts.html">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>Alerts</span>
+    </a>
+
+    <a
+        href="emergency.html"
+        class="active"
+    >
+        <i class="fa-solid fa-phone-volume"></i>
+        <span>SOS</span>
+    </a>
+
+</nav>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script src="js/app.js"></script>
+<script src="js/emergency.js"></script>
+<script src="js/language.js"></script>
+
+
+<!-- =========================================================
+     EMERGENCY PAGE LOGIC
+========================================================= -->
+
+<script>
+
+function captureEmergencyLocation() {
+
+    const status =
+        document.getElementById("gpsStatus");
+
+    const latitude =
+        document.getElementById("latitude");
+
+    const longitude =
+        document.getElementById("longitude");
+
+    const locationInput =
+        document.getElementById("sosLocation");
+
+
+    if (!navigator.geolocation) {
+
+        status.textContent = "GPS unavailable";
+        status.className = "gps-status-pill error";
+
+        alert(
+            "GPS is not supported by this browser. " +
+            "Please enter the location manually."
+        );
+
+        return;
+    }
+
+
+    status.textContent = "Locating...";
+    status.className = "gps-status-pill";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const lat =
+                position.coords.latitude.toFixed(6);
+
+            const lon =
+                position.coords.longitude.toFixed(6);
+
+
+            latitude.textContent = lat;
+            longitude.textContent = lon;
+
+
+            if (locationInput) {
+
+                locationInput.value =
+                    "GPS: " + lat + ", " + lon;
+
+            }
+
+
+            status.textContent = "Location captured";
+            status.className =
+                "gps-status-pill success";
+
+
+            localStorage.setItem(
+                "smartTransportGPS",
+                JSON.stringify({
+                    latitude: lat,
+                    longitude: lon,
+                    capturedAt: new Date().toISOString()
+                })
+            );
+
+        },
+
+        function(error) {
+
+            console.warn(
+                "GPS error:",
+                error
+            );
+
+
+            status.textContent =
+                "Permission required";
+
+            status.className =
+                "gps-status-pill error";
+
+
+            alert(
+                "Unable to capture your GPS location. " +
+                "Please allow location access or enter your " +
+                "location manually."
+            );
+
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 30000
+        }
+
+    );
+
+}
+
+
+function previewEmergencyPhoto(event) {
+
+    const file =
+        event.target.files &&
+        event.target.files[0];
+
+    const preview =
+        document.getElementById("photoPreview");
+
+    const image =
+        document.getElementById("previewImage");
+
+
+    if (!file) {
+
+        preview.style.display = "none";
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function(e) {
+
+        image.src = e.target.result;
+        preview.style.display = "block";
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+function submitEmergencyReport(event) {
+
+    event.preventDefault();
+
+
+    const incident =
+        document.getElementById("sosIncident").value;
+
+    const severity =
+        document.getElementById("sosSeverity").value;
+
+    const location =
+        document.getElementById("sosLocation").value.trim();
+
+    const description =
+        document.getElementById("sosDescription").value.trim();
+
+
+    if (!incident ||
+        !severity ||
+        !location ||
+        !description) {
+
+        alert(
+            "Please complete all required emergency details."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       The existing emergency.js uses submitSOS().
+       We mirror the page-specific values into the IDs
+       expected by the shared emergency system.
+    */
+
+
+    localStorage.setItem(
+        "smartTransportLastEmergencySeverity",
+        severity
+    );
+
+
+    if (
+        typeof window.submitSOS === "function"
+    ) {
+
+        window.submitSOS(event);
+
+    } else {
+
+        const reports =
+            JSON.parse(
+                localStorage.getItem("sosReports") || "[]"
+            );
+
+
+        const report = {
+
+            id:
+                "SOS-" +
+                Date.now(),
+
+            incidentType:
+                incident,
+
+            severity:
+                severity,
+
+            location:
+                location,
+
+            description:
+                description,
+
+            status:
+                "active",
+
+            priority:
+                "P1",
+
+            createdAt:
+                new Date().toISOString(),
+
+            source:
+                "Emergency Portal"
+
+        };
+
+
+        reports.push(report);
+
+
+        localStorage.setItem(
+            "sosReports",
+            JSON.stringify(reports)
+        );
+
+
+        localStorage.setItem(
+            "smartTransportEmergencyReports",
+            JSON.stringify(reports)
+        );
+
+
+        alert(
+            "Emergency report submitted successfully.\n\n" +
+            "Priority: P1\n" +
+            "Incident: " + incident
+        );
+
+
+        updatePendingReports();
+
+    }
+
+}
+
+
+function updatePendingReports() {
+
+    const reports =
+        JSON.parse(
+            localStorage.getItem("sosReports") || "[]"
+        );
+
+
+    const activeReports =
+        reports.filter(function(report) {
+
+            return (
+                report.status === "active" ||
+                report.status === "pending"
+            );
+
+        });
+
+
+    const count =
+        document.getElementById("pendingCount");
+
+    const list =
+        document.getElementById("pendingReports");
+
+
+    if (count) {
+
+        count.textContent =
+            activeReports.length;
+
+    }
+
+
+    if (!list) {
+        return;
+    }
+
+
+    if (activeReports.length === 0) {
+
+        list.innerHTML = `
+            <div class="pending-item">
+                <strong>No pending reports</strong>
+                <span>
+                    Submitted emergency reports will appear here.
+                </span>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        activeReports
+            .slice(-4)
+            .reverse()
+            .map(function(report) {
+
+                const time =
+                    report.createdAt
+                        ? new Date(
+                            report.createdAt
+                        ).toLocaleString()
+                        : "Recently";
+
+
+                return `
+                    <div class="pending-item">
+
+                        <strong>
+                            ${report.incidentType || "Emergency Incident"}
+                        </strong>
+
+                        <span>
+                            ${report.location || "Location unavailable"}
+                            • ${time}
+                        </span>
+
+                    </div>
+                `;
+
+            })
+            .join("");
+
+}
+
+
+function showEmergencyNotifications() {
+
+    const reports =
+        JSON.parse(
+            localStorage.getItem("sosReports") || "[]"
+        );
+
+
+    const active =
+        reports.filter(function(report) {
+
+            return report.status === "active";
+
+        });
+
+
+    if (active.length) {
+
+        alert(
+            "Emergency Notifications\n\n" +
+            active.length +
+            " active emergency report(s) are currently recorded."
+        );
+
+    } else {
+
+        alert(
+            "Emergency Notifications\n\n" +
+            "No active emergency notifications."
+        );
+
+    }
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        updatePendingReports();
+
+
+        const savedGPS =
+            JSON.parse(
+                localStorage.getItem(
+                    "smartTransportGPS"
+                ) || "null"
+            );
+
+
+        if (savedGPS) {
+
+            const latitude =
+                document.getElementById("latitude");
+
+            const longitude =
+                document.getElementById("longitude");
+
+            const status =
+                document.getElementById("gpsStatus");
+
+
+            if (latitude) {
+                latitude.textContent =
+                    savedGPS.latitude;
+            }
+
+            if (longitude) {
+                longitude.textContent =
+                    savedGPS.longitude;
+            }
+
+            if (status) {
+
+                status.textContent =
+                    "Location available";
+
+                status.className =
+                    "gps-status-pill success";
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+
+<!-- =========================================================
+     SERVICE WORKER
+========================================================= -->
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(function(registration) {
+
+                    console.log(
+                        "Smart Transport Service Worker registered:",
+                        registration.scope
+                    );
+
+                })
+                .catch(function(error) {
+
+                    console.error(
+                        "Service Worker registration failed:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+</html>

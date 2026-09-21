@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#124E70">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Smart Transport">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Traveller Portal | Smart Transport</title>
+
+    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/portal-ui.css">
+</head>
+
+<body class="portal-page traveller-portal">
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="portal-header">
+
+    <div class="portal-brand">
+
+        <div class="portal-brand-logo">
+            ST
+        </div>
+
+        <div class="portal-brand-text">
+            <div class="portal-brand-title">
+                SMART TRANSPORT
+            </div>
+
+            <div class="portal-brand-subtitle">
+                TRAVELLER PORTAL
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+        <div class="portal-system-status">
+            <span class="portal-status-dot"></span>
+            System Online
+        </div>
+
+        <button
+            class="portal-header-icon portal-notification"
+            type="button"
+            onclick="showTravellerNotifications()"
+            title="Notifications"
+        >
+            🔔
+        </button>
+
+        <div class="portal-profile">
+
+            <div class="portal-profile-avatar" id="profileInitial">
+                T
+            </div>
+
+            <div class="portal-profile-info">
+
+                <div class="portal-profile-name" id="profileName">
+                    Traveller
+                </div>
+
+                <div class="portal-profile-role">
+                    Registered Traveller
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="portal-sidebar" id="portalSidebar">
+
+    <div class="portal-sidebar-section">
+
+        <div class="portal-sidebar-label">
+            Traveller
+        </div>
+
+        <a href="#dashboard" class="active" data-section="dashboard">
+            <span class="portal-sidebar-icon">⌂</span>
+            My Dashboard
+        </a>
+
+        <a href="#journey" data-section="journey">
+            <span class="portal-sidebar-icon">➜</span>
+            Plan Journey
+        </a>
+
+        <a href="#vehicle" data-section="vehicle">
+            <span class="portal-sidebar-icon">🚗</span>
+            My Vehicle
+        </a>
+
+        <a href="live-map.html" data-section="live-map">
+            <span class="portal-sidebar-icon">⌖</span>
+            Live Transport Map
+        </a>
+
+        <a href="#alerts" data-section="alerts">
+            <span class="portal-sidebar-icon">⚠</span>
+            My Alerts
+        </a>
+
+        <a href="#history" data-section="history">
+            <span class="portal-sidebar-icon">◷</span>
+            Travel History
+        </a>
+
+    </div>
+
+
+    <div class="portal-sidebar-section">
+
+        <div class="portal-sidebar-label">
+            Account
+        </div>
+
+        <a href="#settings" data-section="settings">
+            <span class="portal-sidebar-icon">⚙</span>
+            Settings
+        </a>
+
+        <a
+            href="javascript:void(0)"
+            onclick="openSOS()"
+            class="portal-sidebar-danger"
+        >
+            <span class="portal-sidebar-icon">🚨</span>
+            Report Emergency
+        </a>
+
+        <a
+            href="index.html"
+            class="portal-sidebar-danger"
+        >
+            <span class="portal-sidebar-icon">↪</span>
+            Sign Out
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="portal-main">
+
+<div class="portal-container">
+
+
+<!-- =====================================================
+     DASHBOARD HEADING
+===================================================== -->
+
+<section id="dashboard">
+
+    <div class="portal-page-heading">
+
+        <div>
+
+            <h1>
+                Welcome, <span id="welcomeName">Traveller</span>
+            </h1>
+
+            <p>
+                Manage your journey, vehicle and travel information across Northeast India.
+            </p>
+
+        </div>
+
+        <div class="portal-heading-actions">
+
+            <button
+                class="portal-btn portal-btn-primary"
+                onclick="openRoutePlanner()"
+            >
+                + Plan Journey
+            </button>
+
+            <a
+                class="portal-btn portal-btn-secondary"
+                href="live-map.html"
+                style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;"
+            >
+                ⌖ Live Map
+            </a>
+
+            <button
+                class="portal-btn portal-btn-danger"
+                onclick="openSOS()"
+            >
+                🚨 Emergency SOS
+            </button>
+
+        </div>
+
+    </div>
+
+
+<!-- =====================================================
+     STAT CARDS
+===================================================== -->
+
+    <div class="portal-stat-grid">
+
+        <div class="portal-stat-card">
+
+            <div class="portal-stat-label">
+                Traveller Type
+            </div>
+
+            <div
+                class="portal-stat-value"
+                id="travellerType"
+            >
+                Local
+            </div>
+
+            <div class="portal-stat-description">
+                Current travel category
+            </div>
+
+        </div>
+
+
+        <div class="portal-stat-card green">
+
+            <div class="portal-stat-label">
+                Vehicle
+            </div>
+
+            <div
+                class="portal-stat-value"
+                id="vehicleType"
+            >
+                Car
+            </div>
+
+            <div class="portal-stat-description">
+                Registered vehicle
+            </div>
+
+        </div>
+
+
+        <div class="portal-stat-card orange">
+
+            <div class="portal-stat-label">
+                Origin
+            </div>
+
+            <div
+                class="portal-stat-value"
+                id="travellerOrigin"
+            >
+                Guwahati
+            </div>
+
+            <div class="portal-stat-description">
+                Registered starting point
+            </div>
+
+        </div>
+
+
+        <div class="portal-stat-card purple">
+
+            <div class="portal-stat-label">
+                Travel Status
+            </div>
+
+            <div
+                class="portal-stat-value"
+                id="travelStatus"
+            >
+                Ready
+            </div>
+
+            <div class="portal-stat-description">
+                Current journey state
+            </div>
+
+        </div>
+
+    </div>
+
+
+<!-- =====================================================
+     CURRENT JOURNEY + ROUTE ANALYSIS
+===================================================== -->
+
+    <div class="portal-grid-2">
+
+
+        <!-- CURRENT JOURNEY -->
+
+        <div class="portal-card">
+
+            <div class="portal-card-header">
+
+                <div>
+
+                    <div class="portal-card-title">
+                        Current Journey
+                    </div>
+
+                    <div class="portal-card-subtitle">
+                        Your latest registered route
+                    </div>
+
+                </div>
+
+                <span
+                    class="portal-badge portal-badge-safe"
+                    id="journeyStatusBadge"
+                >
+                    READY
+                </span>
+
+            </div>
+
+
+            <div class="portal-card-body">
+
+                <div class="portal-route">
+
+                    <div class="portal-route-point">
+
+                        <div class="portal-route-label">
+                            From
+                        </div>
+
+                        <div
+                            class="portal-route-location"
+                            id="journeyOrigin"
+                        >
+                            Guwahati
+                        </div>
+
+                    </div>
+
+
+                    <div class="portal-route-line"></div>
+
+
+                    <div class="portal-route-arrow">
+                        →
+                    </div>
+
+
+                    <div class="portal-route-line"></div>
+
+
+                    <div class="portal-route-point">
+
+                        <div class="portal-route-label">
+                            To
+                        </div>
+
+                        <div
+                            class="portal-route-location"
+                            id="journeyDestination"
+                        >
+                            Shillong
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="portal-info-list">
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Route
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="journeyRoute"
+                        >
+                            NH-6
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Travel Type
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="journeyType"
+                        >
+                            Local
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Journey Readiness
+                        </span>
+
+                        <span class="portal-badge portal-badge-safe">
+                            READY
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div style="margin-top:18px;">
+
+                    <button
+                        class="portal-btn portal-btn-primary"
+                        onclick="openRoutePlanner()"
+                    >
+                        Analyse New Route
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ROUTE ANALYSIS -->
+
+        <div class="portal-card">
+
+            <div class="portal-card-header">
+
+                <div>
+
+                    <div class="portal-card-title">
+                        Route Analysis
+                    </div>
+
+                    <div class="portal-card-subtitle">
+                        Transport readiness information
+                    </div>
+
+                </div>
+
+                <span class="portal-badge portal-badge-blue">
+                    AI READY
+                </span>
+
+            </div>
+
+
+            <div class="portal-card-body">
+
+                <div class="portal-analysis">
+
+                    <div class="portal-analysis-item">
+
+                        <span class="portal-analysis-label">
+                            Route condition
+                        </span>
+
+                        <span
+                            class="portal-analysis-value"
+                            id="routeCondition"
+                        >
+                            Normal
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-analysis-item">
+
+                        <span class="portal-analysis-label">
+                            Weather status
+                        </span>
+
+                        <span
+                            class="portal-analysis-value"
+                            id="weatherStatus"
+                        >
+                            Monitoring
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-analysis-item">
+
+                        <span class="portal-analysis-label">
+                            Transport feasibility
+                        </span>
+
+                        <span
+                            class="portal-analysis-value"
+                            id="routeFeasibility"
+                        >
+                            Available
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-analysis-item">
+
+                        <span class="portal-analysis-label">
+                            Emergency alerts
+                        </span>
+
+                        <span
+                            class="portal-analysis-value"
+                            id="emergencyAlertStatus"
+                        >
+                            None
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div style="margin-top:18px;">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        margin-bottom:7px;
+                    ">
+
+                        <span style="
+                            font-size:11px;
+                            color:#6d8089;
+                        ">
+                            Journey readiness
+                        </span>
+
+                        <strong style="
+                            font-size:11px;
+                            color:#2e7d32;
+                        ">
+                            92%
+                        </strong>
+
+                    </div>
+
+                    <div class="portal-progress">
+
+                        <div
+                            class="portal-progress-bar green"
+                            style="width:92%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<!-- =====================================================
+     VEHICLE + ALERTS
+===================================================== -->
+
+    <div class="portal-grid-2-equal">
+
+
+        <!-- VEHICLE -->
+
+        <div class="portal-card" id="vehicle">
+
+            <div class="portal-card-header">
+
+                <div>
+
+                    <div class="portal-card-title">
+                        My Vehicle
+                    </div>
+
+                    <div class="portal-card-subtitle">
+                        Registered vehicle information
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-card-body">
+
+                <div class="portal-info-list">
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Vehicle Type
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="vehicleInfoType"
+                        >
+                            Car
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Driving Licence
+                        </span>
+
+                        <span
+                            class="portal-info-value"
+                            id="licenceInfo"
+                        >
+                            Registered
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Vehicle Status
+                        </span>
+
+                        <span class="portal-badge portal-badge-safe">
+                            ACTIVE
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALERTS -->
+
+        <div class="portal-card" id="alerts">
+
+            <div class="portal-card-header">
+
+                <div>
+
+                    <div class="portal-card-title">
+                        My Alerts
+                    </div>
+
+                    <div class="portal-card-subtitle">
+                        Important transport updates
+                    </div>
+
+                </div>
+
+                <span class="portal-badge portal-badge-safe">
+                    NORMAL
+                </span>
+
+            </div>
+
+
+            <div class="portal-card-body">
+
+                <div class="portal-alert-list">
+
+                    <div class="portal-alert success">
+
+                        <div class="portal-alert-title">
+                            System operating normally
+                        </div>
+
+                        <div class="portal-alert-text">
+                            No critical transport alerts are currently associated with your journey.
+                        </div>
+
+                    </div>
+
+
+                    <div class="portal-alert">
+
+                        <div class="portal-alert-title">
+                            Route monitoring enabled
+                        </div>
+
+                        <div class="portal-alert-text">
+                            Your selected route will be monitored for transport and emergency updates.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<!-- =====================================================
+     TRAVEL HISTORY
+===================================================== -->
+
+    <div
+        class="portal-card"
+        id="history"
+        style="margin-bottom:20px;"
+    >
+
+        <div class="portal-card-header">
+
+            <div>
+
+                <div class="portal-card-title">
+                    Travel History
+                </div>
+
+                <div class="portal-card-subtitle">
+                    Your recent journeys
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="portal-table-wrapper">
+
+            <table class="portal-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Vehicle</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="travelHistoryBody">
+
+                    <tr>
+
+                        <td>Today</td>
+
+                        <td>
+                            Guwahati
+                        </td>
+
+                        <td>
+                            Shillong
+                        </td>
+
+                        <td>
+                            Car
+                        </td>
+
+                        <td>
+                            <span class="portal-badge portal-badge-blue">
+                                PLANNED
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>Yesterday</td>
+
+                        <td>
+                            Shillong
+                        </td>
+
+                        <td>
+                            Cherrapunji
+                        </td>
+
+                        <td>
+                            Car
+                        </td>
+
+                        <td>
+                            <span class="portal-badge portal-badge-safe">
+                                COMPLETED
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+<!-- =====================================================
+     JOURNEY PLANNER
+===================================================== -->
+
+    <section id="journey">
+
+        <div class="portal-card" style="margin-bottom:20px;">
+
+            <div class="portal-card-header">
+
+                <div>
+
+                    <div class="portal-card-title">
+                        Journey Planner
+                    </div>
+
+                    <div class="portal-card-subtitle">
+                        Plan and analyse your route across Northeast India.
+                    </div>
+
+                </div>
+
+                <button
+                    class="portal-btn portal-btn-primary"
+                    onclick="openRoutePlanner()"
+                >
+                    Open Planner
+                </button>
+
+            </div>
+
+            <div class="portal-card-body">
+
+                <div class="portal-grid-2-equal">
+
+                    <div class="portal-alert">
+
+                        <div class="portal-alert-title">
+                            Route optimisation
+                        </div>
+
+                        <div class="portal-alert-text">
+                            The system can analyse route feasibility, transport conditions,
+                            weather information and emergency alerts before your journey.
+                        </div>
+
+                    </div>
+
+
+                    <div class="portal-alert success">
+
+                        <div class="portal-alert-title">
+                            Northeast-focused transport
+                        </div>
+
+                        <div class="portal-alert-text">
+                            Journey locations are currently configured for Northeast India.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+    <section id="settings">
+
+        <div class="portal-card" style="margin-bottom:20px;">
+
+            <div class="portal-card-header">
+
+                <div>
+
+                    <div class="portal-card-title">
+                        Account Settings
+                    </div>
+
+                    <div class="portal-card-subtitle">
+                        Manage your portal preferences.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-card-body">
+
+                <div class="portal-info-list">
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Notifications
+                        </span>
+
+                        <span class="portal-badge portal-badge-safe">
+                            ENABLED
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Emergency alerts
+                        </span>
+
+                        <span class="portal-badge portal-badge-safe">
+                            ENABLED
+                        </span>
+
+                    </div>
+
+
+                    <div class="portal-info-row">
+
+                        <span class="portal-info-label">
+                            Offline support
+                        </span>
+
+                        <span class="portal-badge portal-badge-blue">
+                            AVAILABLE
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+<!-- =====================================================
+     EMERGENCY STRIP
+===================================================== -->
+
+    <div class="portal-emergency-strip">
+
+        <div>
+
+            <div class="portal-emergency-title">
+                Emergency assistance
+            </div>
+
+            <div class="portal-emergency-text">
+                Report accidents, landslides, floods, road blockages or other emergencies.
+            </div>
+
+        </div>
+
+        <button
+            class="portal-btn portal-btn-danger"
+            onclick="openSOS()"
+        >
+            🚨 REPORT EMERGENCY
+        </button>
+
+    </div>
+
+
+</div>
+
+</main>
+
+
+<!-- =====================================================
+     MOBILE NAVIGATION
+===================================================== -->
+
+<nav class="portal-mobile-nav">
+
+    <a href="#dashboard" class="active">
+        <span>⌂</span>
+        Home
+    </a>
+
+    <a href="#journey">
+        <span>➜</span>
+        Journey
+    </a>
+
+    <a href="javascript:void(0)" onclick="openSOS()">
+        <span>🚨</span>
+        SOS
+    </a>
+
+    <a href="#vehicle">
+        <span>🚗</span>
+        Vehicle
+    </a>
+
+    <a href="index.html">
+        <span>↪</span>
+        Exit
+    </a>
+
+</nav>
+
+
+<!-- =====================================================
+     ROUTE PLANNER MODAL
+===================================================== -->
+
+<div
+    class="portal-modal"
+    id="routePlannerModal"
+>
+
+    <div class="portal-modal-content">
+
+        <div class="portal-modal-header">
+
+            <div class="portal-modal-title">
+                Plan Your Journey
+            </div>
+
+            <button
+                class="portal-modal-close"
+                onclick="closeRoutePlanner()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="routePlannerForm"
+            onsubmit="analyseTravellerRoute(event)"
+        >
+
+            <div class="portal-modal-body">
+
+                <div class="portal-form-grid">
+
+
+                    <div class="portal-form-group">
+
+                        <label for="routeOrigin">
+                            Origin
+                        </label>
+
+                        <select id="routeOrigin" required>
+
+                            <option value="">
+                                Select origin
+                            </option>
+
+                            <option>Guwahati</option>
+                            <option>Shillong</option>
+                            <option>Imphal</option>
+                            <option>Kohima</option>
+                            <option>Aizawl</option>
+                            <option>Itanagar</option>
+                            <option>Agartala</option>
+                            <option>Dibrugarh</option>
+                            <option>Silchar</option>
+                            <option>Tawang</option>
+                            <option>Cherrapunji</option>
+                            <option>Tura</option>
+                            <option>Dimapur</option>
+                            <option>Lunglei</option>
+                            <option>Moirang</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="routeDestination">
+                            Destination
+                        </label>
+
+                        <select id="routeDestination" required>
+
+                            <option value="">
+                                Select destination
+                            </option>
+
+                            <option>Guwahati</option>
+                            <option>Shillong</option>
+                            <option>Imphal</option>
+                            <option>Kohima</option>
+                            <option>Aizawl</option>
+                            <option>Itanagar</option>
+                            <option>Agartala</option>
+                            <option>Dibrugarh</option>
+                            <option>Silchar</option>
+                            <option>Tawang</option>
+                            <option>Cherrapunji</option>
+                            <option>Tura</option>
+                            <option>Dimapur</option>
+                            <option>Lunglei</option>
+                            <option>Moirang</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="journeyDate">
+                            Journey Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="journeyDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="journeyVehicle">
+                            Vehicle
+                        </label>
+
+                        <select id="journeyVehicle">
+
+                            <option>Car</option>
+                            <option>Bike</option>
+                            <option>Bus</option>
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group full">
+
+                        <label for="journeyNotes">
+                            Additional Information
+                        </label>
+
+                        <textarea
+                            id="journeyNotes"
+                            placeholder="Add any journey requirements..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="routeAnalysisResult"
+                    style="
+                        display:none;
+                        margin-top:18px;
+                    "
+                >
+
+                    <div class="portal-alert success">
+
+                        <div class="portal-alert-title">
+                            Route analysis ready
+                        </div>
+
+                        <div
+                            class="portal-alert-text"
+                            id="routeAnalysisText"
+                        >
+                            Your route is being analysed.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-modal-footer">
+
+                <button
+                    type="button"
+                    class="portal-btn portal-btn-secondary"
+                    onclick="closeRoutePlanner()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="portal-btn portal-btn-primary"
+                >
+                    Analyse Route
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SOS MODAL
+===================================================== -->
+
+<div
+    class="portal-modal"
+    id="sosModal"
+>
+
+    <div class="portal-modal-content">
+
+        <div class="portal-modal-header">
+
+            <div class="portal-modal-title">
+                🚨 Emergency SOS
+            </div>
+
+            <button
+                class="portal-modal-close"
+                onclick="closeSOS()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="sosForm"
+            onsubmit="submitSOS(event)"
+        >
+
+            <div class="portal-modal-body">
+
+                <div
+                    class="portal-alert danger"
+                    style="margin-bottom:18px;"
+                >
+
+                    <div class="portal-alert-title">
+                        Use only for genuine emergencies
+                    </div>
+
+                    <div class="portal-alert-text">
+                        Your emergency report will be added to the transport emergency system.
+                    </div>
+
+                </div>
+
+
+                <div class="portal-form-grid">
+
+
+                    <div class="portal-form-group">
+
+                        <label for="sosIncidentType">
+                            Incident Type
+                        </label>
+
+                        <select
+                            id="sosIncidentType"
+                            required
+                        >
+
+                            <option value="">
+                                Select incident
+                            </option>
+
+                            <option>Accident</option>
+                            <option>Landslide</option>
+                            <option>Flood</option>
+                            <option>Road Blockage</option>
+                            <option>Damaged Road</option>
+                            <option>Other Emergency</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group">
+
+                        <label for="sosLocation">
+                            Location
+                        </label>
+
+                        <select
+                            id="sosLocation"
+                            required
+                        >
+
+                            <option value="">
+                                Select location
+                            </option>
+
+                            <option>Guwahati</option>
+                            <option>Shillong</option>
+                            <option>Imphal</option>
+                            <option>Kohima</option>
+                            <option>Aizawl</option>
+                            <option>Itanagar</option>
+                            <option>Agartala</option>
+                            <option>Dibrugarh</option>
+                            <option>Silchar</option>
+                            <option>Tawang</option>
+                            <option>Cherrapunji</option>
+                            <option>Tura</option>
+                            <option>Dimapur</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="portal-form-group full">
+
+                        <label for="sosDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="sosDescription"
+                            placeholder="Describe what happened..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="portal-form-group full">
+
+                        <label for="sosPhoto">
+                            Supporting Photo
+                        </label>
+
+                        <input
+                            type="file"
+                            id="sosPhoto"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-modal-footer">
+
+                <button
+                    type="button"
+                    class="portal-btn portal-btn-secondary"
+                    onclick="closeSOS()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="portal-btn portal-btn-danger"
+                >
+                    🚨 Submit Emergency
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="js/app.js"></script>
+<script src="js/emergency.js"></script>
+
+
+<script>
+
+/* =====================================================
+   TRAVELLER DATA
+===================================================== */
+
+function loadTravellerData() {
+
+    let traveller = null;
+
+    try {
+
+        const loginData =
+            localStorage.getItem("travellerLogin");
+
+        const travellers =
+            JSON.parse(
+                localStorage.getItem("travellers") || "[]"
+            );
+
+        if (loginData) {
+
+            const login =
+                JSON.parse(loginData);
+
+            if (Array.isArray(travellers)) {
+
+                traveller =
+                    travellers.find(function(item) {
+
+                        return (
+                            item.phone === login.phone ||
+                            item.mobile === login.phone ||
+                            item.id === login.phone
+                        );
+
+                    });
+
+            }
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Traveller data could not be loaded.",
+            error
+        );
+
+    }
+
+
+    if (!traveller) {
+
+        traveller = {
+
+            name: "Traveller",
+
+            type: "Local",
+
+            travelType: "Local",
+
+            vehicle: "Car",
+
+            vehicleType: "Car",
+
+            origin: "Guwahati",
+
+            destination: "Shillong",
+
+            route: "NH-6",
+
+            licence: "Registered"
+
+        };
+
+    }
+
+
+    const name =
+        traveller.name ||
+        traveller.userName ||
+        "Traveller";
+
+
+    const type =
+        traveller.travelType ||
+        traveller.type ||
+        "Local";
+
+
+    const vehicle =
+        traveller.vehicleType ||
+        traveller.vehicle ||
+        "Car";
+
+
+    const origin =
+        traveller.origin ||
+        "Guwahati";
+
+
+    const destination =
+        traveller.destination ||
+        "Shillong";
+
+
+    const route =
+        traveller.route ||
+        "NH-6";
+
+
+    setText(
+        "welcomeName",
+        name
+    );
+
+    setText(
+        "profileName",
+        name
+    );
+
+    setText(
+        "profileInitial",
+        name.charAt(0).toUpperCase()
+    );
+
+    setText(
+        "travellerType",
+        type
+    );
+
+    setText(
+        "vehicleType",
+        vehicle
+    );
+
+    setText(
+        "travellerOrigin",
+        origin
+    );
+
+    setText(
+        "vehicleInfoType",
+        vehicle
+    );
+
+    setText(
+        "licenceInfo",
+        traveller.licence ?
+        "Registered" :
+        "Registered"
+    );
+
+    setText(
+        "journeyOrigin",
+        origin
+    );
+
+    setText(
+        "journeyDestination",
+        destination
+    );
+
+    setText(
+        "journeyRoute",
+        route
+    );
+
+    setText(
+        "journeyType",
+        type
+    );
+
+}
+
+
+/* =====================================================
+   SAFE TEXT HELPER
+===================================================== */
+
+function setText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.textContent =
+            value || "";
+
+    }
+
+}
+
+
+/* =====================================================
+   ROUTE PLANNER
+===================================================== */
+
+function openRoutePlanner() {
+
+    const modal =
+        document.getElementById(
+            "routePlannerModal"
+        );
+
+    if (modal) {
+
+        modal.classList.add("open");
+
+    }
+
+}
+
+
+function closeRoutePlanner() {
+
+    const modal =
+        document.getElementById(
+            "routePlannerModal"
+        );
+
+    if (modal) {
+
+        modal.classList.remove("open");
+
+    }
+
+}
+
+
+function analyseTravellerRoute(event) {
+
+    event.preventDefault();
+
+
+    const origin =
+        document.getElementById(
+            "routeOrigin"
+        ).value;
+
+    const destination =
+        document.getElementById(
+            "routeDestination"
+        ).value;
+
+    const date =
+        document.getElementById(
+            "journeyDate"
+        ).value;
+
+
+    if (!origin || !destination) {
+
+        alert(
+            "Please select both origin and destination."
+        );
+
+        return;
+
+    }
+
+
+    if (origin === destination) {
+
+        alert(
+            "Origin and destination cannot be the same."
+        );
+
+        return;
+
+    }
+
+
+    const result =
+        document.getElementById(
+            "routeAnalysisResult"
+        );
+
+    const text =
+        document.getElementById(
+            "routeAnalysisText"
+        );
+
+
+    result.style.display = "block";
+
+
+    text.textContent =
+        "Route analysis prepared for " +
+        origin +
+        " → " +
+        destination +
+        (date
+            ? " on " + date + ". "
+            : ". "
+        ) +
+        "Live map, weather and route optimisation data can be connected here through the transport API.";
+
+
+    setText(
+        "journeyOrigin",
+        origin
+    );
+
+    setText(
+        "journeyDestination",
+        destination
+    );
+
+    setText(
+        "travelStatus",
+        "Planned"
+    );
+
+    setText(
+        "journeyStatusBadge",
+        "PLANNED"
+    );
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function showTravellerNotifications() {
+
+    alert(
+        "No new traveller notifications."
+    );
+
+}
+
+
+/* =====================================================
+   SIDEBAR NAVIGATION
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadTravellerData();
+
+
+        const sidebarLinks =
+            document.querySelectorAll(
+                ".portal-sidebar a[data-section]"
+            );
+
+
+        sidebarLinks.forEach(
+            function(link) {
+
+                link.addEventListener(
+                    "click",
+                    function() {
+
+                        sidebarLinks.forEach(
+                            function(item) {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                        link.classList.add(
+                            "active"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        const dateInput =
+            document.getElementById(
+                "journeyDate"
+            );
+
+
+        if (dateInput) {
+
+            const today =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
+
+            dateInput.min = today;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CLOSE MODALS ON BACKDROP CLICK
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target.classList.contains(
+                "portal-modal"
+            )
+        ) {
+
+            event.target.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+</script>
+<script src="js/api.js"></script>
+</body>
+</html>

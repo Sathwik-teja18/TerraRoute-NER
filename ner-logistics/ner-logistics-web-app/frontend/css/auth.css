@@ -1,0 +1,726 @@
+/* =========================================================
+   AUTHENTICATION / ENTRY STYLES
+   Updated only for the requested splash + frosted-glass flow.
+   Existing dashboard styles remain untouched.
+   ========================================================= */
+
+.auth-screen.hidden {
+    display: none !important;
+}
+
+.auth-screen {
+    min-height: 100vh;
+    width: 100%;
+    color: #10245c;
+}
+
+/* ---------------------------------------------------------
+   1. SPLASH SCREEN
+   Uses assets/logo.jpg as the complete splash artwork.
+   No loader / buffering symbol.
+   --------------------------------------------------------- */
+
+.splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #f4f7fb;
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 900ms ease,
+        visibility 900ms ease;
+}
+
+.splash-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.splash-content {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.splash-content::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    pointer-events: none;
+}
+
+.splash-logo {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: none;
+    max-height: none;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Splash artwork already contains branding and tagline. */
+.splash-content h1,
+.splash-content p,
+.splash-loader,
+.splash-status {
+    display: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   2. ENTRY / ROLE SELECTION
+   Full scenic background + darker graded frosted glass.
+   --------------------------------------------------------- */
+
+.entry-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 34px;
+    overflow: auto;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(12, 39, 62, 0.28),
+            rgba(255, 255, 255, 0.08)
+        ),
+        url("../assets/ner-background.jpg")
+        center center / cover no-repeat;
+}
+
+.entry-screen::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: rgba(245, 250, 255, 0.16);
+
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.entry-card {
+    position: relative;
+    z-index: 1;
+
+    width: min(960px, 100%);
+
+    padding: 40px;
+
+    text-align: center;
+
+    background: rgba(238, 246, 255, 0.34);
+
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    border-top-color: rgba(255, 255, 255, 0.86);
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 28px 80px rgba(8, 35, 58, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+
+    backdrop-filter: blur(24px) saturate(125%);
+    -webkit-backdrop-filter: blur(24px) saturate(125%);
+}
+
+.entry-logo,
+.login-logo {
+    display: block;
+
+    width: 92px;
+    height: 92px;
+
+    margin: 0 auto 15px;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+}
+
+.entry-card h1 {
+    margin: 0 0 8px;
+
+    color: #10245c;
+}
+
+.entry-subtitle {
+    margin: 0 0 5px;
+
+    font-weight: 700;
+
+    color: #31466b;
+}
+
+.entry-description {
+    margin: 0 0 28px;
+
+    color: #64718a;
+
+    line-height: 1.6;
+}
+
+
+/* ---------------------------------------------------------
+   ROLE CARDS
+   Darker graded frosted-glass look.
+   --------------------------------------------------------- */
+
+.role-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.role-card {
+    position: relative;
+
+    appearance: none;
+
+    border-radius: 22px;
+
+    padding: 28px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+.role-card::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.18),
+            rgba(255,255,255,0.03)
+        );
+
+    pointer-events: none;
+}
+
+.role-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.role-card:hover {
+    transform: translateY(-3px);
+}
+
+
+/* DISASTER MANAGEMENT
+   Requested colour: #D97706
+ */
+
+.disaster-role {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(217, 119, 6, 0.67),
+            rgba(130, 70, 2, 0.50)
+        );
+
+    border: 1px solid rgba(255, 235, 204, 0.74);
+
+    box-shadow:
+        0 18px 42px rgba(217, 119, 6, 0.30),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.disaster-role:hover {
+    box-shadow:
+        0 24px 50px rgba(217, 119, 6, 0.38),
+        inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+
+/* GOVERNMENT
+   Requested colour: #073B4C
+ */
+
+.government-role {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7, 59, 76, 0.72),
+            rgba(2, 41, 53, 0.54)
+        );
+
+    border: 1px solid rgba(213, 244, 252, 0.65);
+
+    box-shadow:
+        0 18px 42px rgba(7, 59, 76, 0.34),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.government-role:hover {
+    box-shadow:
+        0 24px 50px rgba(7, 59, 76, 0.42),
+        inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+
+.role-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    margin-bottom: 17px;
+
+    font-size: 25px;
+
+    background: rgba(255,255,255,0.17);
+
+    border: 1px solid rgba(255,255,255,0.22);
+}
+
+.role-card h2 {
+    font-size: 20px;
+
+    margin: 0 0 10px;
+}
+
+.role-card p {
+    margin: 0 0 18px;
+
+    color: rgba(247,251,255,0.86);
+
+    line-height: 1.55;
+}
+
+.role-card span {
+    display: inline-block;
+
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+.authorized-note {
+    margin-top: 25px;
+
+    color: rgba(26, 45, 71, 0.78);
+
+    font-size: 13px;
+}
+
+
+/* ---------------------------------------------------------
+   3. SHARED LOGIN SCREEN
+   Frosted white macOS-style centre panel.
+   --------------------------------------------------------- */
+
+.login-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+    overflow: auto;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(221, 235, 249, 0.72),
+            rgba(247, 250, 253, 0.50)
+        ),
+        url("../assets/ner-background.jpg")
+        center center / cover no-repeat;
+}
+
+.login-screen::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: rgba(233, 242, 251, 0.22);
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.login-card {
+    position: relative;
+    z-index: 1;
+
+    width: min(520px, 100%);
+
+    padding: 36px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.56);
+
+    border: 1px solid rgba(255, 255, 255, 0.75);
+
+    border-radius: 27px;
+
+    box-shadow:
+        0 28px 75px rgba(24, 48, 78, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.20);
+
+    backdrop-filter: blur(30px) saturate(130%);
+    -webkit-backdrop-filter: blur(30px) saturate(130%);
+}
+
+.login-subtitle {
+    margin: 0 0 18px;
+
+    color: #66738a;
+}
+
+.selected-role {
+    margin-bottom: 22px;
+
+    padding: 11px 13px;
+
+    border-radius: 12px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    border: 1px solid rgba(255,255,255,0.78);
+
+    background: rgba(255,255,255,0.36);
+
+    color: #17325d;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.72);
+}
+
+
+/* ---------------------------------------------------------
+   ROLE-SPECIFIC LOGIN GRADING
+   --------------------------------------------------------- */
+
+.login-screen.role-government .login-card {
+    box-shadow:
+        0 28px 75px rgba(7, 59, 76, 0.24),
+        inset 0 1px 0 rgba(255,255,255,0.92),
+        inset 0 -1px 0 rgba(255,255,255,0.20);
+}
+
+.login-screen.role-government .selected-role {
+    color: #073B4C;
+
+    border-color: rgba(7, 59, 76, 0.25);
+
+    background: rgba(7, 59, 76, 0.09);
+}
+
+
+.login-screen.role-disaster .login-card {
+    box-shadow:
+        0 28px 75px rgba(217, 119, 6, 0.23),
+        inset 0 1px 0 rgba(255,255,255,0.92),
+        inset 0 -1px 0 rgba(255,255,255,0.20);
+}
+
+.login-screen.role-disaster .selected-role {
+    color: #D97706;
+
+    border-color: rgba(217, 119, 6, 0.27);
+
+    background: rgba(217, 119, 6, 0.09);
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN FORM
+   --------------------------------------------------------- */
+
+#login-form {
+    text-align: left;
+}
+
+#login-form label:not(.robot-check) {
+    display: block;
+
+    margin: 14px 0 7px;
+
+    color: #23335d;
+
+    font-weight: 700;
+
+    font-size: 14px;
+}
+
+#login-form input[type="text"],
+#login-form input[type="password"] {
+    width: 100%;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        rgba(171, 188, 208, 0.58);
+
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    background: rgba(255,255,255,0.52);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.72);
+}
+
+#login-form input[type="text"]:focus,
+#login-form input[type="password"]:focus {
+    border-color:
+        rgba(23, 105, 232, 0.50);
+
+    box-shadow:
+        0 0 0 4px rgba(23, 105, 232, .09),
+        inset 0 1px 0 rgba(255,255,255,0.72);
+}
+
+
+/* ---------------------------------------------------------
+   I AM NOT A ROBOT
+   --------------------------------------------------------- */
+
+.robot-check {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    border:
+        1px solid
+        rgba(171, 188, 208, 0.58);
+
+    border-radius: 12px;
+
+    margin-top: 18px;
+
+    background: rgba(255,255,255,0.48);
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.72);
+}
+
+.robot-check input {
+    width: 19px;
+    height: 19px;
+}
+
+.robot-check span {
+    color: #26345b;
+
+    font-size: 14px;
+
+    flex: 1;
+}
+
+.robot-check small {
+    color: #7a8498;
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN BUTTON
+   --------------------------------------------------------- */
+
+.login-error {
+    min-height: 20px;
+
+    margin: 10px 0 0;
+
+    color: #c51d1d;
+
+    font-size: 13px;
+}
+
+.login-button {
+    width: 100%;
+
+    border: none;
+
+    color: #ffffff;
+
+    padding: 14px 18px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    margin-top: 7px;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+.login-button:hover {
+    transform: translateY(-1px);
+}
+
+
+/* Government login button */
+
+.login-screen.role-government .login-button {
+    background: #073B4C;
+
+    box-shadow:
+        0 12px 24px
+        rgba(7, 59, 76, 0.25);
+}
+
+.login-screen.role-government .login-button:hover {
+    box-shadow:
+        0 16px 28px
+        rgba(7, 59, 76, 0.31);
+}
+
+
+/* Disaster login button */
+
+.login-screen.role-disaster .login-button {
+    background: #D97706;
+
+    box-shadow:
+        0 12px 24px
+        rgba(217, 119, 6, 0.25);
+}
+
+.login-screen.role-disaster .login-button:hover {
+    box-shadow:
+        0 16px 28px
+        rgba(217, 119, 6, 0.31);
+}
+
+
+/* ---------------------------------------------------------
+   FOOTER / BACK BUTTON
+   --------------------------------------------------------- */
+
+.back-entry-button {
+    display: block;
+
+    margin: 16px auto 0;
+
+    border: none;
+
+    background: none;
+
+    color: #1769e8;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+.secure-access {
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid
+        rgba(164, 179, 198, 0.35);
+
+    color: #69758b;
+
+    font-size: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .entry-screen,
+    .login-screen {
+        padding: 16px;
+    }
+
+    .entry-card,
+    .login-card {
+        padding: 25px 18px;
+
+        border-radius: 21px;
+    }
+
+    .role-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .splash-logo {
+        object-fit: cover;
+    }
+
+}

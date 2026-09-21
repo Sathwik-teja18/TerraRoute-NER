@@ -1,0 +1,2944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#124E70"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Smart Transport"
+    >
+
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+    <title>
+        Smart Transport Management System
+    </title>
+
+
+    <!-- =====================================================
+         STYLES
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./css/portal-ui.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           ENTRY PAGE
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+        }
+
+
+        body {
+
+            font-family:
+                "Inter",
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #081C2C 0%,
+                    #124E70 52%,
+                    #EAF2F6 100%
+                );
+
+            color: #18323F;
+            transition: background 0.3s ease;
+        }
+
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
+        .entry-page {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ====================================================== */
+
+        .entry-header {
+
+            min-height: 76px;
+
+            padding:
+                0 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            color: white;
+
+        }
+
+
+        .entry-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+        }
+
+
+        .entry-logo {
+
+            width: 46px;
+            height: 46px;
+
+            border-radius: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.22
+                );
+
+            overflow: hidden;
+
+        }
+
+
+        .entry-logo img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            padding: 5px;
+
+        }
+
+
+        .entry-brand-title {
+
+            font-size: 16px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .entry-brand-subtitle {
+
+            margin-top: 3px;
+
+            font-size: 10px;
+
+            letter-spacing: 1.4px;
+
+            color: #C3D9E3;
+
+        }
+
+
+        .entry-header-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+
+        .entry-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #D6E6EC;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .entry-status-dot {
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #55C85A;
+
+            box-shadow:
+                0 0 10px
+                rgba(
+                    85,
+                    200,
+                    90,
+                    0.8
+                );
+
+        }
+
+        .btn-ai-toggle {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .btn-ai-toggle:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* =====================================================
+           LANGUAGE SELECTOR
+        ====================================================== */
+
+        .entry-language {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+        }
+
+
+        .entry-language label {
+
+            color: #D6E6EC;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        .entry-language select {
+
+            min-width: 125px;
+
+            padding:
+                8px 10px;
+
+            border-radius: 8px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.22
+                );
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+
+            color: white;
+
+            outline: none;
+
+            font-size: 11px;
+
+        }
+
+
+        .entry-language option {
+
+            color: #18323F;
+
+            background: white;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ====================================================== */
+
+        .entry-content {
+
+            flex: 1;
+
+            width:
+                min(
+                    1250px,
+                    calc(100% - 40px)
+                );
+
+            margin:
+                0 auto;
+
+            padding:
+                35px 0 45px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ====================================================== */
+
+        .entry-intro {
+
+            text-align: center;
+
+            color: white;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .entry-intro h1 {
+
+            margin: 0;
+
+            font-size:
+                clamp(
+                    30px,
+                    5vw,
+                    48px
+                );
+
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .entry-intro p {
+
+            max-width: 720px;
+
+            margin:
+                12px auto 0;
+
+            color: #D5E4EA;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .entry-region {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 17px;
+
+            padding:
+                7px 12px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.17
+                );
+
+            color: #E3EEF2;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.8px;
+
+        }
+
+
+        /* =====================================================
+           CARDS
+        ====================================================== */
+
+        .entry-cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap: 20px;
+
+        }
+
+
+        .entry-card {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.97
+                );
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            min-height: 390px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.8
+                );
+
+            box-shadow:
+                0 20px 55px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.17
+                );
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        .entry-card-icon {
+
+            width: 54px;
+            height: 54px;
+
+            border-radius: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .traveller-card
+        .entry-card-icon {
+
+            background: #E5F1F7;
+
+            color: #124E70;
+
+        }
+
+
+        .cargo-card
+        .entry-card-icon {
+
+            background: #F0EBFA;
+
+            color: #6846A8;
+
+        }
+
+
+        .sos-card
+        .entry-card-icon {
+
+            background: #FDECEC;
+
+            color: #D62828;
+
+        }
+
+
+        .entry-card h2 {
+
+            margin: 0;
+
+            color: #081C2C;
+
+            font-size: 21px;
+
+            font-weight: 900;
+
+        }
+
+
+        .entry-card-description {
+
+            color: #71838C;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            margin:
+                8px 0 20px;
+
+        }
+
+
+        /* =====================================================
+           FORMS
+        ====================================================== */
+
+        .entry-form {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+            flex: 1;
+
+        }
+
+
+        .entry-field {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+
+        }
+
+
+        .entry-field label {
+
+            color: #536A75;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+
+        .entry-field input,
+        .entry-field select {
+
+            width: 100%;
+
+            padding:
+                11px 12px;
+
+            border-radius: 9px;
+
+            border:
+                1px solid
+                #D2DFE4;
+
+            outline: none;
+
+            color: #18323F;
+
+            background: white;
+
+            font-size: 12px;
+
+        }
+
+
+        .entry-field input:focus,
+        .entry-field select:focus {
+
+            border-color: #124E70;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    18,
+                    78,
+                    112,
+                    0.08
+                );
+
+        }
+
+
+        /* =====================================================
+           PASSWORD
+        ====================================================== */
+
+        .entry-password {
+
+            position: relative;
+
+        }
+
+
+        .entry-password input {
+
+            padding-right: 45px;
+
+        }
+
+
+        .entry-password button {
+
+            position: absolute;
+
+            right: 7px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            color: #6C7F88;
+
+            font-size: 16px;
+
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ====================================================== */
+
+        .entry-button {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 10px;
+
+            min-height: 44px;
+
+            padding:
+                11px 15px;
+
+            margin-top: auto;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+
+        }
+
+
+        .entry-button:hover {
+
+            transform:
+                translateY(-1px);
+
+            opacity: 0.94;
+
+        }
+
+
+        .entry-button-traveller {
+
+            background: #124E70;
+
+            color: white;
+
+        }
+
+
+        .entry-button-cargo {
+
+            background: #6846A8;
+
+            color: white;
+
+        }
+
+
+        .entry-button-sos {
+
+            background: #D62828;
+
+            color: white;
+
+        }
+
+
+        .entry-helper {
+
+            color: #8A9AA2;
+
+            text-align: center;
+
+            font-size: 9px;
+
+            margin-top: 10px;
+
+        }
+
+
+        /* =====================================================
+           SOS CARD
+        ====================================================== */
+
+        .sos-card {
+
+            border-top:
+                4px solid
+                #D62828;
+
+        }
+
+
+        .sos-warning {
+
+            padding: 12px;
+
+            margin-bottom: 15px;
+
+            border-radius: 9px;
+
+            background: #FFF5F5;
+
+            border:
+                1px solid
+                #F0D1D1;
+
+            color: #765D5D;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .sos-warning strong {
+
+            display: block;
+
+            color: #9A2525;
+
+            margin-bottom: 3px;
+
+        }
+
+
+        /* =====================================================
+           DEMO CREDENTIALS
+        ====================================================== */
+
+        .demo-credentials {
+
+            padding: 10px;
+
+            margin-top: 8px;
+
+            background: #F5F8FA;
+
+            border-radius: 8px;
+
+            color: #6E8088;
+
+            font-size: 9px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .demo-credentials strong {
+
+            color: #124E70;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        .entry-footer {
+
+            text-align: center;
+
+            color: #C2D5DC;
+
+            font-size: 9px;
+
+            padding: 15px;
+
+        }
+
+
+        /* =====================================================
+           SOS MODAL
+        ====================================================== */
+
+        .entry-modal {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 5000;
+
+            background:
+                rgba(
+                    3,
+                    17,
+                    27,
+                    0.72
+                );
+
+            backdrop-filter:
+                blur(5px);
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+        }
+
+
+        .entry-modal.open {
+
+            display: flex;
+
+        }
+
+
+        .entry-modal-box {
+
+            width:
+                min(
+                    620px,
+                    100%
+                );
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            background: white;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 25px 80px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.3
+                );
+
+        }
+
+
+        .entry-modal-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 20px;
+
+            border-bottom:
+                1px solid
+                #E3EBEE;
+
+        }
+
+
+        .entry-modal-title {
+
+            color: #081C2C;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+        }
+
+
+        .entry-modal-close {
+
+            width: 34px;
+            height: 34px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #EDF3F5;
+
+            color: #536A75;
+
+            cursor: pointer;
+
+            font-size: 19px;
+
+        }
+
+
+        .entry-modal-body {
+
+            padding: 20px;
+
+        }
+
+
+        .entry-modal-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap: 14px;
+
+        }
+
+
+        .entry-modal-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+
+        }
+
+
+        .entry-modal-group.full {
+
+            grid-column:
+                1 / -1;
+
+        }
+
+
+        .entry-modal-group label {
+
+            color: #536A75;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+
+        .entry-modal-group input,
+        .entry-modal-group select,
+        .entry-modal-group textarea {
+
+            width: 100%;
+
+            border:
+                1px solid
+                #D2DFE4;
+
+            border-radius: 9px;
+
+            padding: 11px;
+
+            outline: none;
+
+            font-size: 12px;
+
+        }
+
+
+        .entry-modal-group textarea {
+
+            min-height: 95px;
+
+            resize: vertical;
+
+        }
+
+
+        .entry-modal-footer {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            padding:
+                16px 20px;
+
+            border-top:
+                1px solid
+                #E3EBEE;
+
+        }
+
+
+        .modal-cancel {
+
+            width: auto;
+
+            margin: 0;
+
+            background: #EDF3F5;
+
+            color: #536A75;
+
+        }
+
+
+        .modal-submit {
+
+            width: auto;
+
+            margin: 0;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 950px) {
+
+            .entry-cards {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .entry-card {
+
+                min-height: auto;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .entry-header {
+
+                padding:
+                    15px 18px;
+
+            }
+
+
+            .entry-header-right {
+
+                gap: 8px;
+
+            }
+
+
+            .entry-status {
+
+                display: none;
+
+            }
+
+
+            .entry-language label {
+
+                display: none;
+
+            }
+
+
+            .entry-language select {
+
+                min-width: 105px;
+
+            }
+
+
+            .entry-content {
+
+                width:
+                    calc(
+                        100% - 24px
+                    );
+
+                padding:
+                    20px 0 35px;
+
+            }
+
+
+            .entry-intro {
+
+                margin-bottom: 22px;
+
+            }
+
+
+            .entry-intro h1 {
+
+                font-size: 29px;
+
+            }
+
+
+            .entry-intro p {
+
+                font-size: 12px;
+
+            }
+
+
+            .entry-card {
+
+                padding: 22px;
+
+            }
+
+
+            .entry-modal-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .entry-modal-group.full {
+
+                grid-column: auto;
+
+            }
+
+        }
+
+        /* =====================================================
+           AI ANALYSIS DASHBOARD (SCOPED STYLES)
+        ====================================================== */
+        
+        :root {
+            --ai-bg-color: #f4f6f9;
+            --ai-sidebar-bg: #ffffff;
+            --ai-card-bg: #ffffff;
+            --ai-text-main: #1f2937;
+            --ai-text-muted: #6b7280;
+            --ai-border-color: #e5e7eb;
+            --ai-primary: #1e3a8a;
+            --ai-primary-light: #eff6ff;
+            --ai-feasible-bg: #dcfce7;
+            --ai-feasible-text: #15803d;
+            --ai-monitor-bg: #fef3c7;
+            --ai-monitor-text: #b45309;
+            --ai-explained-bg: #f3e8ff;
+            --ai-explained-text: #6b21a8;
+            --ai-danger: #dc2626;
+            --ai-dark-header: #0f172a;
+        }
+
+        #ai-analysis-wrapper {
+            background-color: var(--ai-bg-color);
+            color: var(--ai-text-main);
+            display: none; /* Hidden by default */
+            min-height: 100vh;
+            width: 100%;
+            text-align: left;
+        }
+
+        #ai-analysis-wrapper aside {
+            width: 260px;
+            background: var(--ai-sidebar-bg);
+            border-right: 1px solid var(--ai-border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            flex-shrink: 0;
+        }
+
+        #ai-analysis-wrapper .brand-header { margin-bottom: 32px; }
+        #ai-analysis-wrapper .brand-sub { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ai-text-muted); font-weight: 600; }
+        #ai-analysis-wrapper .brand-title { font-size: 22px; font-weight: 800; color: var(--ai-primary); line-height: 1.2; }
+        #ai-analysis-wrapper .brand-tag { font-size: 12px; font-weight: 700; color: #059669; letter-spacing: 1px; margin-top: 4px; }
+
+        #ai-analysis-wrapper .nav-list { list-style: none; display: flex; flex-direction: column; gap: 6px; padding: 0; margin: 0; }
+        #ai-analysis-wrapper .nav-item a {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 14px; text-decoration: none; color: var(--ai-text-main);
+            font-size: 14px; font-weight: 500; border-radius: 8px; transition: background 0.2s;
+        }
+        #ai-analysis-wrapper .nav-item a:hover { background: #f3f4f6; }
+        #ai-analysis-wrapper .nav-item.active a { background: var(--ai-primary-light); color: var(--ai-primary); font-weight: 600; }
+        #ai-analysis-wrapper .nav-link-content { display: flex; align-items: center; gap: 10px; }
+        #ai-analysis-wrapper .badge-count { background: var(--ai-border-color); color: var(--ai-text-main); font-size: 11px; padding: 2px 6px; border-radius: 10px; }
+
+        #ai-analysis-wrapper .main-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--ai-bg-color);
+        }
+
+        #ai-analysis-wrapper .top-header {
+            background-color: var(--ai-dark-header);
+            color: white;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        #ai-analysis-wrapper .header-titles h1 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 2px 0;
+        }
+
+        #ai-analysis-wrapper .header-titles p {
+            font-size: 12px;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        #ai-analysis-wrapper .header-status {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        #ai-analysis-wrapper .status-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        #ai-analysis-wrapper main {
+            padding: 32px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        #ai-analysis-wrapper .metrics-bar {
+            background: var(--ai-card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--ai-border-color);
+            padding: 20px 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        #ai-analysis-wrapper .metric-item { display: flex; flex-direction: column; gap: 4px; }
+        #ai-analysis-wrapper .metric-label { font-size: 13px; font-weight: 600; color: var(--ai-text-main); display: flex; align-items: center; gap: 6px; margin: 0; }
+        #ai-analysis-wrapper .metric-value { font-size: 12px; color: var(--ai-text-muted); line-height: 1.4; margin: 0; }
+
+        #ai-analysis-wrapper .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            #ai-analysis-wrapper .cards-grid { grid-template-columns: 1fr; }
+        }
+
+        #ai-analysis-wrapper .ai-card {
+            background: var(--ai-card-bg);
+            border: 1px solid var(--ai-border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+        }
+
+        #ai-analysis-wrapper .ai-card-category { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--ai-text-muted); margin-bottom: 6px; text-transform: uppercase; }
+        #ai-analysis-wrapper .ai-card-title { font-size: 15px; font-weight: 700; margin: 0 0 8px 0; color: var(--ai-text-main); }
+        #ai-analysis-wrapper .ai-card-desc { font-size: 12px; color: var(--ai-text-muted); line-height: 1.5; margin-bottom: 16px; }
+        
+        #ai-analysis-wrapper .ai-status-badge { align-self: flex-start; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; }
+        #ai-analysis-wrapper .badge-feasible { background: var(--ai-feasible-bg); color: var(--ai-feasible-text); }
+        #ai-analysis-wrapper .badge-monitor { background: var(--ai-monitor-bg); color: var(--ai-monitor-text); }
+        #ai-analysis-wrapper .badge-explained { background: var(--ai-explained-bg); color: var(--ai-explained-text); }
+
+        #ai-analysis-wrapper .pipeline-card {
+            background: var(--ai-card-bg);
+            border: 1px solid var(--ai-border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        #ai-analysis-wrapper .pipeline-header-label { font-size: 10px; font-weight: 800; color: var(--ai-text-muted); letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
+        #ai-analysis-wrapper .pipeline-title { font-size: 16px; font-weight: 700; margin: 0 0 20px 0; color: var(--ai-text-main); }
+        
+        #ai-analysis-wrapper .pipeline-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        #ai-analysis-wrapper .step-num { font-size: 13px; font-weight: 800; color: var(--ai-text-muted); margin-bottom: 4px; }
+        #ai-analysis-wrapper .step-title { font-size: 14px; font-weight: 700; margin: 0 0 4px 0; color: var(--ai-text-main); }
+        #ai-analysis-wrapper .step-desc { font-size: 12px; color: var(--ai-text-muted); line-height: 1.4; margin: 0;}
+
+        #ai-analysis-wrapper .disclaimer-card {
+            background: #ffffff;
+            border: 1px solid var(--ai-border-color);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        #ai-analysis-wrapper .disclaimer-title { font-size: 12px; font-weight: 700; margin: 0 0 4px 0; color: var(--ai-text-main); }
+        #ai-analysis-wrapper .disclaimer-desc { font-size: 11px; color: var(--ai-text-muted); line-height: 1.4; margin: 0; }
+
+        #ai-analysis-wrapper .bottom-emergency-banner {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #ai-analysis-wrapper .emergency-text h4 {
+            font-size: 14px;
+            color: #991b1b;
+            margin: 0 0 4px 0;
+        }
+
+        #ai-analysis-wrapper .emergency-text p {
+            font-size: 12px;
+            color: #7f1d1d;
+            margin: 0;
+        }
+
+        #ai-analysis-wrapper .btn-emergency-outline {
+            background: transparent;
+            color: var(--ai-danger);
+            border: 1px solid var(--ai-danger);
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        #ai-analysis-wrapper .btn-emergency-outline:hover {
+            background: var(--ai-danger);
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<!-- ORIGINAL ENTRY PAGE WRAPPER -->
+<div id="entry-page-wrapper">
+
+    <div class="entry-page">
+
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
+        <header class="entry-header">
+
+
+            <div class="entry-brand">
+
+
+                <div class="entry-logo">
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Smart Transport"
+                        onerror="this.style.display='none'; this.parentElement.textContent='ST';"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <div class="entry-brand-title">
+                        SMART TRANSPORT
+                    </div>
+
+                    <div class="entry-brand-subtitle">
+                        MANAGEMENT SYSTEM
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="entry-header-right">
+                
+                <!-- NEW TOGGLE BUTTON FOR AI DASHBOARD -->
+                <button type="button" class="btn-ai-toggle" onclick="toggleAIView(true)">
+                    🧠 AI ANALYSIS
+                </button>
+
+                <div class="entry-language">
+
+                    <label for="language">
+                        Language
+                    </label>
+
+                    <select
+                        id="language"
+                        class="language-select"
+                        data-language-select
+                        aria-label="Select language"
+                    >
+
+                        <option value="en">
+                            English
+                        </option>
+
+                        <option value="hi">
+                            हिन्दी
+                        </option>
+
+                        <option value="kn">
+                            ಕನ್ನಡ
+                        </option>
+
+                        <option value="ta">
+                            தமிழ்
+                        </option>
+
+                        <option value="te">
+                            తెలుగు
+                        </option>
+
+                        <option value="ml">
+                            മലയാളം
+                        </option>
+
+                        <option value="mr">
+                            मराठी
+                        </option>
+
+                        <option value="bn">
+                            বাংলা
+                        </option>
+
+                        <option value="as">
+                            অসমীয়া
+                        </option>
+
+                        <option value="gu">
+                            ગુજરાતી
+                        </option>
+
+                        <option value="or">
+                            ଓଡ଼ିଆ
+                        </option>
+
+                        <option value="pa">
+                            ਪੰਜਾਬੀ
+                        </option>
+
+                        <option value="ur">
+                            اردو
+                        </option>
+
+                        <option value="ne">
+                            नेपाली
+                        </option>
+
+                        <option value="mni">
+                            মণিপুরী
+                        </option>
+
+                        <option value="brx">
+                            बड़ो
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="entry-status">
+
+                    <span class="entry-status-dot"></span>
+
+                    Transport System Online
+
+                </div>
+
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             MAIN
+        ====================================================== -->
+
+        <main class="entry-content">
+
+
+            <div class="entry-intro">
+
+                <h1>
+                    Smart Transport Management System
+                </h1>
+
+
+                <p>
+
+                    A government-oriented smart transportation
+                    platform for safer and more efficient movement
+                    of travellers and cargo across Northeast India.
+
+                </p>
+
+
+                <div class="entry-region">
+
+                    📍
+
+                    NORTHEAST INDIA TRANSPORT NETWORK
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ENTRY CARDS
+            ================================================== -->
+
+            <div class="entry-cards">
+
+
+                <!-- =============================================
+                     TRAVELLER
+                ============================================== -->
+
+                <section class="entry-card traveller-card">
+
+
+                    <div class="entry-card-icon">
+                        🚗
+                    </div>
+
+
+                    <h2>
+                        Traveller
+                    </h2>
+
+
+                    <p class="entry-card-description">
+
+                        Plan journeys, analyse routes,
+                        monitor travel alerts and manage
+                        your registered vehicle.
+
+                    </p>
+
+
+                    <form
+                        class="entry-form"
+                        id="travellerLoginForm"
+                    >
+
+
+                        <div class="entry-field">
+
+                            <label for="travellerLoginId">
+                                MOBILE NUMBER
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="travellerLoginId"
+                                placeholder="Enter 10-digit mobile number"
+                                maxlength="10"
+                                inputmode="numeric"
+                                autocomplete="tel"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="entry-field">
+
+                            <label for="travellerOTP">
+                                OTP
+                            </label>
+
+                            <input
+                                type="text"
+                                id="travellerOTP"
+                                placeholder="Enter OTP"
+                                maxlength="6"
+                                inputmode="numeric"
+                                autocomplete="one-time-code"
+                                required
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="entry-button entry-button-traveller"
+                            onclick="sendTravellerOTP()"
+                        >
+                            SEND OTP
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="entry-button entry-button-traveller"
+                        >
+                            ENTER TRAVELLER PORTAL
+                        </button>
+
+
+                        <div class="entry-helper">
+
+                            Demo OTP will be shown during
+                            the prototype demonstration.
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+                <!-- =============================================
+                     CARGO
+                ============================================== -->
+
+                <section class="entry-card cargo-card">
+
+
+                    <div class="entry-card-icon">
+                        📦
+                    </div>
+
+
+                    <h2>
+                        Cargo
+                    </h2>
+
+
+                    <p class="entry-card-description">
+
+                        Track cargo movement, understand
+                        priority scheduling and monitor
+                        your shipment queue.
+
+                    </p>
+
+
+                    <form
+                        class="entry-form"
+                        id="cargoLoginForm"
+                    >
+
+
+                        <div class="entry-field">
+
+                            <label for="cargoLoginId">
+                                VEHICLE NUMBER
+                            </label>
+
+                            <input
+                                type="text"
+                                id="cargoLoginId"
+                                placeholder="Example: AS01AB4521"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="entry-field">
+
+                            <label for="cargoPassword">
+                                PASSWORD
+                            </label>
+
+
+                            <div class="entry-password">
+
+                                <input
+                                    type="password"
+                                    id="cargoPassword"
+                                    placeholder="Enter password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+
+
+                                <button
+                                    type="button"
+                                    id="cargoPasswordToggle"
+                                    onclick="toggleCargoPassword()"
+                                    title="Show password"
+                                    aria-label="Show password"
+                                >
+                                    👁
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="entry-button entry-button-cargo"
+                        >
+                            ENTER CARGO PORTAL
+                        </button>
+
+
+                        <div class="demo-credentials">
+
+                            <strong>
+                                Demo access:
+                            </strong>
+
+                            <br>
+
+                            Vehicle:
+                            AS01AB4521
+
+                            <br>
+
+                            Password:
+                            cargo123
+
+                        </div>
+
+
+                        <div class="entry-helper">
+
+                            Priority Scheduling + FCFS
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+                <!-- =============================================
+                     EMERGENCY
+                ============================================== -->
+
+                <section class="entry-card sos-card">
+
+
+                    <div class="entry-card-icon">
+                        🚨
+                    </div>
+
+
+                    <h2>
+                        Emergency SOS
+                    </h2>
+
+
+                    <p class="entry-card-description">
+
+                        Report an accident, landslide,
+                        flood, road blockage or another
+                        transport emergency.
+
+                    </p>
+
+
+                    <div class="sos-warning">
+
+                        <strong>
+                            Emergency reporting
+                        </strong>
+
+                        SOS is available independently
+                        of Traveller or Cargo login.
+
+                    </div>
+
+
+                    <div style="flex:1;"></div>
+
+
+                    <button
+                        type="button"
+                        class="entry-button entry-button-sos"
+                        onclick="openSOS()"
+                    >
+
+                        🚨 REPORT EMERGENCY
+
+                    </button>
+
+
+                    <div class="entry-helper">
+
+                        Available to all transport users
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+        </main>
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <footer class="entry-footer">
+
+            Smart Transport Management System
+            · Northeast India
+            · Emergency assistance available 24/7
+
+        </footer>
+
+
+    </div>
+</div>
+
+<!-- =========================================================
+     AI ANALYSIS DASHBOARD (SECONDARY VIEW)
+========================================================== -->
+<div id="ai-analysis-wrapper">
+    <!-- Left Navigation Sidebar -->
+    <aside>
+        <div>
+            <div class="brand-header">
+                <div class="brand-sub">Government Transport Platform</div>
+                <div class="brand-title">Logistics</div>
+                <div class="brand-tag">NG NORTHEAST</div>
+            </div>
+
+            <ul class="nav-list">
+                <!-- NEW BACK BUTTON TO RETURN TO ORIGINAL PORTAL -->
+                <li class="nav-item">
+                    <a href="#" onclick="toggleAIView(false)">
+                        <span class="nav-link-content" style="color: var(--ai-danger);">⬅️ Back to Portal</span>
+                    </a>
+                </li>
+                <br>
+                <li class="nav-item">
+                    <a href="#map">
+                        <span class="nav-link-content">📍 Live Transport Map</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#alerts">
+                        <span class="nav-link-content">⚠️ Alerts</span>
+                        <span class="badge-count">1</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#schedule">
+                        <span class="nav-link-content">🗓️ Transport Schedule</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#ai-analysis">
+                        <span class="nav-link-content">🧠 AI Travel Analysis</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reports">
+                        <span class="nav-link-content">📊 Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#settings">
+                        <span class="nav-link-content">⚙️ Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <!-- Dark Top Header -->
+        <header class="top-header">
+            <div class="header-titles">
+                <h1>AI Travel Analysis</h1>
+                <p>Explainable route intelligence • Northeast India</p>
+            </div>
+            <div class="header-status">
+                <span><span class="status-dot"></span> System Online</span>
+                <span style="background: #334155; padding: 4px 8px; border-radius: 4px; margin-left: 8px;">👤 AI Engine</span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Top Key Indicators Bar -->
+            <section class="metrics-bar">
+                <div class="metric-item">
+                    <div class="metric-label">🌤️ Weather Conditions</div>
+                    <div class="metric-value">Current weather conditions are being considered in the route assessment.</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">⚠️ Active Alerts</div>
+                    <div class="metric-value">Active transport alerts can affect travel time and route feasibility.</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">⏱️ Estimated Travel Time</div>
+                    <div class="metric-value">Expected journey duration is within the current estimated travel window.</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">🛣️ Road Safety</div>
+                    <div class="metric-value">No major safety risk is currently affecting the selected route.</div>
+                </div>
+            </section>
+
+            <!-- Dynamic Analysis Cards -->
+            <section class="cards-grid">
+                <div class="ai-card">
+                    <div>
+                        <div class="ai-card-category">Route</div>
+                        <div class="ai-card-title">Route Feasibility</div>
+                        <div class="ai-card-desc">The selected journey can be analyzed using route availability, road conditions and current transport restrictions.</div>
+                    </div>
+                    <div class="ai-status-badge badge-feasible">FEASIBLE</div>
+                </div>
+
+                <div class="ai-card">
+                    <div>
+                        <div class="ai-card-category">Weather</div>
+                        <div class="ai-card-title">Weather Impact</div>
+                        <div class="ai-card-desc">Weather conditions are incorporated into the travel analysis to identify potential delays or caution areas.</div>
+                    </div>
+                    <div class="ai-status-badge badge-monitor">MONITOR</div>
+                </div>
+
+                <div class="ai-card">
+                    <div>
+                        <div class="ai-card-category">AI</div>
+                        <div class="ai-card-title">Explainable Recommendation</div>
+                        <div class="ai-card-desc">Instead of providing only a result, the system shows the factors that influenced the recommendation.</div>
+                    </div>
+                    <div class="ai-status-badge badge-explained">EXPLAINED</div>
+                </div>
+            </section>
+
+            <!-- Analysis Pipeline Overview -->
+            <section class="pipeline-card">
+                <div class="pipeline-header-label">Analysis Pipeline</div>
+                <h3 class="pipeline-title">How Smart Travel Analysis Works</h3>
+
+                <div class="pipeline-steps">
+                    <div>
+                        <div class="step-num">01</div>
+                        <div class="step-title">Journey Input</div>
+                        <div class="step-desc">Origin, destination and transport details are collected.</div>
+                    </div>
+                    <div>
+                        <div class="step-num">02</div>
+                        <div class="step-title">Data Analysis</div>
+                        <div class="step-desc">Route, weather, alerts and transport conditions are evaluated.</div>
+                    </div>
+                    <div>
+                        <div class="step-num">03</div>
+                        <div class="step-title">Risk Assessment</div>
+                        <div class="step-desc">Relevant travel risks and route constraints are identified.</div>
+                    </div>
+                    <div>
+                        <div class="step-num">04</div>
+                        <div class="step-title">Explainable Output</div>
+                        <div class="step-desc">The system generates a recommendation together with the factors behind it.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Legal / Usage Disclaimer -->
+            <section class="disclaimer-card">
+                <div class="disclaimer-title">AI-assisted travel information</div>
+                <div class="disclaimer-desc">Travel analysis is intended to support journey planning. Always consider official transport advisories, local conditions and emergency instructions before travelling.</div>
+            </section>
+
+            <!-- Bottom Emergency Banner -->
+            <section class="bottom-emergency-banner">
+                <div class="emergency-text">
+                    <h4>Facing an emergency?</h4>
+                    <p>Report an accident, road blockage or urgent transport situation.</p>
+                </div>
+                <!-- Connected directly to original openSOS function -->
+                <button class="btn-emergency-outline" onclick="openSOS()">Report Emergency</button>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     SOS MODAL (Original Code)
+========================================================== -->
+
+<div
+    class="entry-modal"
+    id="sosModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sosModalTitle"
+>
+
+
+    <div class="entry-modal-box">
+
+
+        <div class="entry-modal-header">
+
+
+            <div
+                class="entry-modal-title"
+                id="sosModalTitle"
+            >
+                🚨 Emergency SOS
+            </div>
+
+
+            <button
+                type="button"
+                class="entry-modal-close"
+                onclick="closeSOS()"
+                aria-label="Close emergency dialog"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="sosForm"
+            onsubmit="submitSOS(event)"
+        >
+
+
+            <div class="entry-modal-body">
+
+
+                <div
+                    class="sos-warning"
+                    style="margin-bottom:18px;"
+                >
+
+                    <strong>
+                        Use only for genuine emergencies
+                    </strong>
+
+                    Your report will be recorded
+                    by the transport emergency system.
+
+                </div>
+
+
+                <div class="entry-modal-grid">
+
+
+                    <!-- INCIDENT -->
+
+                    <div class="entry-modal-group">
+
+                        <label for="sosIncidentType">
+                            INCIDENT TYPE
+                        </label>
+
+
+                        <select
+                            id="sosIncidentType"
+                            required
+                        >
+
+                            <option value="">
+                                Select incident
+                            </option>
+
+                            <option value="Accident">
+                                Accident
+                            </option>
+
+                            <option value="Landslide">
+                                Landslide
+                            </option>
+
+                            <option value="Flood">
+                                Flood
+                            </option>
+
+                            <option value="Road Blockage">
+                                Road Blockage
+                            </option>
+
+                            <option value="Damaged Road">
+                                Damaged Road
+                            </option>
+
+                            <option value="Other Emergency">
+                                Other Emergency
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="entry-modal-group">
+
+                        <label for="sosLocation">
+                            LOCATION
+                        </label>
+
+
+                        <select
+                            id="sosLocation"
+                            required
+                        >
+
+                            <option value="">
+                                Select location
+                            </option>
+
+                            <option value="Guwahati">
+                                Guwahati
+                            </option>
+
+                            <option value="Shillong">
+                                Shillong
+                            </option>
+
+                            <option value="Imphal">
+                                Imphal
+                            </option>
+
+                            <option value="Kohima">
+                                Kohima
+                            </option>
+
+                            <option value="Aizawl">
+                                Aizawl
+                            </option>
+
+                            <option value="Itanagar">
+                                Itanagar
+                            </option>
+
+                            <option value="Agartala">
+                                Agartala
+                            </option>
+
+                            <option value="Dibrugarh">
+                                Dibrugarh
+                            </option>
+
+                            <option value="Silchar">
+                                Silchar
+                            </option>
+
+                            <option value="Tawang">
+                                Tawang
+                            </option>
+
+                            <option value="Cherrapunji">
+                                Cherrapunji
+                            </option>
+
+                            <option value="Tura">
+                                Tura
+                            </option>
+
+                            <option value="Dimapur">
+                                Dimapur
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div
+                        class="entry-modal-group full"
+                    >
+
+                        <label for="sosDescription">
+                            DESCRIPTION
+                        </label>
+
+
+                        <textarea
+                            id="sosDescription"
+                            placeholder="Describe the emergency..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- PHOTO -->
+
+                    <div
+                        class="entry-modal-group full"
+                    >
+
+                        <label for="sosPhoto">
+                            SUPPORTING PHOTO
+                        </label>
+
+
+                        <input
+                            type="file"
+                            id="sosPhoto"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="entry-modal-footer">
+
+
+                <button
+                    type="button"
+                    class="entry-button modal-cancel"
+                    onclick="closeSOS()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="entry-button entry-button-sos modal-submit"
+                >
+                    🚨 Submit Emergency
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script src="./js/app.js"></script>
+
+<script src="./js/emergency.js"></script>
+
+<script src="./js/languages.js"></script>
+
+
+<!-- =========================================================
+     PAGE INITIALIZATION
+========================================================== -->
+
+<script>
+/* =========================================================
+   AI DASHBOARD TOGGLE LOGIC
+========================================================== */
+function toggleAIView(showAI) {
+    if (showAI) {
+        document.getElementById('entry-page-wrapper').style.display = 'none';
+        document.getElementById('ai-analysis-wrapper').style.display = 'flex';
+        document.body.style.background = '#f4f6f9';
+    } else {
+        document.getElementById('entry-page-wrapper').style.display = 'block';
+        document.getElementById('ai-analysis-wrapper').style.display = 'none';
+        document.body.style.background = 'linear-gradient(135deg, #081C2C 0%, #124E70 52%, #EAF2F6 100%)';
+    }
+}
+
+(function () {
+
+    "use strict";
+
+    const DEMO_OTP = "1234";
+    const CARGO_VEHICLE = "AS01AB4521";
+    const CARGO_PASSWORD = "cargo123";
+
+
+    /* =========================================================
+       TRAVELLER — SEND OTP
+    ========================================================== */
+
+    window.sendTravellerOTP = function () {
+
+        const phoneInput =
+            document.getElementById("travellerLoginId");
+
+        if (!phoneInput) {
+            alert("Traveller mobile number field not found.");
+            return;
+        }
+
+        const phone =
+            phoneInput.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+        phoneInput.value = phone;
+
+        if (!/^[6-9][0-9]{9}$/.test(phone)) {
+            alert("Please enter a valid 10-digit Indian mobile number.");
+            phoneInput.focus();
+            return;
+        }
+
+        localStorage.setItem("demoTravellerOTP", DEMO_OTP);
+        sessionStorage.setItem("smartTransportOTP", DEMO_OTP);
+        sessionStorage.setItem("smartTransportOTPPhone", phone);
+
+        alert(
+            "DEMO OTP: 1234\n\n" +
+            "Enter 1234 to continue."
+        );
+
+        const otpInput =
+            document.getElementById("travellerOTP");
+
+        if (otpInput) {
+            otpInput.focus();
+        }
+
+    };
+
+
+    /* =========================================================
+       TRAVELLER — LOGIN
+    ========================================================== */
+
+    window.verifyTravellerLogin = function () {
+
+        const phoneInput =
+            document.getElementById("travellerLoginId");
+
+        const otpInput =
+            document.getElementById("travellerOTP");
+
+        if (!phoneInput || !otpInput) {
+            alert("Traveller login fields could not be found.");
+            return false;
+        }
+
+        const phone =
+            phoneInput.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+        const otp =
+            otpInput.value.trim();
+
+        phoneInput.value = phone;
+
+        if (!/^[6-9][0-9]{9}$/.test(phone)) {
+            alert("Please enter a valid 10-digit Indian mobile number.");
+            phoneInput.focus();
+            return false;
+        }
+
+        if (otp !== DEMO_OTP) {
+            alert("Invalid OTP. For the prototype, use: 1234");
+            otpInput.focus();
+            return false;
+        }
+
+        const traveller = {
+            id: "TR-" + phone.slice(-4),
+            phone: phone,
+            name: "Traveller",
+            travellerType: "Interstate Traveller",
+            vehicleType: "Private Vehicle",
+            origin: "Guwahati",
+            destination: "Shillong",
+            loggedIn: true,
+            loginTime: new Date().toISOString()
+        };
+
+        localStorage.setItem(
+            "travellerLogin",
+            JSON.stringify({
+                phone: phone,
+                loggedIn: true,
+                loginTime: new Date().toISOString()
+            })
+        );
+
+        localStorage.setItem(
+            "currentTraveller",
+            JSON.stringify(traveller)
+        );
+
+        localStorage.setItem(
+            "smartTransportCurrentRole",
+            "traveller"
+        );
+
+        localStorage.setItem(
+            "travellerRoute",
+            JSON.stringify({
+                origin: "Guwahati",
+                destination: "Shillong",
+                status: "Ready to plan"
+            })
+        );
+
+        localStorage.removeItem("demoTravellerOTP");
+        sessionStorage.removeItem("smartTransportOTP");
+        sessionStorage.removeItem("smartTransportOTPPhone");
+
+        window.location.href = "./travellers.html";
+
+        return false;
+
+    };
+
+
+    /* =========================================================
+       CARGO — LOGIN
+    ========================================================== */
+
+    window.verifyCargoLogin = function () {
+
+        const vehicleInput =
+            document.getElementById("cargoLoginId");
+
+        const passwordInput =
+            document.getElementById("cargoPassword");
+
+        if (!vehicleInput || !passwordInput) {
+            alert("Cargo login fields could not be found.");
+            return false;
+        }
+
+        const vehicle =
+            vehicleInput.value
+                .trim()
+                .toUpperCase();
+
+        const password =
+            passwordInput.value.trim();
+
+        vehicleInput.value = vehicle;
+
+        if (
+            vehicle !== CARGO_VEHICLE ||
+            password !== CARGO_PASSWORD
+        ) {
+            alert(
+                "Invalid cargo login.\n\n" +
+                "Vehicle: AS01AB4521\n" +
+                "Password: cargo123"
+            );
+            return false;
+        }
+
+        localStorage.setItem(
+            "cargoLogin",
+            JSON.stringify({
+                vehicleNumber: vehicle,
+                cargoType: "Furniture",
+                priority: "P3",
+                origin: "Guwahati",
+                destination: "Dimapur",
+                loggedIn: true,
+                loginTime: new Date().toISOString()
+            })
+        );
+
+        localStorage.setItem(
+            "smartTransportCurrentRole",
+            "cargo"
+        );
+
+        window.location.href = "./cargo.html";
+
+        return false;
+
+    };
+
+
+    /* =========================================================
+       CARGO PASSWORD SHOW / HIDE
+    ========================================================== */
+
+    window.toggleCargoPassword = function () {
+
+        const password =
+            document.getElementById("cargoPassword");
+
+        const button =
+            document.getElementById("cargoPasswordToggle");
+
+        if (!password) {
+            return;
+        }
+
+        if (password.type === "password") {
+            password.type = "text";
+
+            if (button) {
+                button.textContent = "🙈";
+                button.title = "Hide password";
+            }
+        } else {
+            password.type = "password";
+
+            if (button) {
+                button.textContent = "👁";
+                button.title = "Show password";
+            }
+        }
+
+    };
+
+
+    /* =========================================================
+       PAGE EVENTS
+    ========================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const travellerForm =
+                document.getElementById("travellerLoginForm");
+
+            if (travellerForm) {
+
+                travellerForm.addEventListener(
+                    "submit",
+                    function (event) {
+                        event.preventDefault();
+                        window.verifyTravellerLogin();
+                    }
+                );
+
+            }
+
+
+            const cargoForm =
+                document.getElementById("cargoLoginForm");
+
+            if (cargoForm) {
+
+                cargoForm.addEventListener(
+                    "submit",
+                    function (event) {
+                        event.preventDefault();
+                        window.verifyCargoLogin();
+                    }
+                );
+
+            }
+
+
+            const phoneInput =
+                document.getElementById("travellerLoginId");
+
+            if (phoneInput) {
+
+                phoneInput.addEventListener(
+                    "input",
+                    function () {
+                        this.value =
+                            this.value
+                                .replace(/[^0-9]/g, "")
+                                .slice(0, 10);
+                    }
+                );
+
+            }
+
+
+            const otpInput =
+                document.getElementById("travellerOTP");
+
+            if (otpInput) {
+
+                otpInput.addEventListener(
+                    "input",
+                    function () {
+                        this.value =
+                            this.value
+                                .replace(/[^0-9]/g, "")
+                                .slice(0, 6);
+                    }
+                );
+
+            }
+
+
+            const cargoVehicle =
+                document.getElementById("cargoLoginId");
+
+            if (cargoVehicle) {
+
+                cargoVehicle.addEventListener(
+                    "input",
+                    function () {
+                        this.value =
+                            this.value
+                                .toUpperCase()
+                                .replace(/\s/g, "");
+                    }
+                );
+
+            }
+
+
+            document.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (event.key === "Escape") {
+
+                        if (
+                            typeof window.closeSOS ===
+                            "function"
+                        ) {
+                            window.closeSOS();
+                        }
+
+                    }
+
+                }
+            );
+
+
+            const sosModal =
+                document.getElementById("sosModal");
+
+            if (sosModal) {
+
+                sosModal.addEventListener(
+                    "click",
+                    function (event) {
+
+                        if (event.target === sosModal) {
+
+                            if (
+                                typeof window.closeSOS ===
+                                "function"
+                            ) {
+                                window.closeSOS();
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+
+        }
+    );
+
+})();
+
+</script>
+
+
+<!-- =========================================================
+     SERVICE WORKER
+========================================================== -->
+
+<script>
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            navigator.serviceWorker
+                .register(
+                    "./service/service-worker.js"
+                )
+
+                .then(
+                    function (registration) {
+
+                        console.log(
+                            "Smart Transport Service Worker registered:",
+                            registration.scope
+                        );
+
+                    }
+                )
+
+                .catch(
+                    function (error) {
+
+                        console.error(
+                            "Service Worker registration failed:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+</script>
+
+HTML
+<!-- The Modal Background -->
+<div id="customEmergencyModal" class="modal-overlay hidden">
+  <!-- The Modal Content -->
+  <div class="modal-content">
+    <h3>EMERGENCY ASSISTANCE REQUEST</h3>
+    <p>Enter incident details (accident, roadblock, landslide):</p>
+    <input type="text" id="emergencyInput" placeholder="Describe the incident..." />
+    <div class="modal-actions">
+      <button id="cancelBtn" class="btn-secondary">Cancel</button>
+      <button id="submitBtn" class="btn-primary">OK</button>
+    </div>
+  </div>
+</div>
+<input type="file" id="imageUpload" accept="image/png, image/jpeg" />
+<img id="preview" src="" alt="Image preview" style="display:none; max-width: 300px;" />
+
+<script>
+  document.getElementById('imageUpload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('preview');
+        img.src = e.target.result;
+        img.style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+</body>
+
+</html>

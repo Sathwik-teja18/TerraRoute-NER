@@ -1,0 +1,13 @@
+{
+  "name": "smart-transport",
+  "version": "1.0.0",
+  "description": "Smart Transport Management System",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "google-translate-api": "^2.3.0"
+  }
+}
