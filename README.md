@@ -23,8 +23,9 @@ Tech Stack
 >>- External APIs: OpenWeather API
 
 Project Structure
->>- frontend/ - Contains the UI for the Government and DMT portals (index.html, dmt.js, government.js).
->>- Smart_Transport_Final_Live_Map/ - Contains the UI for the civilian and cargo operator portals (live-map.html, travellers.html, cargo.html).
->>- js/api.js - The shared API client handling seamless synchronization between both frontends and the database.
->>- js/route_analysis_algs.js - Custom graph data structure and pathfinding algorithms for the NER corridor.
->>- backend/ - Node.js REST API handling accounts, trips, and emergency alerts.
+>>- ner_logistics/ - Contains the UI for the Government and DMT portals (index.html, dmt.js, government.js).
+>>- Smart_Transport/ - Contains the UI for the civilian and cargo operator portals (live-map.html, travellers.html, cargo.html).
+>>-  backend/ - Node.js REST API handling accounts, trips, and emergency alerts.
+>>>- js/api.js - The shared API client handling seamless synchronization between both frontends and the database.
+>>>- js/route_analysis_algs.js - Custom graph data structure and pathfinding algorithms for the NER corridor.
+
